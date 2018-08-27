@@ -10,16 +10,16 @@
 					<div class="uk-placeholder uk-text-center uk-text-danger uk-danger" ng-if="!loginLoading && loginError">{{ loginError }}</div>
 					<span uk-spinner="ratio: 3" class="uk-width-1-1 uk-text-center" ng-if="loginLoading"></span>
 					<div class="uk-margin" ng-show="!loginLoading"> 
-						<div class="uk-inline">
+						<div class="uk-inline uk-width-1-1">
 							<span class="uk-form-icon" uk-icon="icon: user"></span>
-							<input ng-class="loginError ? 'uk-form-danger' : ''" class="uk-input" type="email" ng-model="email" name="email" required> 
+							<input ng-class="loginError ? 'uk-form-danger' : ''" class="uk-input uk-width-1-1" type="email" ng-model="email" name="email" required> 
 						</div>
 					</div>
 
 					<div class="uk-margin" ng-show="!loginLoading">
-						<div class="uk-inline">
+						<div class="uk-inline uk-width-1-1">
 							<span class="uk-form-icon uk-form-icon" uk-icon="icon: lock"></span>
-							<input ng-class="loginError ? 'uk-form-danger' : ''" class="uk-input" type="password" ng-model="password" name="email" required>
+							<input ng-class="loginError ? 'uk-form-danger' : ''" class="uk-input uk-width-1-1" type="password" ng-model="password" name="email" required>
 						</div>
 					</div>
 				</div>
