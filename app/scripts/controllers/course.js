@@ -32,7 +32,7 @@ angular.module('nimbusEmsApp')
 				$scope.loadingHome = false;
 				sweetAlert.alert({
 							   	title: 'Somethings wrong!',
-							   	icon: "error",
+							   	icon: 'error',
 							   	text : error.data.message || 'error',
 							   	buttons:{
 									confirm: sweetAlert.button({text:'ok'}),
@@ -45,7 +45,7 @@ angular.module('nimbusEmsApp')
 		
 		$scope.getTotal = function(course){	
 			if(course.meta){
-				return 	grades.getTotal(course.meta.grades,course.course.meta.course_schema);
+				return 	grades.getTotal(course.meta.grades,course.course.meta.course_schema); // jshint ignore:line
 			}else{
 				return false;
 			}
@@ -53,7 +53,7 @@ angular.module('nimbusEmsApp')
 				
 		$scope.getGrade = function(course){
 			if(course.meta){
-				return grades.getGrade(grades.getTotal(course.meta.grades,course.course.meta.course_schema));
+				return grades.getGrade(grades.getTotal(course.meta.grades,course.course.meta.course_schema)); // jshint ignore:line
 			}else{
 				return false;
 			}

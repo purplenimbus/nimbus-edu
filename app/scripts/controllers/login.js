@@ -29,55 +29,20 @@ angular.module('nimbusEmsApp')
 		};
 		
 		var form	=	angular.element($event.currentTarget).parents()[1];
-		
-		//console.log('Login Details',creds,form);
-			
+					
 		validation.validate(form).then(function(result){
 			
-			//console.log(result,	$http.defaults.headers.common);
-			angular.element('#modal .uk-modal-spinner').removeClass('uk-hidden');
 			if(result.valid){											
-				//Use Satellizer's $auth service to login
 				$auth.login(credentials).then(function(result) {
 					$scope.loginLoading = false;
 					console.log('Data',result,$location);
-					
-					angular.element('#modal .uk-modal-dialog').removeClass('error')
-											.addClass('success');
-											
-					angular.element('#modal .uk-alert')
-							.removeClass('uk-hidden uk-alert-danger')
-							.addClass('uk-alert-success')
-							.children('p')
-							.html('Logged In Successfully'); //Show Success Alert
-							
-					//$rootScope.user = {};
-					//console.log('Logged in Rootscope',$rootScope);
-					//console.log('Logged in Auth',$auth.isAuthenticated());
-					//console.log('Logged in token',$auth.getToken());
-					//console.log('Logged in payload',$auth.getPayload());
 					userService.updateLocalUser(result.data.user);
-					//$localStorage.auth = JSON.stringify(result.data.user);
-					//$scope.$emit();
-					//$rootScope.user.info = result.data.user;
-					angular.element('#modal .uk-modal-spinner').addClass('uk-hidden');//remove spinner
 					$location.path('/');
-
-					
 				}).catch(function(error){
 					$scope.loginLoading = false;
 					console.log('Login Error',error);
-					$scope.loginError = error.data.error;
+					$scope.loginError = error.data;
 					//TO DO Add Error Message to login modal
-					angular.element('#modal .uk-modal-dialog').removeClass('success')
-											.addClass('error');
-											
-					angular.element('#modal .uk-modal-spinner').addClass('uk-hidden'); //remove spinner
-					angular.element('#modal .uk-alert')
-							.removeClass('uk-hidden uk-alert-success')
-							.addClass('uk-alert-danger')
-							.children('p')
-							.html('Invalid Login');//Add error message
 				});
 				
 			}else{

@@ -28,7 +28,7 @@ angular.module('nimbusEmsApp')
 				sweetAlert.alert({
 				   	title: 'Profile Saved',
 				   	text : result.data.message,
-				   	icon: "success",
+				   	icon: 'success',
 				   	buttons:{
 						confirm: sweetAlert.button({text:'ok'})
 					}
@@ -42,9 +42,9 @@ angular.module('nimbusEmsApp')
 				$scope.loading = false;
 
 				sweetAlert.alert({
-				   	title: 'Something\'s Wrong',
+				   	title: 'Something\'s Wrong', // jshint ignore:line
 				   	text : error.data.message,
-				   	icon: "error",
+				   	icon: 'error',
 				   	buttons:{
 						confirm: sweetAlert.button({text:'ok'})
 					}
@@ -77,7 +77,7 @@ angular.module('nimbusEmsApp')
 					//str += '				<img class="uk-comment-avatar" src="'+data.image_url+'" width="40" height="40" alt="">';
 					//str += '			</div>';
 					str += '			<div class="uk-width-expand">';
-					str += '				<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset ng-binding uk-text-small uk-text-capitalize" ng-href="#!/'+data.tenant_id+'/profile/'+data.id+'"> '+data.fname+' '+data.lname+'</a></h4>';
+					str += '				<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset ng-binding uk-text-small uk-text-capitalize" ng-href="#!/'+data.tenant_id+'/profile/'+data.id+'"> '+data.fname+' '+data.lname+'</a></h4>'; // jshint ignore:line
 					str += '				<ul class="uk-padding-remove uk-margin-remove uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top uk-text-mute">';
 					str += '				</ul>';
 					str += '			</div>';

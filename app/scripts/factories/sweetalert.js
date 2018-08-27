@@ -19,7 +19,7 @@ angular.module('nimbusEmsApp')
           text: attrs.text || '',
           value: attrs.value || false,
           visible: true,
-          className: attrs.className || "uk-button uk-button-primary",
+          className: attrs.className || 'uk-button uk-button-primary',
           closeModal: true
         };
       }

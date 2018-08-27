@@ -1,5 +1,5 @@
 'use strict';
-
+// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 /**
  * @ngdoc service
  * @name nimbusEmsApp.settings
@@ -72,42 +72,42 @@ angular.module('nimbusEmsApp')
 				disabled:false,
 				icon: 'laptop',
 				url:'learning',
-				access_level : 3,
+				access_level : 3, // jshint ignore:line
 				children:{
 					courses:{
 						display:true,
 						disabled:false,
 						icon: 'thumbnails',
 						url:'learning/courses',
-						access_level : 3,
+						access_level : 3, // jshint ignore:line
 					},
 					students : {
 						display:true,
 						disabled:false,
 						icon: 'users',
 						url:'users/students',
-						access_level : 3,
+						access_level : 3, // jshint ignore:line
 					},
 					teachers : {
 						display:true,
 						disabled:false,
 						icon: 'user',
 						url:'users/teachers',
-						access_level : 3,
+						access_level : 3, // jshint ignore:line
 					},
 					parents : {
 						display:true,
 						disabled:false,
 						icon: 'happy',
 						url:'users/parents',
-						access_level : 3,
+						access_level : 3, // jshint ignore:line
 					},
 					other : {
 						display:true,
 						disabled:false,
 						icon: 'hashtag',
 						url:'users/other',
-						access_level : 3,
+						access_level : 3, // jshint ignore:line
 					}
 				}
 			}

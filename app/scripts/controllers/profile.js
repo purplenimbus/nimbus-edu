@@ -1,4 +1,5 @@
 'use strict';
+// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
 /**
  * @ngdoc function
@@ -25,7 +26,7 @@ angular.module('nimbusEmsApp')
 			
 			var params = $route.current.params;
 			
-			graphApi.api('GET',params.tenant_id+'/activities?user_id='+params.user_id+'&page='+page).then(function(result){
+			graphApi.api('GET',params.tenant_id+'/activities?user_id='+params.user_id+'&page='+page).then(function(result){ // jshint ignore:line
 				
 				console.log('next page:'+page,result.data.data);
 				

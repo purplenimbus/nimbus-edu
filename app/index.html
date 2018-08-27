@@ -97,20 +97,24 @@
     <script src="bower_components/angular-chart/angular-chart.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <script src="bower_components/papaparse/papaparse.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+    <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/dashboard.js"></script>
+
         <script src="scripts/directives/tasks.js"></script>
-        <script src="scripts/services/api.js"></script>
+        
 		<script src="scripts/services/modal.js"></script>
 		<script src="scripts/services/form.js"></script>
 		<script src="scripts/services/offcanvas.js"></script>
-		<script src="scripts/services/uikit3.js"></script>
+		
         <script src="scripts/controllers/tasks.js"></script>
         <script src="scripts/services/tasks.js"></script>
         <script src="scripts/controllers/nav.js"></script>
@@ -133,7 +137,7 @@
         <script src="scripts/directives/mycourses.js"></script>
         <script src="scripts/directives/activityfeed.js"></script>
         <script src="scripts/services/grades.js"></script>
-        <script src="scripts/services/breadcrumbs.js"></script>
+        
         <script src="scripts/directives/courses.js"></script>
         <script src="scripts/controllers/courses.js"></script>
         <script src="scripts/controllers/register.js"></script>
@@ -148,16 +152,22 @@
         <script src="scripts/services/import.js"></script>
         <script src="scripts/controllers/settings.js"></script>
         <script src="scripts/controllers/tools.js"></script>
-        <script src="scripts/services/sweetalert.js"></script>
+        
         <script src="scripts/services/userservice.js"></script>
         <script src="scripts/constants/eduapiconst.js"></script>
         <script src="scripts/services/card.js"></script>
         <script src="scripts/directives/overview.js"></script>
         <script src="scripts/directives/usercard.js"></script>
+
+        <script src="scripts/factories/api.js"></script>
+        <script src="scripts/factories/breadcrumbs.js"></script>
+        <script src="scripts/factories/uikit3.js"></script>
+        <script src="scripts/factories/sweetalert.js"></script>
         <!-- endbuild -->
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </body>
 </html>

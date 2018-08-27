@@ -49,7 +49,7 @@ angular.module('nimbusEmsApp')
 				var total = 0,self = this;
 				
 				angular.forEach(data.registrations,function(value){
-					total += self.getTotal(value.meta.grades,data.meta.course_schema);
+					total += self.getTotal(value.meta.grades,data.meta.course_schema); // jshint ignore:line
 				});
 								
 				return Math.ceil(total/data.registrations.length);

@@ -1,4 +1,5 @@
 'use strict';
+// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
 /**
  * @ngdoc directive
@@ -72,7 +73,7 @@ angular.module('nimbusEmsApp')
 		  					sweetAlert.alert({
 							   	title: 'Success',
 							   	text : result.data.message,
-							   	icon: "success",
+							   	icon: 'success',
 							   	buttons:{
 									confirm: sweetAlert.button({text:'ok'})
 								}
@@ -84,8 +85,8 @@ angular.module('nimbusEmsApp')
 		  					console.log('import error',error);
 		  					$scope.loading = false;
 		  					sweetAlert.alert({
-							   	title: 'Somethings wrong!',
-							   	icon: "error",
+							   	title: 'Somethings wrong!',// jshint ignore:line
+							   	icon: 'error',
 							   	text : error.data.message,
 							   	buttons:{
 									confirm: sweetAlert.button({text:'ok'}),

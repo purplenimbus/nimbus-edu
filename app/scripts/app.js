@@ -197,7 +197,7 @@ angular
 							sweetAlert.alert({
 							   	title: 'Something\'s Wrong',
 							   	text : error.data.message,
-							   	icon: "error",
+							   	icon: 'error',
 							   	buttons:{
 									confirm: sweetAlert.button({text:'ok'})
 								}

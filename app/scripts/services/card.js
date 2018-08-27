@@ -14,7 +14,7 @@ angular.module('nimbusEmsApp')
     		return uikit3.card(self[type](key,$scope,edit));
     	};
 
-    	this.person = function(key,$scope,edit){
+    	this.person = function(key){
     		var body = '';
 
     		console.log('person card');

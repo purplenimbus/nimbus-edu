@@ -59,10 +59,10 @@ angular.module('nimbusEmsApp')
 					var str = 		'<article class="uk-comment uk-card">';
 						str += '		<header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom uk-grid" uk-grid="">';
 						//str += '			<div class="uk-width-auto uk-first-column">';
-						//str += '				<img class="uk-comment-avatar" src="'+data.image_url+'" width="40" height="40" alt="">';
+						//str += '				<img class="uk-comment-avatar" src="'+data.image_url+'" width="40" height="40" alt="">'; // jshint ignore:line
 						//str += '			</div>';
 						str += '			<div class="uk-width-expand">';
-						str += '				<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset ng-binding uk-text-small uk-text-capitalize" ng-href="#!/'+data.tenant_id+'/profile/'+data.id+'"> '+data.fname+' '+data.lname+'</a></h4>';
+						str += '				<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset ng-binding uk-text-small uk-text-capitalize" ng-href="#!/'+data.tenant_id+'/profile/'+data.id+'"> '+data.firstname+' '+data.lastname+'</a></h4>'; // jshint ignore:line
 						str += '				<ul class="uk-padding-remove uk-margin-remove uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top uk-text-mute">';
 						str += '				</ul>';
 						str += '			</div>';

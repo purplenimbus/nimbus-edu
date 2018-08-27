@@ -20,12 +20,14 @@ angular.module('nimbusEmsApp')
       			body:'uk-text-center uk-padding-small',
       		}
       }),
-      controller : function($scope,$localStorage){
+      controller : function(){
       	//$scope.user = JSON.parse($localStorage.auth);
       },
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        //element.text('this is the usercard directive');
+      link: function postLink(scope, element) {
+        element.on('$destroy', function () {
+          scope.$destroy();
+        });
       }
     };
   });

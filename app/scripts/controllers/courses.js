@@ -12,8 +12,8 @@ angular.module('nimbusEmsApp')
 		$scope.showAdvanced = false;
 		$scope.asset = { 
 			meta : {
-				course_grade_id : 1,
-				course_schema : {
+				course_grade_id : 1, // jshint ignore:line
+				course_schema : { // jshint ignore:line
 		            lab: {value:5,enabled:true},
 		            exam: {value:35,enabled:true},
 		            quiz: {value:10,enabled:true},
@@ -39,7 +39,7 @@ angular.module('nimbusEmsApp')
 		$scope.offCanvasOpen = false;
 
 		$scope.getSchema = function(){
-			return Object.keys($scope.asset.meta.course_schema);
+			return Object.keys($scope.asset.meta.course_schema); // jshint ignore:line
 		};
 						
 		$scope.courseAverage = function(course){
@@ -134,7 +134,7 @@ angular.module('nimbusEmsApp')
 		$scope.next = function(page){
 
 			$scope.loading = true;
-			courseService.getCourses(page,(user.meta.course_grade_id || false))
+			courseService.getCourses(page,(user.meta.course_grade_id || false)) // jshint ignore:line
 			.then(function(result){
 
 				result.data.data = $scope.coursesList.data.concat(result.data.data);

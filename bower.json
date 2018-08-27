@@ -15,10 +15,11 @@
     "moment": "^2.22.2",
     "angular-chart": "^0.5.0",
     "ngstorage": "^0.3.11",
-    "papaparse": "^4.6.0"
+    "papaparse": "^4.6.0",
+    "angular-chart.js": "^1.1.1"
   },
   "devDependencies": {
-    "angular-mocks": "^1.4.0"
+    "angular-mocks": "^1.7.3"
   },
   "appPath": "app",
   "moduleName": "nimbusEduApp"
