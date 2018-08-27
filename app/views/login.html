@@ -1,0 +1,40 @@
+<section class="uk-cover-container uk-height-medium" uk-height-viewport>
+	<img class="uk-hidden" src="https://burst.shopifycdn.com/photos/contact-flatlay_925x.jpg" alt="" uk-cover>
+	<div class="uk-position-cover uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+		<div class="uk-card uk-card-default">
+			<div class="uk-card-header uk-text-center">
+				<span class="uk-text-bold">Login</span>
+			</div>
+			<form>
+				<div class="uk-card-body">
+					<div class="uk-placeholder uk-text-center uk-text-danger uk-danger" ng-if="!loginLoading && loginError">{{ loginError }}</div>
+					<span uk-spinner="ratio: 3" class="uk-width-1-1 uk-text-center" ng-if="loginLoading"></span>
+					<div class="uk-margin" ng-show="!loginLoading"> 
+						<div class="uk-inline">
+							<span class="uk-form-icon" uk-icon="icon: user"></span>
+							<input ng-class="loginError ? 'uk-form-danger' : ''" class="uk-input" type="email" ng-model="email" name="email" required> 
+						</div>
+					</div>
+
+					<div class="uk-margin" ng-show="!loginLoading">
+						<div class="uk-inline">
+							<span class="uk-form-icon uk-form-icon" uk-icon="icon: lock"></span>
+							<input ng-class="loginError ? 'uk-form-danger' : ''" class="uk-input" type="password" ng-model="password" name="email" required>
+						</div>
+					</div>
+				</div>
+				<div class="uk-card-footer">
+					<div class="uk-margin">
+						<button 
+							class="uk-button uk-button-primary uk-width-1-1" 
+							ng-click="signin({ email:this.email , password: this.password },$event)">Login
+						</button>
+					</div>
+					<div class="uk-margin">
+						<span class="uk-text-small uk-text-muted">Not registered ? <a ng-href="/#!/register" class="">create an account</a></span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,11 @@
+<nav class="uk-navbar-container uk-light" uk-navbar ng-controller="NavCtrl">
+  <a class="uk-navbar-item uk-logo uk-text-capitalize" href="#">{{ $root.user.tenant.name || 'nimbus learning'}}</a>
+  <div class="uk-navbar-right">
+	<div class="uk-navbar-item">
+		<ul class="uk-iconnav uk-clearfix">
+			<li ng-if="!auth.isAuthenticated()"><a ng-click="showLogin()" uk-icon="icon:  lock"></a></li>
+			<li ng-if="auth.isAuthenticated()"><a ng-click="offcanvas('nav').show()" uk-icon="icon:  more-vertical" data-target="#nav"></a></li>
+		</ul>
+	</div>
+  </div>
+</nav>

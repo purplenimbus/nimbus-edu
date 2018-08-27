@@ -1,0 +1,97 @@
+<div ng-include="'views/partials/_toolbar.html'"></div>
+<section class="">
+    <main class="uk-flex uk-flex-wrap uk-flex-wrap-around" uk-grid>
+		<article class="uk-article uk-width-1-1">
+			<ul uk-tab uk-switcher class="uk-margin-remove">
+				<li><a href="#">Overview</a></li>
+				<li ng-if="courseData.data"><a href="#">Details</a></li>
+			</ul>
+			<ul class="uk-switcher uk-padding-small">
+				<li uk-grid data-tab="overview" class="uk-grid-small">
+					<div class="uk-width-1-1">
+						<div class="uk-card uk-card-default widget">
+							<div class="uk-card-header uk-clear-fix uk-padding-small">
+								<div class="uk-align-left uk-margin-remove uk-width-1-2">
+									<p class="uk-align-left title">{{ courseData.data[0].course.grade.alias || 'Student List' | uppercase }}</p> <!-- add instructor element here -->
+									<user-pill firstname="instructor.firstname" class="uk-hidden"></user-pill>
+								</div>
+								<div class="uk-align-right">
+									<ul class="uk-iconnav toolbar">
+										<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="uk-card-body uk-overflow-auto uk-padding-remove">
+								<div class="uk-text-center uk-padding-small" ng-if="loadingHome"><div uk-spinner></div></div>
+								<div ng-if="!loadingHome && !courseData.data.length" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
+									<span class="uk-margin-small-right uk-text-capitalize" uk-icon="ban"></span> {{ 'no students found' }}
+								</div>
+								<table class="uk-table uk-table-hover uk-table-middle uk-table-small uk-margin-remove" ng-if="!loadingHome && students && !message">
+									<thead ng-if="courseData.data">
+										<tr>
+											<th class="uk-table-shrink"></th>
+											<th class="uk-table-small">Name</th>
+											<th ng-repeat="(key , grade) in courseData.data[0].course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }}</th>
+											<th class="uk-table-small uk-text-small uk-visible@s">Total</th>
+											<th class="uk-table-shrink uk-text-small">Grade</th>
+										</tr>
+									</thead>
+									<tbody ng-if="courseData.data">
+										<tr ng-repeat="student in courseData.data">
+
+											<td><img class="uk-preserve-width uk-border-circle" src="{{ student.user.image }}" width="40" alt=""></td>
+											<td class="uk-table-link">
+												<span class="uk-link-reset uk-text-capitalize">{{ student.user.firstname }} {{ student.user.lastname }}</span>
+											</td>
+											<td ng-repeat="(key , grade) in student.meta.grades" class="uk-visible@s uk-visible@m uk-width-small"><input type="number" class="uk-input uk-form-blank" ng-model="grade" max="{{student.course.meta.course_schema[key]}}"  ng-disabled="true"/></td>
+											<td class="uk-width-small uk-visible@s"><input type="number" class="uk-input uk-form-blank" ng-value="student.meta.grades.quiz + student.meta.grades.assignment + student.meta.grades.midterm + student.meta.grades.lab + student.meta.grades.exam" ng-disabled="true"/></td>
+											<td class="uk-text-center"><span class="uk-text-{{getGrade(student).className}}">{{getGrade(student).grade}}</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li uk-grid data-tab="outline" class="uk-grid-small uk-margin-remove" ng-if="courseData.data">
+					<div ng-if="outlineMessage && !loadingOutline" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
+						<span class="uk-margin-small-right" uk-icon="ban"></span> {{ outlineMessage }}
+					</div>
+					<div class="uk-text-center uk-padding-small" ng-if="loadingOutline"><div uk-spinner></div></div>
+					<div class="uk-width-1-3@m uk-padding-remove">
+						<div class="uk-card uk-card-default uk-visible@s" ng-if="outline && !loadingOutline">
+							<div class="uk-card-header uk-clear-fix uk-padding-small">
+								<h3 class="uk-card-title title">Topics</h3>
+							</div>
+							<div class="uk-card-body">
+								<ul class="uk-nav uk-nav-default uk-list uk-list-divider uk-nav-parent-icon" uk-nav>
+									<li class="uk-parent" ng-if="outline" ng-repeat="topic in outline">
+										<a href="#{{ $index }}" class="uk-nav-header">{{ topic.title }}</a>
+										<ul class="uk-nav-sub" ng-if="topic.sub_lessons">
+											<li ng-repeat="subTopic in topic.sub_lessons">
+												<a href="#{{ $index }}" uk-scroll>{{ subTopic.title }}</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="uk-width-2-3@m">
+						<article class="uk-article" ng-repeat="topic in outline">
+
+							<p class="uk-text-lead" id="#{{ $index }}"><a class="uk-link-reset" href="">{{ topic.title }}</a></h1>
+							
+							<p class="uk-article-meta">Written by <a href="#">Super User</a> on 12 April 2012.</p>
+
+							<p class="uk-text-bold">{{ topic.description }}</p>
+
+							<p>{{ topic.content }}</p>
+
+						</article>
+					</div>
+				</li>
+			</ul>
+		</article>
+    </main>
+</section>

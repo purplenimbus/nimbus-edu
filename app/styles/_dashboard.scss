@@ -1,0 +1,65 @@
+#view{
+	section{
+	  #toolbar{
+			background:#e6e6e6;
+	  }
+	  main{
+		.widget{
+			.title{
+				margin:0px;
+			}
+			.uk-card-body {
+				padding: 15px;
+			}
+			.toolbar{
+				li{
+					a{
+					  /*line-height: 1.7;
+					  vertical-align: middle;*/
+					}
+				}
+			}
+		}
+		users{
+			form{
+				position:relative;
+				.twitter-typeahead{
+					width:100%;
+					input.typeahead{
+						padding-left: 40px !important;
+						width: inherit;
+					}
+					.tt-menu{
+						width: inherit;
+						.tt-dataset{
+							width: inherit;
+							.uk-dropdown{
+								width:inherit;
+								display:block;
+							}
+						}
+						.uk-dropdown{
+							width:inherit;
+							display:block;
+						}
+					}
+				}
+			}
+		}
+		.services{
+			.twitter-typeahead{
+				input.typeahead{
+					width: inherit;
+				}
+			}
+		}
+	  }
+	}
+}
+
+.uk-card{
+	.uk-card-header {
+		border-bottom: 0px;
+	}
+}
+

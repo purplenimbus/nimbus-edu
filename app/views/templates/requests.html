@@ -1,0 +1,44 @@
+<div class="uk-card uk-card-default widget">  
+  <div class="uk-card-header uk-clear-fix uk-padding-small">
+	<h3 class="uk-card-title uk-align-left title">{{ widgetTitle }}</h3>
+	<div class="uk-align-right">
+	  <ul class="uk-iconnav toolbar">
+		<li><a ng-click="showAddRequest()" uk-icon="icon: plus"></a></li>
+	</ul>
+	  </div>
+  </div>
+  <div class="uk-card-body uk-padding-remove">
+	<div class="uk-margin uk-hidden">
+		  <form class="uk-search uk-search-default uk-width-1-1">
+			  <span uk-search-icon></span>
+			  <input class="uk-search-input uk-width-1-1" type="search" placeholder="Search...">
+		  </form>
+	</div>
+	<table class="uk-table uk-table-middle uk-table-divider uk-margin-remove uk-table-small">
+	  <thead>
+			<tr class="uk-text-small">
+				<th class="uk-table-shrink uk-hidden"><input class="uk-checkbox" type="checkbox" ng-click="selectAll(requests,$event)"></th>
+				<th class="uk-width-expand">Description</th>
+				<th class="uk-table-shrink">
+					<ul class="uk-iconnav uk-hidden">
+						<li ng-if="req.approved" ><a href="" uk-icon="icon: check" class="uk-text-success" ng-click="completeSelected(selected)"></a></li>
+						<li ng-if="!req.approved"><a href="" uk-icon="icon: trash" class="uk-text-danger" ng-click="removeSelected(selected)"></a></li>
+					</ul>
+				</th>
+			</tr>
+	  </thead>
+	  <tbody>
+		  <tr ng-repeat="req in requests" class="uk-text-small">
+			  <td class="uk-hidden"><input class="uk-checkbox" type="checkbox" ng-model="req.selected" ng-click="selectRequest($index,$event)">{{ selected }}</td>
+			  <td><a ng-click="showAddRequest(req)">{{ req.name }}</a></td>
+			  <td class="uk-clear-fix uk-text-right">
+				 <ul class="uk-iconnav">
+					<li ng-if="req.approved" ><a href="" uk-icon="icon: check" class="uk-text-success" ng-click="completeRequest($index)"></a></li>
+				   <li ng-if="!req.approved"><a href="" uk-icon="icon: trash" class="uk-text-danger" ng-click="removeRequest($index)"></a></li>
+				</ul>
+				</td>
+		  </tr>
+	  </tbody>
+  </table>
+  </div>
+</div>

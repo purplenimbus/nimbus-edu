@@ -1,0 +1,52 @@
+<div class="uk-card uk-card-default widget">
+  <div class="uk-card-header uk-clear-fix uk-padding-small">
+	<h3 class="uk-card-title uk-align-left title">{{ widgetTitle }}</h3>
+	<div class="uk-align-right">
+	  <ul class="uk-iconnav toolbar">
+		<li><a ng-click="showAddTask()" uk-icon="icon: plus"></a></li>
+		<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
+		</ul>
+	  </div>
+  </div>
+	<div class="uk-card-body uk-padding-remove">
+	<div class="uk-margin" ng-if="false">
+		  <form class="uk-search uk-search-default uk-width-1-1">
+			  <span uk-search-icon></span>
+			  <input type="text" datasets="tasksDataset" options="tasksOptions" ng-model="search" editable="editable" sf-typeahead class="uk-search-input uk-width-1-1 typeahead" placeholder="Search..."/>
+		  </form>
+	</div>
+	<table class="uk-table uk-table-middle uk-table-divider uk-margin-remove uk-table-small">
+	  <thead>
+		  <tr class="uk-text-small">
+			  <th class="uk-table-shrink uk-hidden"><input class="uk-checkbox" type="checkbox" ng-click="selectAll(tasks,$event)"></th>
+			  <th class="uk-width-small">Description</th>
+			  <th class="uk-table-shrink">
+				<ul class="uk-iconnav uk-hidden">
+				  <li ng-if="!task.completed"><a ng-click="removeSelected($index)" uk-icon="icon: trash" class="uk-text-danger"></a></li>
+				  <li><a ng-click="completeSelected($index)" uk-icon="icon: check" ng-disabled="task.completed" ng-class="task.completed ? 'uk-text-success' : ''"></a></li>
+				</ul>
+			  </th>
+		  </tr>
+	  </thead>
+	  <div uk-spinner ng-if="loading"></div>
+	  <tbody ng-if="!loading">
+		  <tr ng-repeat="task in data.data" class="uk-text-small">
+			  <td class="uk-hidden"><input class="uk-checkbox" type="checkbox" ng-model="task.selected"></td>
+			  <td><a class="uk-align-left uk-margin-remove" ng-click="showAddTask(task)">{{ task.name }}</a></td>
+			  <td class="uk-clear-fix uk-text-right">
+				<ul class="uk-iconnav">
+				  <li ng-if="!task.completed"><a ng-click="removeTask($index)" uk-icon="icon: trash" class="uk-text-danger"></a></li>
+				  <li><a ng-click="completeTask($index)" uk-icon="icon: check" ng-disabled="task.completed" ng-class="task.completed ? 'uk-text-success' : ''"></a></li>
+				</ul>
+			</td>
+		  </tr>
+	  </tbody>
+	</table>
+	</div>
+	<div class="uk-card-footer" ng-if="data.prev_page_url || data.next_page_url">
+	   <ul class="uk-pagination">
+		  <li ng-if="data.prev_page_url"><a ng-click="prev(data.current_page - 1)"><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+		  <li ng-if="data.next_page_url" class="uk-margin-auto-left"><a ng-click="next(data.current_page + 1)">Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+	  </ul>
+	</div>
+</div>

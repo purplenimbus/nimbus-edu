@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:MainCtrl
+ * @name nimbusEmsApp.controller:TasksCtrl
  * @description
- * # MainCtrl
+ * # TasksCtrl
  * Controller of the nimbusEmsApp
  */
 angular.module('nimbusEmsApp')
-  .controller('MainCtrl', function () {
+  .controller('TasksCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

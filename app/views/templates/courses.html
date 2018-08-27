@@ -1,0 +1,30 @@
+<div class="uk-card uk-card-default widget">
+		<div class="uk-card-header uk-clear-fix uk-padding-small">
+			<p class="uk-text-capitalize uk-align-left title">{{ widgetTitle }}</p>
+			<div class="uk-align-right">
+				<ul class="uk-iconnav toolbar">
+					<li><a href="#" uk-icon="icon: plus"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="uk-card-body uk-padding-small">
+			<div class="uk-margin">
+				<form class="uk-search uk-search-default uk-width-1-1">
+					<span uk-search-icon></span>
+					<input class="uk-search-input uk-width-1-1" type="search" placeholder="Search...">
+				</form>
+			</div>
+			<ul class="uk-list" uk-grid>
+				<li class="uk-width-1-2@l uk-width-1-1@s" ng-repeat="course in course.data">
+
+				</li>
+			</ul>
+		</div>
+		<div class="uk-card-footer">
+		   <ul class="uk-pagination">
+			  <li><a href="#"><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+			  <li class="uk-margin-auto-left"><a href="#">Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+		  </ul>
+		</div>
+	</div>
+</div>

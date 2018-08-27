@@ -1,0 +1,20 @@
+<section id="toolbar" class="uk-navbar-container uk-dark" uk-navbar ng-controller="NavCtrl">
+	<a class="uk-navbar-item uk-logo uk-text-capitalize">{{ pageTitle || route.current.$$route.controllerAs }}</a>
+	<div class="uk-navbar-right">
+		<div class="uk-navbar-item">
+			<ul class="uk-iconnav uk-clearfix">
+				<!--<li ng-if="route.current.$$route.controllerAs === 'dashboard' || route.current.$$route.controllerAs === 'learning'">
+					<a ng-if="route.current.$$route.controllerAs === 'dashboard'" uk-icon="icon:  settings" ng-click="showSettings('dashboard')"></a>
+					<a ng-if="route.current.$$route.controllerAs === 'learning'" uk-icon="icon:  settings" ng-click="showSettings('learningDashboard')"></a>
+				</li>-->
+				<li ng-if="false">
+					<a ng-click="createCourse()" uk-icon="icon: plus" data-target="#create"></a>
+				</li>
+				<li ng-if="false">
+					<a ng-click="editCourse()" uk-icon="icon: file-edit" data-target="#create"></a>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+</section>

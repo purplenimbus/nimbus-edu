@@ -1,0 +1,150 @@
+<div ng-include="'views/partials/_toolbar.html'"></div>
+<section class="uk-padding-small">
+	<div class="uk-container uk-width-2-3@l uk-width-2-3@m">
+		<div class="uk-card">
+			<div class="uk-card-body uk-padding-small">
+				<ul uk-tab>
+					<li><a href="#" class="">Account Details</a></li>
+					<li><a href="#" class="uk-hidden">Billing</a></li>
+				</ul>
+				<ul class="uk-switcher uk-margin">
+					<li>
+						<form class="uk-form-horizontal uk-margin-large">
+
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">First Name</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text" type="text" placeholder="First Name" ng-model="profileData.firstname">
+								</div>
+							</div>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">Last Name</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text" type="text" placeholder="Last Name" ng-model="profileData.lastname">
+								</div>
+							</div>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">Email</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text" type="email" placeholder="Email Address (Primary)" disabled ng-model="profileData.email">
+								</div>
+							</div>
+							
+							<hr>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">Phone Number</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text uk-text-capitalize" type="tel" placeholder="Phone Number (Primary)" ng-model="profileData.meta.phone">
+								</div>
+							</div>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">Phone Number (Secondary)</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text uk-text-capitalize" type="tel" placeholder="Phone Number (Secondary)" ng-model="profileData.meta.secondaryPhone">
+								</div>
+							</div>
+							
+							<p class="uk-heading-line uk-text-left uk-text-capitalize uk-text-small uk-text-bold"><span class="ng-binding">Address</span></p>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">Street</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text uk-text-capitalize" placeholder="Street Address" ng-model="profileData.meta.address.street"/>
+								</div>
+							</div>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">City</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text uk-text-capitalize" placeholder="City" ng-model="profileData.meta.address.city"/>
+								</div>
+							</div>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">State</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text uk-text-capitalize" placeholder="State" ng-model="profileData.meta.address.state"/>
+								</div>
+							</div>
+							
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">Country</label>
+								<div class="uk-form-controls">
+									<input class="uk-input form-horizontal-text uk-text-capitalize" placeholder="Country" ng-model="profileData.meta.address.country" ng-disabled="true"/>
+								</div>
+							</div>
+							
+							<div class="uk-margin">
+								<button class="uk-button uk-button-primary" ng-click="save(profileData)">Save <div uk-spinner ng-if="loading" width="10px"></div></button>
+							</div>
+							
+						</form>
+					</li>
+					<li>
+						<div class="uk-grid-small" uk-grid>
+							<div class="uk-width-1-1@m">
+								<div class="uk-card uk-card-default">
+									<div class="uk-card-header uk-padding-small">
+										<div class="uk-clearfix">
+											<div class="uk-align-left uk-margin-remove">
+												<p class="uk-margin-remove uk-text-capitalize">Your Services</p>
+											</div>
+											<div class="uk-align-right uk-margin-remove">
+												<p class="uk-text-meta uk-margin-remove uk-text-mute">{{ service.currency.symbol }} {{ service.meta.cost }}</p>
+											</div>
+										</div>
+									</div>
+									<div class="uk-card-body">
+										<ul class="uk-nav uk-nav-default">
+											<li ng-repeat="service in userServices" class="uk-text-capitalize"><a ng-click="viewService($index);">{{ service.name }}</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<div class="uk-width-1-1@m">
+								<div class="uk-margin services">
+									<form class="uk-search uk-search-default uk-width-1-1" ng-if="false">
+										<a href="" uk-search-icon></a>
+										<input type="text" datasets="serviceDataset" options="serviceOptions" ng-model="search" sf-typeahead class="uk-search-input uk-width-1-1 typeahead uk-width-1-1" placeholder="Search..."/>
+									</form>
+									<ul class="uk-grid-small" uk-grid>
+										<li ng-repeat="service in services" class="uk-width-1-1@m uk-width-1-1@xs">
+											<div class="uk-card uk-card-default">
+												<div class="uk-card-header uk-padding-small">
+													<div class="uk-clearfix">
+														<div class="uk-align-left uk-margin-remove">
+															<div class="uk-grid-small uk-flex-middle" uk-grid>
+																<div class="uk-width-auto">
+																	<img class="" width="40" height="40" src="{{ service.meta.icon }}">
+																</div>
+																<div class="uk-width-expand">
+																	<p class="uk-margin-remove uk-text-capitalize">{{ service.name }}</p>
+																</div>
+															</div>
+														</div>
+														<ul class="uk-iconnav uk-align-right uk-margin-remove">
+															<li><a uk-icon="icon: plus" ng-click="addService($index)" title="enable {{ service.name }} api"></a></li>
+														</ul>
+													</div>
+												</div>
+												<div class="uk-card-body uk-padding-small" ng-if="service.description">
+													<p>{{ service.description }}</p>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>

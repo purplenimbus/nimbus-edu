@@ -1,0 +1,43 @@
+			<div class="uk-card uk-card-default widget">
+				<div class="uk-card-header uk-clear-fix uk-padding-small">
+					<h3 class="uk-card-title uk-align-left title">{{ widgetTitle }}</h3>
+					<div class="uk-align-right">
+						<ul class="uk-iconnav toolbar">
+							<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="uk-card-body">		
+					<ul class="uk-list">
+						<li class="uk-clear-fix" ng-repeat="activity in activities" >
+							<article class="uk-comment">
+								<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+									<div class="uk-width-auto">
+										<img class="uk-comment-avatar" src="{{	activity.user.image	}}" width="50" height="50" alt="">
+									</div>
+									<div class="uk-width-expand">
+										<h4 class="uk-comment-title uk-margin-remove uk-text-small"><a class="uk-link-reset" href="#">Anthony</a> {{	activity.meta.action.verb	}} <a href="{{ activity.meta.subject.url }}">{{	activity.meta.subject.name	}}</a></h4>
+										<span class="uk-text-muted uk-text-small">12 days ago</span>
+									</div>
+								</header>
+								<div class="uk-comment-body">
+									<div class="uk-card uk-card-default">
+										<div class="uk-card-media-top">
+											<img src="{{ activity.meta.subject.featuredImage }}" alt="" class="uk-width-1-1">
+											<div class="uk-overlay uk-overlay-primary uk-position-bottom uk-light">
+												<h3>{{ activity.meta.subject.name }}</h3>
+												<p>{{ activity.meta.subject.description }}</p>
+												<ul class="uk-iconnav toolbar uk-padding-remove">
+													<li><a href="#" uk-icon="icon: heart"></a></li>
+													<li><a href="#" uk-icon="icon: comment"></a></li>
+													<li><a href="#" uk-icon="icon: forward"></a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</article>
+						</li>
+					</ul>
+				</div>
+			</div>

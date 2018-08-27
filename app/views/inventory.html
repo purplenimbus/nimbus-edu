@@ -1,0 +1,55 @@
+<div ng-include="'views/partials/_toolbar.html'"></div>
+<section class="uk-padding-small">
+	<div uk-grid>
+		<div class="uk-width-1-1@s">
+			<div class="uk-card uk-card-default widget">
+				<div class="uk-card-header uk-clear-fix uk-padding-small">
+					<p class="uk-text-capitalize uk-align-left title uk-margin-remove">Inventory</p>
+					<div class="uk-align-right">
+						<ul class="uk-iconnav toolbar">
+							<li><a ng-click="add()" uk-icon="icon: plus"></a></li>
+							<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="uk-card-body uk-padding-remove">		
+					<table class="uk-table uk-table-hover uk-table-divider uk-table-middle">
+						<thead>
+						  <tr>
+							  <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+							  <th>sku</th>
+							  <th class="uk-table-expand">description</th>
+							  <th class="uk-width-small">quantity</th>
+							  <th class="uk-width-small">unit price (&#8358;)</th>
+							  <th class="uk-width-small">total (&#8358;)</th>
+							  <th class="uk-width-small"></th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr ng-repeat="item in inventoryData">
+							  <td><input class="uk-checkbox" type="checkbox"></td>
+							  <td class="uk-text-capitalize">{{ item.sku }}</td>
+							  <td class="uk-text-capitalize">{{ item.description }}</td>
+							  <td>
+								<input class="uk-input uk-form-blank" type="number" placeholder="quantity" ng-model="item.quantity" ng-disabled="true">
+								</td>
+							<td>
+								<input class="uk-input uk-form-blank" type="number" placeholder="price" ng-model="item.price" ng-disabled="true">
+								</td>
+							<td>
+								<input class="uk-input uk-form-blank" type="number" placeholder="price" ng-value="item.quantity * item.price" ng-disabled="true">
+								</td>
+							  <td>
+								<ul class="uk-iconnav">
+									<li><a href="#" uk-icon="icon: file-edit" title="edit"></a></li>
+									<li><a href="#" uk-icon="icon: trash" title="delete"></a></li>
+								</ul>
+							  </td>
+						  </tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

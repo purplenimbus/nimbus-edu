@@ -1,0 +1,44 @@
+<div class="uk-card uk-card-default widget">
+	<div class="uk-card-header uk-clear-fix uk-padding-small">
+	  <h3 class="uk-card-title uk-align-left title">{{ widgetTitle }}</h3>
+	  <div class="uk-align-right">
+	  <ul class="uk-iconnav toolbar">
+		<li><a href="#" uk-icon="icon: plus"></a></li>
+	</ul>
+	  </div>
+	</div>
+	<div class="uk-card-body">
+	  <div class="uk-margin">
+		  <form class="uk-search uk-search-default uk-width-1-1">
+			  <span uk-search-icon></span>
+			  <input class="uk-search-input uk-width-1-1" type="search" placeholder="Search...">
+		  </form>
+	  </div>
+	  <ul class="uk-list" uk-grid>
+		<li class="uk-width-1-2@l uk-width-1-1@s" ng-repeat="employee in employees.data">
+		  <article class="uk-comment uk-card uk-card-hover">
+	<header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
+	<div class="uk-width-auto">
+	<img class="uk-comment-avatar" src="{{ employee.picture }}" width="60" height="60" alt="">
+	</div>
+	<div class="uk-width-expand">
+	<h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ employee.title }} {{ employee.fname }} {{ employee.lname }}</a></h4>
+	<ul class="uk-padding-remove uk-margin-remove uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top uk-text-mute">
+	</ul>
+	</div>
+	</header>
+	<div class="uk-comment-footer">
+
+	</div>
+	</article>
+		</li>
+	  </ul>
+	</div>
+	<div class="uk-card-footer">
+	   <ul class="uk-pagination">
+		  <li><a href="#"><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+		  <li class="uk-margin-auto-left"><a href="#">Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+	  </ul>
+	</div>
+	</div>
+</div>

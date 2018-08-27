@@ -1,23 +1,147 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
+<section class="uk-height-viewport">
+    <main class="uk-flex uk-flex-wrap uk-flex-wrap-around" uk-grid>
+      <div class="uk-width-1-1">
+        <div class="uk-card uk-card-default widget">
+          <div class="uk-card-header uk-clear-fix">
+            <h3 class="uk-card-title uk-align-left title">{{ reports.title }}</h3>
+            <div class="uk-align-right">
+              <ul class="uk-iconnav toolbar">
+            </ul>
+              </div>
+          </div>
+          <div class="uk-card-body"></div>
+        </div>
+      </div>
+      <div class="uk-width-1-4@l uk-width-1-2@s uk-width-1-2@xs">
+        <div class="uk-card uk-card-default widget">
+          <div class="uk-card-header uk-clear-fix">
+            <h3 class="uk-card-title uk-align-left title">{{ tasks.title }}</h3>
+            <div class="uk-align-right">
+              <ul class="uk-iconnav toolbar">
+                <li><a href="#" uk-icon="icon: plus"></a></li>
+            </ul>
+              </div>
+          </div>
+          <div class="uk-card-body">
+            <div class="uk-margin">
+                  <form class="uk-search uk-search-default uk-width-1-1">
+                      <span uk-search-icon></span>
+                      <input class="uk-search-input uk-width-1-1" type="search" placeholder="Search...">
+                  </form>
+              </div>
+            <ul class="uk-list uk-list-divider">
+                <li ng-repeat="task in tasks.data" class="uk-clearfix">
+                  <a class="uk-align-left uk-margin-remove">{{ task.name }}</a>
+                  <div class="uk-align-right">
+                    <ul class="uk-iconnav">
+                      <li ng-if="!task.completed"><a href="#" uk-icon="icon: minus-circle" class="uk-text-danger"></a></li>
+                      <li><a href="#" uk-icon="icon: check" ng-disabled="task.completed" ng-class="task.completed ? 'uk-text-success' : ''"></a></li>
+          </ul>
+                  </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="uk-width-3-4@l uk-width-1-2@s uk-width-1-2@xs">
+          <div class="uk-card uk-card-default widget">
+            <div class="uk-card-header uk-clear-fix">
+              <h3 class="uk-card-title uk-align-left title">{{ employees.title }}</h3>
+              <div class="uk-align-right">
+              <ul class="uk-iconnav toolbar">
+                <li><a href="#" uk-icon="icon: plus"></a></li>
+            </ul>
+              </div>
+            </div>
+            <div class="uk-card-body">
+              <div class="uk-margin">
+                  <form class="uk-search uk-search-default uk-width-1-1">
+                      <span uk-search-icon></span>
+                      <input class="uk-search-input uk-width-1-1" type="search" placeholder="Search...">
+                  </form>
+              </div>
+              <ul class="uk-list" uk-grid>
+                <li class="uk-width-1-4@l uk-width-1-1@s" ng-repeat="employee in employees.data">
+                  <article class="uk-comment uk-card uk-card-hover">
+    <header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
+        <div class="uk-width-auto">
+            <img class="uk-comment-avatar" src="{{ employee.picture }}" width="60" height="60" alt="">
+        </div>
+        <div class="uk-width-expand">
+            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ employee.title }} {{ employee.fname }} {{ employee.lname }}</a></h4>
+            <ul class="uk-padding-remove uk-margin-remove uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top uk-text-mute">
+            </ul>
+        </div>
+    </header>
+    <div class="uk-comment-footer">
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
+    </div>
+</article>
+                </li>
+              </ul>
+            </div>
+            <div class="uk-card-footer">
+               <ul class="uk-pagination">
+                  <li><a href="#"><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+                  <li class="uk-margin-auto-left"><a href="#">Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+              </ul>
+            </di>
+          </div>
+        </div>
+      </div>
+      <div class="uk-width-3-4@l uk-width-1-2@s uk-width-1-2@xs">
+        <div class="uk-card uk-card-default widget">
+          <div class="uk-card-header uk-clear-fix">
+            <h3 class="uk-card-title uk-align-left title">{{ activities.title }}</h3>
+            <div class="uk-align-right">
+              <ul class="uk-iconnav toolbar">
+            </ul>
+              </div>
+          </div>
+          <div class="uk-card-body"></div>
+        </div>
+      </div>
+      <div class="uk-width-1-4@l uk-width-1-2@s uk-width-1-2@xs">
+        <div class="uk-card uk-card-default widget">
+          <div class="uk-card-header uk-clear-fix">
+            <h3 class="uk-card-title uk-align-left title">{{ requests.title }}</h3>
+            <div class="uk-align-right">
+              <ul class="uk-iconnav toolbar">
+                <li><a href="#" uk-icon="icon: plus"></a></li>
+            </ul>
+              </div>
+          </div>
+          <div class="uk-card-body">
+            <div class="uk-margin">
+                  <form class="uk-search uk-search-default uk-width-1-1">
+                      <span uk-search-icon></span>
+                      <input class="uk-search-input uk-width-1-1" type="search" placeholder="Search...">
+                  </form>
+              </div>
+            <table class="uk-table uk-table-middle uk-table-divider">
+              <thead>
+                  <tr class="uk-text-small">
+                      <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                      <th class="uk-width-small">Request</th>
+                      <th class="uk-table-shrink"></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr ng-repeat="req in requests.data" class="uk-text-small">
+                      <td><input class="uk-checkbox" type="checkbox"></td>
+                      <td>{{ req.name }}</td>
+                      <td class="uk-clear-fix uk-text-right">
+                         <ul class="uk-iconnav">
+                            <li ng-if="req.approved" ><a href="" uk-icon="icon: check" class="uk-text-success"></a></li>
+                           <li ng-if="!req.approved"><a href="" uk-icon="icon: ban" class="uk-text-danger"></a></li>
+                           <li><a href="" uk-icon="icon: pencil" class=""></a></li>
+                        </ul>
+                        </td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </main>
+</section>

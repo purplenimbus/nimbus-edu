@@ -1,0 +1,64 @@
+<div ng-include="'views/partials/_toolbar.html'"></div>
+<div class="uk-section uk-section">
+	<div class="uk-container uk-width-1-2@l uk-width-2-3@m">
+		<div class="uk-text-center">
+			<img class="uk-border-circle" width="140" height="140" src="{{ profileData.image || 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png' }}" />
+			<p class="uk-text-lead	uk-padding-bottom uk-text-capitalize">{{ profileData.firstname }} {{ profileData.lastname }}</p>		
+		</div>
+
+		<ul class="uk-flex-center" uk-tab uk-switcher>
+			<li ng-if="profileData.activities" class="uk-active"><a href="#"><span class="uk-margin-small-right" uk-icon="icon: commenting"></span> <span>Activity</span></a></li>
+			<li ng-if="profileData.studentRecords"><a href="#"><span class="uk-margin-small-right" uk-icon="icon: list"></span> <span>Student Records</span></a></li>
+			<li ng-if="profileData.employmentRecords"><a href="#"><span class="uk-margin-small-right" uk-icon="icon: list"></span> <span>Employment Records</span></a></li>
+		</ul>
+
+		<ul class="uk-switcher uk-margin">
+			<li ng-if="profileData.activities">
+				<div class="">
+					<ul class="uk-list">
+						<li class="uk-clear-fix" ng-repeat="activity in profileData.activities.data" >
+							<article class="uk-comment">
+								<header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+									<div class="uk-width-auto">
+										<img class="uk-comment-avatar" src="{{	activity.user.image	|| 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png' }}" width="50" height="50" alt="">
+									</div>
+									<div class="uk-width-expand">
+										<h4 class="uk-comment-title uk-margin-remove uk-text-small"><a class="uk-link-reset uk-text-capitalize" href="#">{{ profileData.fname}}</a> {{	activity.meta.action.verb	}} <a ng-click="modal.modal({ type : 'full' , title  : activity.meta.subject.name , body : activity.meta.subject.description , image : activity.meta.subject.featuredImage },this)">{{	activity.meta.subject.type	}}</a></h4>
+										<span class="uk-text-muted uk-text-small">12 days ago</span>
+									</div>
+								</header>
+								<div class="uk-comment-body">
+									<div class="uk-card uk-card-default">
+										<div class="uk-card-media-top" ng-if="activity.meta.subject.featuredImage">
+											<img src="{{ activity.meta.subject.featuredImage }}" alt="{{ activity.meta.subject.name }}" class="uk-width-1-1">
+										</div>
+										<div class="uk-card-header uk-padding-small">
+											<div class="uk-grid-small uk-flex-middle" uk-grid>
+												<div class="uk-width-expand">
+													<p class="uk-text-capitalize uk-margin-remove-bottom">{{ activity.meta.subject.name }}</p>
+												</div>
+											</div>
+										</div>
+										<div class="uk-card-body uk-padding-small" ng-if="activity.meta.subject.description">
+											<p class="uk-text-small">{{ activity.meta.subject.description }}</p>
+										</div>
+										<div class="uk-card-footer uk-padding-small">
+											<ul class="uk-iconnav toolbar uk-padding-remove">
+												<li><a href="#" uk-icon="icon: heart"></a></li>
+												<li><a href="#" uk-icon="icon: comment"></a></li>
+												<li><a href="#" uk-icon="icon: forward"></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</article>
+						</li>
+						<button ng-if="profileData.activities.next_page_url" ng-click="next(profileData.activities.current_page + 1)" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Load More</button>
+					</ul>
+				</div>
+			</li>
+			<li ng-if="profileData.studentRecords">Student Records</li>
+			<li ng-if="profileData.employmentRecords">Employment Records</li>
+		</ul>
+	</div>
+</div>

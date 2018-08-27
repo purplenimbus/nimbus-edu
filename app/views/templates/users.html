@@ -1,0 +1,54 @@
+<div class="uk-card uk-card-default widget">
+	<div class="uk-card-header uk-clear-fix uk-padding-small">
+		<p class="uk-text-capitalize uk-align-left title">{{ widgetTitle }}</p>
+		<div class="uk-align-right">
+			<ul class="uk-iconnav toolbar">
+				<li><a href="#" uk-icon="icon: plus"></a></li>
+				<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="uk-card-body">
+		<div class="uk-margin">
+			<form class="uk-search uk-search-default uk-width-1-1">
+				<span uk-search-icon></span>
+				<input type="text" datasets="userDataset" options="userOptions" ng-model="search" sf-typeahead class="uk-search-input uk-width-1-1 typeahead" placeholder="Search..."/>
+			</form>
+		</div>
+		
+		<div class="uk-text-center" uk-spinner ng-if="loading"></div>
+		
+		<ul class="uk-list" uk-grid ng-if="!loading">
+			<li class="uk-width-1-2@l uk-width-1-1@s" ng-repeat="user in data.data">
+				<article class="uk-comment uk-card">
+					<header class="uk-comment-header uk-grid-medium uk-flex-middle uk-margin-remove-bottom" uk-grid>
+						<div class="uk-width-auto">
+							<img class="uk-comment-avatar uk-preserve-width uk-border-circle" src="{{ user.image_url }}" width="60" height="60" alt="">
+						</div>
+						<div class="uk-width-expand">
+							<p class="uk-margin-remove">
+								<a class="uk-link-reset uk-text-capitalize" ng-href="#!/profile/{{ user.id }}">
+									{{ user.title }} {{ user.fname }} {{ user.lname }}
+								</a>
+							</p>
+							<ul class="uk-padding-remove uk-margin-remove uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top uk-text-mute">
+								<li class="uk-text-capitalize">{{ user.meta.user_type }}</li>
+								<li class="uk-text-capitalize">{{ user.meta.business_unit }}</li>
+							</ul>
+						</div>
+					</header>
+					<div class="uk-comment-footer">
+
+					</div>
+				</article>
+			</li>
+		</ul>
+	</div>
+	<div class="uk-card-footer" ng-if="data.prev_page_url || data.next_page_url">
+	   <ul class="uk-pagination">
+		  <li ng-if="data.prev_page_url"><a ng-click="prev(data.current_page - 1)"><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+		  <li ng-if="data.next_page_url" class="uk-margin-auto-left"><a ng-click="next(data.current_page + 1)">Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+	  </ul>
+	</div>
+	</div>
+</div>

@@ -1,0 +1,67 @@
+<section class="uk-container uk-width-1-3@s uk-section">
+	<div class="uk-card uk-card-default">
+		<div class="uk-card-header">
+			<h3 class="uk-card-title uk-text-center">Register</h3>
+		</div>
+		<div class="uk-card-body uk-padding-small">
+			<form class="uk-form-horizontal uk-margin-remove">
+				<div class="uk-margin">
+					<div class="uk-inline uk-width-1-1">
+						<span ng-class="errors.name[0] ? 'uk-text-danger' : ''" class="uk-form-icon" uk-icon="icon: world"></span>
+						<input ng-class="errors.name[0] ? 'uk-form-danger' : ''" class="uk-input form-horizontal-text" type="text" placeholder="Company Name" ng-model="registration.name">
+					</div>
+					<label ng-if="errors.name[0]" class="uk-text-small uk-text-danger">{{ errors.name[0] }}</label>
+				</div>
+				
+				<div class="uk-margin">
+					<div class="uk-inline uk-width-1-1">
+						<span ng-class="errors.username[0] ? 'uk-text-danger' : ''" class="uk-form-icon" uk-icon="icon: user"></span>
+						<input ng-class="errors.username[0] ? 'uk-form-danger' : ''" class="uk-input form-horizontal-text" type="text" placeholder="Username" ng-model="registration.username">
+					</div>
+					<label ng-if="errors.username[0]" class="uk-text-small uk-text-danger">{{ errors.username[0] }}</label>
+				</div>
+
+				<div class="uk-margin">
+					<div class="uk-inline uk-width-1-1">
+						<span ng-class="errors.password[0] ? 'uk-text-danger' : ''" class="uk-form-icon" uk-icon="icon: lock"></span>
+						<input ng-class="errors.password[0] ? 'uk-form-danger' : ''" class="uk-input form-horizontal-text" type="password" placeholder="Password" ng-model="registration.password">
+					</div>
+					<label ng-if="errors.password[0]" class="uk-text-small uk-text-danger">{{ errors.password[0] }}</label>
+				</div>
+				
+				<div class="uk-margin">
+					<div class="uk-inline uk-width-1-1">
+						<span ng-class="errors.password[0] ? 'uk-text-danger' : ''" class="uk-form-icon" uk-icon="icon: lock"></span>
+						<input ng-class="errors.password[0] ? 'uk-form-danger' : ''" class="uk-input form-horizontal-text" type="password" placeholder="Password" ng-model="registration.password2">
+					</div>
+					<label ng-if="errors.password[0]" class="uk-text-small uk-text-danger">{{ errors.password[0] }}</label>
+				</div>
+				
+				<p class="uk-heading-line uk-text-center uk-text-capitalize uk-text-small"><span class="ng-binding">Account Details</span></p> 
+				
+				<div class="uk-margin">
+					<div class="uk-inline uk-width-1-1">
+						<span ng-class="errors.email[0] ? 'uk-text-danger' : ''" class="uk-form-icon" uk-icon="icon: mail"></span>
+						<input ng-class="errors.email[0] ? 'uk-form-danger' : ''" class="uk-input form-horizontal-text" type="email" placeholder="Email" ng-model="registration.email">
+					</div>
+					<label ng-if="errors.email[0]" class="uk-text-small uk-text-danger">{{ errors.email[0] }}</label>
+				</div>
+				
+				<div class="uk-margin">
+					<div class="uk-inline uk-width-1-1">
+						<span ng-class="errors.meta.phone[0] ? 'uk-text-danger' : ''" class="uk-form-icon" uk-icon="icon: phone"></span>
+						<input ng-class="errors.meta.phone[0] ? 'uk-form-danger' : ''" class="uk-input form-horizontal-text" type="tel" placeholder="Phone" ng-model="registration.meta.phone">
+						<label ng-if="errors.meta.phone[0]" class="uk-text-small uk-text-danger">{{ errors.meta.phone[0] }}</label>
+					</div>
+				</div>
+				
+				<div class="uk-margin">
+					<button class="uk-button uk-button-primary uk-width-1-1" ng-click="registerUser(registration)">Plans <div ng-if="loading" uk-spinner></div></button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="uk-margin uk-text-center">
+		<span class="uk-text-small uk-text-muted">Already have an account? <a ng-href="/#!/login" class="">Login</a></span>
+	</div>
+</section>

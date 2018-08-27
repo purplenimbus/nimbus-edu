@@ -1,0 +1,36 @@
+<div class="uk-card uk-card-default widget">
+	<div class="uk-card-header uk-clear-fix uk-padding-small">
+		<div class="uk-align-left uk-margin-remove uk-width-1-2">
+			<a ng-href="#!/learning/course/{{ courseId }}" class="uk-button uk-button-text uk-align-left title uk-text-capitalize uk-text-bold uk-margin-remove" href="#!/learning/course/{{ courseId }}">
+				{{ pageTitle }}
+			</a>
+			<user-pill fname="instructor.fname" class="uk-hidden"></user-pill>
+		</div>
+		<div class="uk-align-right">
+			<ul class="uk-iconnav toolbar">
+				<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="uk-card-body uk-overflow-auto uk-padding-remove">
+		<div class="uk-text-center uk-padding-small" ng-if="loadingHome"><div uk-spinner></div></div>
+		<table class="uk-table uk-table-hover uk-table-middle uk-table-small uk-margin-remove" ng-if="!loadingHome && students">
+			<thead>
+				<tr>
+					<th class="uk-table-shrink"></th>
+					<th class="uk-table-small">Name</th>
+					<th class="uk-table-shrink uk-text-small">Grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="student in students">
+					<td><img class="uk-preserve-width uk-border-circle" src="{{ student.user.image || 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png' }}" width="40" alt=""></td>
+					<td class="uk-table-link">
+						<a class="uk-link-reset uk-text-capitalize" ng-href="#!/profile/{{ student.user.id }}">{{ student.user.firstname }}, {{ student.user.lastname }}</a>
+					</td>
+					<td class="uk-text-center"><span class="uk-text-{{getGrade(student).className}}">{{getGrade(student).grade}}</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

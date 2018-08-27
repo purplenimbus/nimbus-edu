@@ -1,0 +1,31 @@
+<div class="uk-card uk-card-default widget">
+	<div class="uk-card-header uk-clear-fix uk-padding-small">
+		<div class="uk-align-left uk-margin-remove uk-width-1-2">
+			<user-pill fname="{{user.firstname}}"></user-pill>
+		</div>
+		<div class="uk-align-right">
+			<ul class="uk-iconnav toolbar">
+				<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="uk-card-body uk-text-center">
+		<div uk-spinner ng-if="loading"></div>
+		<div ng-if="!loading">
+			<p class="uk-heading-line uk-text-center uk-text-capitalize uk-hidden"><span>{{ user.firstname }} {{ user.lastname }}</span></p>
+			<ul class="uk-list uk-margin-remove uk-list-divider">
+				<li class="uk-clear-fix" ng-repeat="course in coursesData.data" >
+					<span ng-if="user.user_type.name ==='teacher' && user.id === course.instructor.id" class="uk-align-left uk-margin-remove uk-text-capitalize"><a ng-href="#!/learning/course/{{ course.course.id }}">{{ course.course.name }}</a></span>
+					<span ng-if="user.user_type.name == 'student'" class="uk-align-left uk-margin-remove uk-text-capitalize">{{ course.course.name }}</span>
+					<span ng-if="getTotal(course)" class="uk-align-right uk-margin-remove uk-text-{{getGrade(course).className}}">{{ getTotal(course) }}</span>
+				</li>
+			</ul>
+		</div>
+		<div ng-if="error && !loading" class="uk-placeholder uk-text-center uk-danger uk-text-danger uk-margin-remove uk-padding-small">
+			<span class="uk-margin-small-right" uk-icon="ban"></span> {{ error }}
+		</div>
+		<div ng-if="!coursesData.data && !loading && !error" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
+			<span class="uk-margin-small-right" uk-icon="ban"></span> {{ 'no courses found' | uppercase }}
+		</div>
+	</div>
+</div>
