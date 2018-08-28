@@ -155,7 +155,7 @@ angular.module('nimbusEduApp')
 
     this.importTypes = function(){
 
-        return [{
+        return [/*{
             id:1,
             name:'Subjects',
             value:'subject',
@@ -179,13 +179,13 @@ angular.module('nimbusEduApp')
             value:'user',
             icon:'user',
             description:'',
-        },{
-            id:5,
-            name:'Students',
+        },*/{
+            id:1,
+            name:'Users',
             value:'user',
             icon:'users',
-            description:'',
-        },];
+            description:'Import students , teachers or other users that will have access to your dashboard',
+        }];
 
     };
   });

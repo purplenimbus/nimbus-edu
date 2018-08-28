@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Service: import', function () {
-
+/* jshint ignore:start */
   // load the service's module
   beforeEach(module('nimbusEmsApp'));
 
@@ -14,5 +14,6 @@ describe('Service: import', function () {
   it('should do something', function () {
     expect(!!import).toBe(true);
   });
+  /* jshint ignore:end */
 
 });
