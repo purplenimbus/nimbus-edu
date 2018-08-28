@@ -29,7 +29,7 @@ angular
 			'https://nimbus-learning-staging.herokuapp.com/**',
 		]);
   
-		$authProvider.baseUrl = 'https://nimbus-learning-staging.herokuapp.com';
+		$authProvider.baseUrl = 'https://nimbus-learning-api.herokuapp.com';
 		$authProvider.loginUrl = '/api/v1/login';
 		
 		$routeProvider
