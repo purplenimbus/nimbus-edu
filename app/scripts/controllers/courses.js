@@ -21,28 +21,6 @@ angular.module('nimbusEduApp')
 		$scope.courseGrade = function(course){
 			return grades.getGrade(grades.getAverage(course));
 		};
-		
-		$scope.filterByClass = function(classId){
-			console.log('filterByClass',classId);
-			courseService.getCourses($scope.user,false,classId)
-			.then(function(result){
-
-				$scope.coursesList = result.data;
-
-				$scope.loading = false;
-			}).catch(function(error){
-				console.log('eduApi error',error);
-
-				$window.UIkit.notification({
-					message: error.data.message,
-					status: 'danger',
-					pos: 'top-right',
-					timeout: 5000
-				});
-
-				$scope.loading = false;
-			});
-		};
 
 		$scope.createCourse = function(){
 
@@ -106,7 +84,7 @@ angular.module('nimbusEduApp')
 		$scope.next = function(page){
 
 			$scope.loading = true;
-			courseService.getCourses($scope.user,page,($scope.user.meta.course_grade_id || false)) // jshint ignore:line
+			courseService.getCourses($scope.user,page,($scope.searchFilter.id || false)) // jshint ignore:line
 			.then(function(result){
 
 				result.data.data = $scope.coursesList.data.concat(result.data.data);
@@ -192,7 +170,8 @@ angular.module('nimbusEduApp')
 		$scope.$on('searchFilter', function(e,searchFilter) { 
 			console.log('searchFilter',searchFilter); 
 			$scope.coursesList = [];
-			$scope.init(1,searchFilter.id);
+			$scope.searchFilter = searchFilter;
+			$scope.init(1,$scope.searchFilter.id);
 		});
 
 		$scope.init();

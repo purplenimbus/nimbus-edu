@@ -19,7 +19,7 @@ angular.module('nimbusEduApp')
 				console.log('courseService result',result);
 				$scope.courseData = result.data;
 
-				if($scope.courseData.data.length){
+				if($scope.courseData.data){
 					$scope.pageTitle = $scope.courseData.data[0].course.name;
 					$scope.pageTitle += ' | '+$scope.courseData.data[0].course.code;
 				}
@@ -31,7 +31,7 @@ angular.module('nimbusEduApp')
 				sweetAlert.alert({
 							   	title: 'Somethings wrong!',
 							   	icon: 'error',
-							   	text : error.data.message || 'error',
+							   	text : error.data || 'error',
 							   	buttons:{
 									confirm: sweetAlert.button({text:'ok'}),
 								}
