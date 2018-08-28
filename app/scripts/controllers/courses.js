@@ -33,11 +33,18 @@ angular.module('nimbusEduApp')
 
 		$scope.createCourseInit = false;
 
-		$scope.classes = courseService.getClasses();
-
-		$scope.classFilter = $scope.classes[0];
-
 		$scope.offCanvasOpen = false;
+
+		$scope.filter = {
+			courseGrade : {
+				options: courseService.getClasses(),
+				label:'filter by class'
+			},
+			assigned : {
+				value:false,
+				label:'assigned'
+			}
+		};
 
 		$scope.getSchema = function(){
 			return Object.keys($scope.asset.meta.course_schema); // jshint ignore:line

@@ -12,7 +12,7 @@ angular.module('nimbusEduApp')
       templateUrl: 'views/templates/users.html',
       restrict: 'E',
 	  scope: true,
-	  controller : function($scope,graphApi,$window,apiConst,$localStorage){
+	  controller : function($scope,eduApi,$window,apiConst,$localStorage){
 		$scope.widgetTitle = 'Users';
 		
 		$scope.search = null;
@@ -22,12 +22,12 @@ angular.module('nimbusEduApp')
 		$scope.init = function(){
 			$scope.loading = true;
 				
-			graphApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page=1').then(function(result){
+			eduApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page=1').then(function(result){
 				$scope.data = result.data;
 				userList.initialize(true);
 				$scope.loading = false;
 			}).catch(function(error){
-				console.log('graphApi error',error);
+				console.log('eduApi error',error);
 				$scope.loading = false;
 				$window.UIkit.notification({
 					message: 'Couldnt get users',
@@ -40,9 +40,9 @@ angular.module('nimbusEduApp')
 		};
 		
 		var userList = new $window.Bloodhound({
-			datumTokenizer: function(d) { /*console.log('bloodhound d',d);*/ return $window.Bloodhound.tokenizers.whitespace(d.fname); },
+			datumTokenizer: function(d) { /*console.log('bloodhound d',d);*/ return $window.Bloodhound.tokenizers.whitespace(d.firstname); },
 			queryTokenizer: $window.Bloodhound.tokenizers.whitespace,
-			remote:	graphApi.apiEndPoint+subdomain+'/users'
+			remote:	eduApi.apiEndPoint+$scope.user.tenant.id+'/users'
 		});	
 		
 		userList.initialize();
@@ -91,12 +91,12 @@ angular.module('nimbusEduApp')
 		
 		$scope.next = function(page){
 			$scope.loading = true;
-			graphApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
+			eduApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
 				$scope.data = result.data;
 				userList.initialize(true);
 				$scope.loading = false;
 			}).catch(function(error){
-				console.log('graphApi error',error);
+				console.log('eduApi error',error);
 				$window.UIkit.notification({
 					message: 'Couldnt get users',
 					status: 'danger',
@@ -108,12 +108,12 @@ angular.module('nimbusEduApp')
 		
 		$scope.prev = function(page){
 			$scope.loading = true;
-			graphApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
+			eduApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
 				$scope.data = result.data;
 				userList.initialize(true);
 				$scope.loading = false;
 			}).catch(function(error){
-				console.log('graphApi error',error);
+				console.log('eduApi error',error);
 				$window.UIkit.notification({
 					message: 'Couldnt get users',
 					status: 'danger',
