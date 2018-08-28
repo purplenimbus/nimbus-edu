@@ -8,7 +8,7 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('CoursesCtrl', function ($scope,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card) {
+	.controller('CoursesCtrl', function ($scope,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card,sweetAlert) {
 
 		$scope.getSchema = function(){
 			return Object.keys($scope.asset.meta.course_schema); // jshint ignore:line
@@ -148,13 +148,12 @@ angular.module('nimbusEduApp')
 					label:'assigned'
 				}
 			};
-			console.log();
 			courseService.getCourses($scope.user,page,classId).then(function(result){
 				console.log('courseService init',result);
 				$scope.coursesList = result.data;
 				$scope.loading = false; 
 			})
-			.catch(function(){
+			.catch(function(error){
 				$scope.loading = false; 
 				sweetAlert.alert({
 				   	title: 'Something\'s Wrong',
@@ -165,7 +164,7 @@ angular.module('nimbusEduApp')
 					}
 				});
 			});
-		}
+		};
 
 		$scope.$on('searchFilter', function(e,searchFilter) { 
 			console.log('searchFilter',searchFilter); 

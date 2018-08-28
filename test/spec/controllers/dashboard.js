@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: AboutCtrl', function () {
+describe('Controller: DashboardCtrl', function () {
 
   // load the controller's module
   beforeEach(module('nimbusEmsApp'));
 
-  var AboutCtrl,
+  var DashboardCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    AboutCtrl = $controller('AboutCtrl', {
+    DashboardCtrl = $controller('DashboardCtrl', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(AboutCtrl.awesomeThings.length).toBe(3);
+    expect(DashboardCtrl.awesomeThings.length).toBe(3);
   });
 });
