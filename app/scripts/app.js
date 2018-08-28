@@ -30,7 +30,7 @@ angular
 			'http://graph.nimbus.com:8000/**'
 		]);
   
-		$authProvider.baseUrl = 'http://edu.nimbus.com:7070';
+		$authProvider.baseUrl = 'https://nimbus-learning-staging.herokuapp.com';
 		$authProvider.loginUrl = '/api/v1/login';
 		
 		$routeProvider
