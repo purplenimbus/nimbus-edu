@@ -9,7 +9,7 @@
  */
 angular.module('nimbusEduApp')
  	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage) {
- 		$scope.user = JSON.parse($localStorage.auth);
+ 		$scope.user = $localStorage.auth;
 
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 

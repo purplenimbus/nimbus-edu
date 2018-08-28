@@ -56,7 +56,7 @@ angular.module('nimbusEduApp')
 		};
 	})
 	.factory('user', function ($localStorage) {
-		var user = $localStorage.auth ? JSON.parse($localStorage.auth) : false;
+		var user = $localStorage.auth;
 		
 		return user;
 	});

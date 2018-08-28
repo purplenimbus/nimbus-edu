@@ -184,7 +184,7 @@ angular
 				controllerAs: 'courses',
 				resolve:	{
 					coursesData : function(eduApi,$window,apiConst,$localStorage,sweetAlert){
-						var user = JSON.parse($localStorage.auth);
+						var user = localStorage.auth;
 						console.log('before CoursesData',user);
 						return eduApi.api('GET',user.tenant.id+'/courses?paginate='+apiConst.widgetPagination+'&page=1').then(function(result){
 
@@ -248,8 +248,6 @@ angular
 		// keep user logged in after page refresh
 		
 		$rootScope.globals = $cookies.get('auth') || {};
-
-		$rootScope.user = $localStorage.auth ? JSON.parse($localStorage.auth) : false;
 		
 		if ($rootScope.globals && $auth.isAuthenticated()) {			
 			$http.defaults.headers.common.Authorization = 'Bearer ' + $auth.getToken(); // jshint ignore:line
