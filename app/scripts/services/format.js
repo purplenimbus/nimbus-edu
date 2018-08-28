@@ -12,7 +12,7 @@ angular.module('nimbusEduApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
 		return{
 			widgetTitle : function(fname){
-				return fname+'\'s Courses';
+				return fname+'\'s';
 			}
 		};
   });
