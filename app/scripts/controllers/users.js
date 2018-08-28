@@ -8,7 +8,7 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('UsersCtrl', function ($scope,$window,usersData,eduApi,user,$route) {
+	.controller('UsersCtrl', function ($scope,$window,usersData,eduApi,$localStorage,$route) {
 		$scope.defaultPagination = 5;
 		
 		$scope.usersData = usersData;
@@ -16,13 +16,15 @@ angular.module('nimbusEduApp')
 		var userType = $route.current.$$route.controllerAs || false;
 
 		console.log('data',usersData,$route,userType);
+
+		$scope.user = $localStorage.auth;
 		
 		$scope.usersList = usersData.data;
 				
 		var list = new $window.Bloodhound({
 			datumTokenizer: function(d) { console.log('bloodhound d',d); return $window.Bloodhound.tokenizers.whitespace(d.fname); },
 			queryTokenizer: $window.Bloodhound.tokenizers.whitespace,
-			remote:	'http://edu.nimbus.com:7070/'+user.tenant.id+'/users'
+			remote:	'http://edu.nimbus.com:7070/'+$scope.user.tenant.id+'/users'
 		});	
 		
 		list.initialize();
@@ -69,7 +71,7 @@ angular.module('nimbusEduApp')
 		
 		$scope.next = function(page){
 			$scope.loading = true;
-			eduApi.api('GET',user.tenant.id+'/users?paginate='+$scope.defaultPagination+'&page='+page+(userType ? '&user_type='+userType : '')).then(function(result){
+			eduApi.api('GET',$scope.user.tenant.id+'/users?paginate='+$scope.defaultPagination+'&page='+page+(userType ? '&user_type='+userType : '')).then(function(result){
 				
 				console.log('next page:'+page,result.data.data);
 				

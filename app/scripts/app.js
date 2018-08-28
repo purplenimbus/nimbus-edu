@@ -43,8 +43,8 @@ angular
 				controller: 'UsersCtrl',
 				controllerAs: 'student',
 				resolve:	{
-					usersData : function(eduApi,$window,apiConst,user){
-						//console.log('usersData before resolve',user);
+					usersData : function(eduApi,$window,apiConst,$localStorage){
+						var user = $localStorage.auth;
 						return eduApi.api('GET',user.tenant.id+'/users?paginate='+apiConst.componentPagination+'&page=1&user_type=student').then(function(result){
 							console.log('usersData result',result);
 							return result.data;
@@ -67,7 +67,8 @@ angular
 				controller: 'UsersCtrl',
 				controllerAs: 'teacher',
 				resolve:	{
-					usersData : function(eduApi,$window,apiConst,user){
+					usersData : function(eduApi,$window,apiConst,$localStorage){
+						var user = $localStorage.auth;
 						//console.log('usersData before resolve',user);
 						return eduApi.api('GET',user.tenant.id+'/users?paginate='+apiConst.componentPagination+'&page=1&user_type=teacher').then(function(result){
 							console.log('usersData result',result);
@@ -91,8 +92,10 @@ angular
 				controller: 'UsersCtrl',
 				controllerAs: 'parent',
 				resolve:	{
-					usersData : function(eduApi,$window,apiConst,user){
-						//console.log('usersData before resolve',user);
+					usersData : function(eduApi,$window,apiConst,$localStorage){
+
+						var user = $localStorage.auth;
+
 						return eduApi.api('GET',user.tenant.id+'/users?paginate='+apiConst.componentPagination+'&page=1&user_type=parent').then(function(result){
 							console.log('usersData result',result);
 							return result.data;
@@ -115,8 +118,10 @@ angular
 				controller: 'UsersCtrl',
 				controllerAs: 'other',
 				resolve:	{
-					usersData : function(eduApi,$window,apiConst,user){
-						//console.log('usersData before resolve',user);
+					usersData : function(eduApi,$window,apiConst,$localStorage){
+
+						var user = $localStorage.auth;
+
 						return eduApi.api('GET',user.tenant.id+'/users?paginate='+apiConst.componentPagination+'&page=1&user_type=other').then(function(result){
 							console.log('usersData result',result);
 							return result.data;
@@ -183,8 +188,9 @@ angular
 				controllerAs: 'courses',
 				resolve:	{
 					coursesData : function(eduApi,$window,apiConst,$localStorage,sweetAlert){
-						var user = localStorage.auth;
-						console.log('before CoursesData',user);
+
+						var user = $localStorage.auth;
+
 						return eduApi.api('GET',user.tenant.id+'/courses?paginate='+apiConst.widgetPagination+'&page=1').then(function(result){
 
 							console.log(result);
@@ -211,7 +217,7 @@ angular
 				controller: 'RegisterCtrl',
 				controllerAs: 'register',
 				resolve:	{
-					services : function(graphApi,$window,apiConst/*,subdomain*/){
+					services : function(graphApi,$window,apiConst){
 						
 						return graphApi.api('GET','services?paginate='+apiConst.componentPagination+'&page=1').then(function(result){
 							//console.log('eduApi course result',result);
@@ -251,7 +257,7 @@ angular
 		if ($rootScope.globals && $auth.isAuthenticated()) {			
 			$http.defaults.headers.common.Authorization = 'Bearer ' + $auth.getToken(); // jshint ignore:line
 		}
-		
+
 		var history = [];
 
 		$rootScope.$on('$routeChangeStart', function() { 

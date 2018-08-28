@@ -12,17 +12,17 @@ angular.module('nimbusEduApp')
       templateUrl: 'views/templates/users.html',
       restrict: 'E',
 	  scope: true,
-	  controller : function($scope,graphApi,$window,apiConst,subdomain){
+	  controller : function($scope,graphApi,$window,apiConst,$localStorage){
 		$scope.widgetTitle = 'Users';
 		
 		$scope.search = null;
 		
-		$scope.subdomain = subdomain;
+		$scope.user = $localStorage.auth;
 				
 		$scope.init = function(){
 			$scope.loading = true;
 				
-			graphApi.api('GET',subdomain+'/users?paginate='+apiConst.widgetPagination+'&page=1').then(function(result){
+			graphApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page=1').then(function(result){
 				$scope.data = result.data;
 				userList.initialize(true);
 				$scope.loading = false;
@@ -91,7 +91,7 @@ angular.module('nimbusEduApp')
 		
 		$scope.next = function(page){
 			$scope.loading = true;
-			graphApi.api('GET',subdomain+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
+			graphApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
 				$scope.data = result.data;
 				userList.initialize(true);
 				$scope.loading = false;
@@ -108,7 +108,7 @@ angular.module('nimbusEduApp')
 		
 		$scope.prev = function(page){
 			$scope.loading = true;
-			graphApi.api('GET',subdomain+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
+			graphApi.api('GET',$scope.user.tenant.id+'/users?paginate='+apiConst.widgetPagination+'&page='+page).then(function(result){
 				$scope.data = result.data;
 				userList.initialize(true);
 				$scope.loading = false;
