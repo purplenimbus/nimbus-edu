@@ -8,16 +8,14 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('CourseCtrl', function ($scope,$window,grades,eduApi,apiConst,modal,courseService,user,$route,sweetAlert) {
+	.controller('CourseCtrl', function ($scope,$window,grades,eduApi,apiConst,modal,courseService,$localStorage,$route,sweetAlert) {
 		$scope.init = function(){
 			
 			var params = $route.current.params;
-
-
 			
-			console.log();
+			$scope.user = $localStorage.auth;
 			
-			courseService.initCourse($scope,params).then(function(result){
+			courseService.initCourse($scope.user,$scope,params).then(function(result){
 				console.log('courseService result',result);
 				$scope.courseData = result.data;
 
@@ -65,7 +63,7 @@ angular.module('nimbusEduApp')
 			
 			//TO DO do validation here
 			if($scope.courseData){
-				eduApi.api('GET',user.tenant.id+'/lessons?course_id='+$scope.courseData.data[0].course.id+'&paginate='+apiConst.componentPagination+'&page=1')
+				eduApi.api('GET',$scope.user.tenant.id+'/lessons?course_id='+$scope.courseData.data[0].course.id+'&paginate='+apiConst.componentPagination+'&page=1')
 				.then(function(result){
 					console.log('outline loaded',result);
 					if(result.data.length && result.data.data){
