@@ -8,7 +8,8 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('CoursesCtrl', function ($scope,coursesData,grades,courseService,modal,form,uikit3,eduApi,user,apiConst,$window,offcanvas,card) {
+	.controller('CoursesCtrl', function ($scope,coursesData,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card) {
+		$scope.user = $localStorage.auth;
 		$scope.showAdvanced = false;
 		$scope.asset = { 
 			meta : {
@@ -52,7 +53,7 @@ angular.module('nimbusEduApp')
 		
 		$scope.filterByClass = function(classId){
 			console.log('filterByClass',classId);
-			courseService.getCourses(false,classId)
+			courseService.getCourses($scope.user,false,classId)
 			.then(function(result){
 
 				$scope.coursesList = result.data;
@@ -114,7 +115,7 @@ angular.module('nimbusEduApp')
 				},{
 					name:'instructors',
 					display:'firstname',
-					endPoint:eduApi.apiEndPoint+user.tenant.id+'/users?user_type=teacher'
+					endPoint:eduApi.apiEndPoint+$scope.user.tenant.id+'/users?user_type=teacher'
 				}]);
 			}
 
@@ -134,7 +135,7 @@ angular.module('nimbusEduApp')
 		$scope.next = function(page){
 
 			$scope.loading = true;
-			courseService.getCourses(page,(user.meta.course_grade_id || false)) // jshint ignore:line
+			courseService.getCourses($scope.user,page,($scope.user.meta.course_grade_id || false)) // jshint ignore:line
 			.then(function(result){
 
 				result.data.data = $scope.coursesList.data.concat(result.data.data);

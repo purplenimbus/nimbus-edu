@@ -28,13 +28,17 @@ angular.module('nimbusEduApp')
 				
 				return encodeURI(str);
 			},
-			clearUser : function(){
+			clearUser : function($scope){
 								
 				delete $localStorage.auth;
 				
 				delete $rootScope.user;
 				
 				delete $http.defaults.headers.common.Authorization;
+
+				delete $scope.user;
+
+				$scope.$apply;
 												
 			}
 		};

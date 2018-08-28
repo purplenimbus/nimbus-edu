@@ -8,11 +8,12 @@
  * # import
  */
 angular.module('nimbusEduApp')
-  .directive('import', function (uikit3,importService,csvParser,eduApi,user,$window,sweetAlert) {
+  .directive('import', function (uikit3,importService,csvParser,eduApi,$window,sweetAlert) {
     return {
       template: importService.render(),
       restrict: 'E',
-      controller : function($scope,$timeout){
+      controller : function($scope,$timeout,$localStorage){
+      		$scope.user = $localStorage.auth;
       		$scope.workbook = [];
       		$scope.importTypes = importService.importTypes();
       		//$scope.importType = false;
@@ -65,7 +66,7 @@ angular.module('nimbusEduApp')
 					$scope.loading = true;
 					$scope.$apply();
 					if(e){
-						eduApi.api('POST',user.tenant.id+'/courses/batch?type='+type.value,data)
+						eduApi.api('POST',$scope.user.tenant.id+'/courses/batch?type='+type.value,data)
 		  				.then(function(result){
 		  					console.log('import result',result);
 		  					$scope.loading = false;

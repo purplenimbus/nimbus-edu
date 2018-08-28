@@ -54,5 +54,5 @@ angular.module('nimbusEduApp')
 	$scope.breadcrumbs = breadcrumbs.parse($location.path());
 	
 	$scope.auth = $auth;
-	console.log('Nav loggedIn',$auth.isAuthenticated());
+	
   });

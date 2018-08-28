@@ -8,7 +8,7 @@
  * Service in the nimbusEduApp.
  */
 angular.module('nimbusEduApp')
-	.service('courseService', function (modal,form,uikit3,$window,eduApi,user,apiConst) {
+	.service('courseService', function (modal,form,uikit3,$window,eduApi,$localStorage,apiConst) {
 		//this.newAsset = {};
 
 		this.initTypeAhead = function($scope,fields){
@@ -71,7 +71,7 @@ angular.module('nimbusEduApp')
 			});*/
 		};
 		
-		this.initCourse = function($scope,params){
+		this.initCourse = function(user,$scope,params){
 			//var self = this;
 			
 			$scope.loadingHome = true;
@@ -100,7 +100,7 @@ angular.module('nimbusEduApp')
 			];
 		};
 
-		this.getCourses = function(page,classId){
+		this.getCourses = function(user,page,classId){
 			return eduApi.api('GET',user.tenant.id+'/courses?paginate='+apiConst.widgetPagination+(page ? '&page='+page : '')+(classId ? '&course_grade_id='+classId : ''));
 		};
 	});
