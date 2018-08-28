@@ -65,7 +65,7 @@ angular.module('nimbusEduApp')
 			$scope.closeModal();
 			$route.reload();
 			
-		}).catch(function(error){
+		}).catch(function(){
 			$scope.authLoading = false;	
 			//handle error
 			//console.log('Login Error',error);

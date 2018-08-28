@@ -244,7 +244,7 @@ angular
 			});
 			
 	})
-	.run(function($rootScope, $location, $cookies, $http,$auth,$window,$localStorage) {
+	.run(function($rootScope, $location, $cookies, $http,$auth,$window) {
 		// keep user logged in after page refresh
 		
 		$rootScope.globals = $cookies.get('auth') || {};
