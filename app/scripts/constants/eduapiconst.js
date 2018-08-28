@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.eduApiConst
+ * @name nimbusEduApp.eduApiConst
  * @description
  * # eduApiConst
- * Constant in the nimbusEmsApp.
+ * Constant in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   	.constant('eduApiConst', {
   		defaultCourseSchema : {
             lab: {value:5,enabled:true},

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.userService
+ * @name nimbusEduApp.userService
  * @description
  * # userService
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   	.service('userService', function (eduApi,$localStorage,$rootScope) {
   		var user = JSON.parse($localStorage.auth);
       console.log('save user',user);

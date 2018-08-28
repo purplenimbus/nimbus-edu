@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:courses
+ * @name nimbusEduApp.directive:courses
  * @description
  * # courses
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('courses', function () {
     return {
 		templateUrl: 'views/templates/courses.html',

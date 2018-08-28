@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:UsersCtrl
+ * @name nimbusEduApp.controller:UsersCtrl
  * @description
  * # UsersCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.controller('UsersCtrl', function ($scope,$window,usersData,eduApi,user,$route) {
 		$scope.defaultPagination = 5;
 		

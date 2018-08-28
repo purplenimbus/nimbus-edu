@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:tasks
+ * @name nimbusEduApp.directive:tasks
  * @description
  * # tasks
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('tasks', function (modal,form,tasks,tasksConst,uikit3,$window,graphApi) {
 	
     return {

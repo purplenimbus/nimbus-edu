@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:RegisterCtrl
+ * @name nimbusEduApp.controller:RegisterCtrl
  * @description
  * # RegisterCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .controller('RegisterCtrl', function ($scope,$window,services,graphApi,$location) {
     $scope.registration = {
 		meta : {}

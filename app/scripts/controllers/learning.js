@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:LearningCtrl
+ * @name nimbusEduApp.controller:LearningCtrl
  * @description
  * # LearningCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .controller('LearningCtrl', function ($scope,$window,settings) {
 	 
 	$scope.dashboardSettings = settings.getSettings('learningDashboard');

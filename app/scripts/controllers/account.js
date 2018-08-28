@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:AccountCtrl
+ * @name nimbusEduApp.controller:AccountCtrl
  * @description
  * # AccountCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.controller('AccountCtrl', function ($scope,$window,eduApi,$route,apiConst,user,sweetAlert,userService,$localStorage) {
 	
 	$scope.init = function(){

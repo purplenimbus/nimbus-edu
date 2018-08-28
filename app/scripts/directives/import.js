@@ -3,11 +3,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:import
+ * @name nimbusEduApp.directive:import
  * @description
  * # import
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('import', function (uikit3,importService,csvParser,eduApi,user,$window,sweetAlert) {
     return {
       template: importService.render(),

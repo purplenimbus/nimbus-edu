@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:upload
+ * @name nimbusEduApp.directive:upload
  * @description
  * # upload
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('upload', function (uikit3) {
     return {
       	template: uikit3.upload({}),

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.card
+ * @name nimbusEduApp.card
  * @description
  * # card
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   	.service('card', function (uikit3,form,courseService,eduApi,user) {
   		var self = this;
     	this.type = function(type,key,$scope,edit){

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:AboutCtrl
+ * @name nimbusEduApp.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

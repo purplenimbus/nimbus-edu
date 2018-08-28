@@ -3,12 +3,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:ProfileCtrl
+ * @name nimbusEduApp.controller:ProfileCtrl
  * @description
  * # ProfileCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.controller('ProfileCtrl', function ($scope,$window,$route,graphApi,modal,$localStorage,user) {
 		
 		$scope.init = function(){

@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:studentList
+ * @name nimbusEduApp.directive:studentList
  * @description
  * # studentList
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.directive('studentList', function () {			
 		return {
 			scope:true,

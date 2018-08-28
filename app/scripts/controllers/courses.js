@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:CoursesCtrl
+ * @name nimbusEduApp.controller:CoursesCtrl
  * @description
  * # CoursesCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.controller('CoursesCtrl', function ($scope,coursesData,grades,courseService,modal,form,uikit3,eduApi,user,apiConst,$window,offcanvas,card) {
 		$scope.showAdvanced = false;
 		$scope.asset = { 

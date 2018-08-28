@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.apiConst
+ * @name nimbusEduApp.apiConst
  * @description
  * # apiConst
- * Constant in the nimbusEmsApp.
+ * Constant in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.constant('apiConst', {
 		componentPagination : 10, 
 		widgetPagination : 5, 

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.form
+ * @name nimbusEduApp.form
  * @description
  * # form
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.service('form', function (uikit3) {
 		// AngularJS will instantiate a singleton by calling "new" on this function
 		this.build = function(data,form){

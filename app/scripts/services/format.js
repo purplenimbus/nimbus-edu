@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.format
+ * @name nimbusEduApp.format
  * @description
  * # format
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .service('format', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
 		return{

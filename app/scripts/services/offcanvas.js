@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.offcanvas
+ * @name nimbusEduApp.offcanvas
  * @description
  * # offcanvas
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.service('offcanvas', function ($window,uikit3,$compile) {
 		// AngularJS will instantiate a singleton by calling "new" on this function		
 		this.offcanvas = function(type){

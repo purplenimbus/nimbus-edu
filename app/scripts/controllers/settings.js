@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:SettingsCtrl
+ * @name nimbusEduApp.controller:SettingsCtrl
  * @description
  * # SettingsCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .controller('SettingsCtrl', function () {
 
   });

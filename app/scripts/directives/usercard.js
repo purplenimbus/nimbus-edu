@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:usercard
+ * @name nimbusEduApp.directive:usercard
  * @description
  * # usercard
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('usercard', function (uikit3) {
 
   	var template = '';

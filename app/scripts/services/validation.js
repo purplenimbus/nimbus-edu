@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.validation
+ * @name nimbusEduApp.validation
  * @description
  * # validation
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.service('validation', function ($q) {
 		// AngularJS will instantiate a singleton by calling "new" on this function
 		return {
