@@ -12,7 +12,7 @@ angular.module('nimbusEduApp')
 	
 	$scope.init = function(){
 		//console.log('profile init',$localStorage.auth);
-		$scope.profileData = JSON.parse($localStorage.auth); //to get the latest data?
+		$scope.profileData = $localStorage.auth; //to get the latest data?
 	};
 	
 	$scope.save = function(data){
