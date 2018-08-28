@@ -1,9 +1,175 @@
-<!doctype html> <html> <head> <meta charset="utf-8"> <title></title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/css/uikit.min.css"> <link rel="stylesheet" href="styles/vendor.fb722bfd.css"> <link rel="stylesheet" href="styles/main.e13b0a39.css"> <meta name="fragment" content="!"> </head> <body ng-app="nimbusEduApp"> <!--[if lte IE 8]>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/css/uikit.min.css" />
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/c3/c3.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+	<meta name="fragment" content="!" />
+  </head>
+  <body ng-app="nimbusEduApp">
+    <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]--> <!-- Add your site or application content here --> <div id="uk-offcanvas-content"> <div ng-include="'views/partials/_navbar.html'"></div> <span uk-spinner ng-if="$root.showLoader" class="uk-width-1-1 uk-text-center uk-margin"></span> <div id="view" ng-view="" ng-if="!$root.showLoader"></div> <!-- This is the off-canvas --> <div id="side-menu" uk-offcanvas ng-controller="NavCtrl"> <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide"> <button class="uk-offcanvas-close" type="button" uk-close></button> <usercard id="user"></usercard> <ul class="uk-nav-default uk-nav-parent-icon uk-position-bottom uk-padding" uk-nav> <li ng-repeat="(key , nav) in navSettings" ng-if="!nav.disabled && user.access_level.id >= nav.access_level" ng-class="nav.children ? 'uk-parent' : ''"> <a ng-href="#!/{{ nav.url }}"> <span class="uk-margin-small-right" uk-icon="icon: {{ nav.icon }}"></span> {{ key | uppercase }} </a> <ul class="uk-nav-sub" ng-if="nav.children"> <li ng-repeat="(childKey,child) in nav.children" ng-if="user.access_level.id >= child.access_level"> <a ng-href="#!/{{ child.url }}"> <span class="uk-margin-small-right" uk-icon="icon: {{ child.icon }}"></span> {{ childKey | uppercase }} </a> </li> </ul> </li> <li class="uk-nav-divider" ng-if="auth.isAuthenticated() && user.access_level.id >= 2"></li> <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/tools" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: bolt"></span> tools</a></li> <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/settings" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: cog"></span> settings</a></li> <li ng-if="auth.isAuthenticated()" class="uk-text-uppercase"> <a href="#!/profile/settings/"> <span class="uk-margin-small-right" uk-icon="icon: user"></span> My Account</a> </li> <li ng-if="auth.isAuthenticated()" class="uk-text-uppercase"> <a ng-click="logout()" data-target="#signout"> <span class="uk-margin-small-right" uk-icon="icon: sign-out"></span> Sign Out</a> </li> </ul> </div> </div> </div> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+
+    <div id="uk-offcanvas-content">
+		<div ng-include="'views/partials/_navbar.html'"></div>
+		<span uk-spinner ng-if="$root.showLoader" class="uk-width-1-1 uk-text-center uk-margin"></span>
+		<div id="view" ng-view="" ng-if="!$root.showLoader"></div>
+		<!-- This is the off-canvas -->
+		<div id="side-menu" uk-offcanvas ng-controller="NavCtrl">
+		      <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
+
+			<button class="uk-offcanvas-close" type="button" uk-close></button>
+            <usercard id="user"></usercard>
+			<ul class="uk-nav-default uk-nav-parent-icon uk-position-bottom uk-padding" uk-nav>
+				<li ng-repeat="(key , nav) in navSettings" ng-if="!nav.disabled && user.access_level.id >= nav.access_level" ng-class="nav.children ? 'uk-parent' : ''">
+					<a ng-href="#!/{{ nav.url }}">
+						<span class="uk-margin-small-right" uk-icon="icon: {{ nav.icon }}"></span> 
+						{{ key | uppercase }}
+					</a>
+					<ul class="uk-nav-sub" ng-if="nav.children">
+						<li ng-repeat="(childKey,child) in nav.children" ng-if="user.access_level.id >= child.access_level">
+							<a ng-href="#!/{{ child.url }}">
+								<span class="uk-margin-small-right" uk-icon="icon: {{ child.icon }}"></span>
+								{{ childKey | uppercase }}
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="uk-nav-divider" ng-if="auth.isAuthenticated() && user.access_level.id >= 2"></li>
+                <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/tools" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: bolt"></span> tools</a></li>
+                <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/settings" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: cog"></span> settings</a></li>
+                <li ng-if="auth.isAuthenticated()" class="uk-text-uppercase">
+                    <a href="#!/profile/settings/">
+                    <span class="uk-margin-small-right" uk-icon="icon: user"></span>
+                    My Account</a>
+                </li>
+                <li ng-if="auth.isAuthenticated()" class="uk-text-uppercase"> 
+                    <a ng-click="logout()" data-target="#signout">
+                    <span class="uk-margin-small-right" uk-icon="icon: sign-out"></span>
+                    Sign Out</a>
+                </li>
+			</ul>
+		  </div>
+		</div>
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');</script> <script src="scripts/vendor.e17eb4f7.js"></script> <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script> <script src="scripts/scripts.bcac4ee7.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js"></script> <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> </body> </html>
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+    <script src="bower_components/angular-typeahead/dist/angular-typeahead.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/c3/c3.js"></script>
+    <script src="bower_components/angular-chart/angular-chart.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/papaparse/papaparse.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+
+        <script src="scripts/directives/tasks.js"></script>
+        
+		<script src="scripts/services/modal.js"></script>
+		<script src="scripts/services/form.js"></script>
+		<script src="scripts/services/offcanvas.js"></script>
+		
+        <script src="scripts/controllers/tasks.js"></script>
+        <script src="scripts/services/tasks.js"></script>
+        <script src="scripts/controllers/nav.js"></script>
+        <script src="scripts/services/settings.js"></script>
+        <script src="scripts/constants/tasksconst.js"></script>
+        <script src="scripts/services/moment.js"></script>
+        <script src="scripts/services/validation.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/directives/requests.js"></script>
+        <script src="scripts/controllers/users.js"></script>
+        <script src="scripts/controllers/account.js"></script>
+        <script src="scripts/controllers/inventory.js"></script>
+        <script src="scripts/directives/reports.js"></script>
+        <script src="scripts/directives/users.js"></script>
+        <script src="scripts/constants/api.js"></script>
+        <script src="scripts/controllers/learning.js"></script>
+        <script src="scripts/controllers/course.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
+        <script src="scripts/directives/mycourses.js"></script>
+        <script src="scripts/directives/activityfeed.js"></script>
+        <script src="scripts/services/grades.js"></script>
+        
+        <script src="scripts/directives/courses.js"></script>
+        <script src="scripts/controllers/courses.js"></script>
+        <script src="scripts/controllers/register.js"></script>
+        <script src="scripts/services/courseservice.js"></script>
+        <script src="scripts/directives/userpill.js"></script>
+        <script src="scripts/services/format.js"></script>
+        <script src="scripts/directives/studentlist.js"></script>
+        <script src="scripts/directives/upload.js"></script>
+        <script src="scripts/services/upload.js"></script>
+        <script src="scripts/services/csvparser.js"></script>
+        <script src="scripts/directives/import.js"></script>
+        <script src="scripts/services/import.js"></script>
+        <script src="scripts/controllers/settings.js"></script>
+        <script src="scripts/controllers/tools.js"></script>
+        
+        <script src="scripts/services/userservice.js"></script>
+        <script src="scripts/constants/eduapiconst.js"></script>
+        <script src="scripts/services/card.js"></script>
+        <script src="scripts/directives/overview.js"></script>
+        <script src="scripts/directives/usercard.js"></script>
+
+        <script src="scripts/factories/api.js"></script>
+        <script src="scripts/factories/breadcrumbs.js"></script>
+        <script src="scripts/factories/uikit3.js"></script>
+        <script src="scripts/factories/sweetalert.js"></script>
+        <script src="scripts/directives/searchfilter.js"></script>
+        <script src="scripts/directives/spinner.js"></script>
+        <!-- endbuild -->
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</body>
+</html>
