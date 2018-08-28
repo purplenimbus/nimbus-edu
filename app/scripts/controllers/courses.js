@@ -116,7 +116,7 @@ angular.module('nimbusEduApp')
 			console.log(type+' card',$scope);
 		};
 
-		$scope.init = function(page=1,classId=false){
+		$scope.init = function(page,classId){
 			$scope.loading = true; 
 			$scope.user = $localStorage.auth;
 			$scope.showAdvanced = false;
