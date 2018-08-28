@@ -19,7 +19,7 @@ angular.module('nimbusEduApp')
       scope:{filter:'=filter'},
       controller:function($scope){
         $scope.searchFilter = $scope.filter.courseGrade.options[0];
-      	$scope.filterResults = (searchFilter) => {
+      	$scope.filterResults = function(searchFilter){
       		$scope.$emit('searchFilter',searchFilter);
       	};
       },
