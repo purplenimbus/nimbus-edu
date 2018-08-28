@@ -75,18 +75,8 @@ angular.module('nimbusEduApp')
 			//var self = this;
 			
 			$scope.loadingHome = true;
-			
-			$scope.students = [];
-			
-			if(typeof params === 'object'){
-				params.paginate = apiConst.widgetPagination;
-			}
 
-			//params.course_id = params.id;
-
-			//delete params.id;
-
-			console.log('courseService initCourse',params,queryString.objectToQuerystring(params));
+			//console.log('courseService initCourse',params,queryString.objectToQuerystring(params));
 						
 			return eduApi.api('GET',user.tenant.id+'/registrations'+queryString.objectToQuerystring(params));
 		};

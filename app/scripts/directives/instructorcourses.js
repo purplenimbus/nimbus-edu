@@ -10,8 +10,8 @@ angular.module('nimbusEduApp')
   .directive('instructorCourses', function () {
   	var template = '';
   		template += '<div uk-grid="masonry: true">';
-		template += '    <div class="uk-width-1-2@s uk-width-1-3@m">';
-		template += '    	<student-list class="uk-flex uk-flex-center uk-flex-middle" course="160"  list="false"></student-list>';
+		template += '    <div class="uk-width-1-2@s uk-width-1-3@m" ng-repeat="course in coursesList.data">';
+		template += '    	<student-list class="uk-flex uk-flex-center uk-flex-middle" course="course"  list="false"></student-list>';
 		template += '    </div>';
 	    template += '</div>';
 
@@ -25,8 +25,7 @@ angular.module('nimbusEduApp')
       		$scope.loading = true;
 
       		var params = {
-      			page : 1,
-      			instructor_id : 19,//$scope.user.id
+      			instructor_id : $scope.user.id
       		};
 
       		courseService.getCourses($scope.user,params).then(function(result){

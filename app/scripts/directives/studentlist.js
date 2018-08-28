@@ -26,9 +26,9 @@ angular.module('nimbusEduApp')
 
 			body += '<div class="uk-card-body uk-overflow-auto uk-padding-remove">';
 			body += '<spinner ng-if="loading"></spinner>';
-			body += '<div ng-if="!students.data && !loading" class="uk-placeholder uk-text-capitalize uk-text-muted">no students found</div>';
-			body += '<div ng-if="!list && !loading" uk-grid><user-pill user="student.user" name="false" ng-repeat="student in students.data" ng-if="!loading && students.data"></user-pill></div>'
-			body += '<table class="uk-table uk-table-hover uk-table-middle uk-table-small" ng-if="!loading && students.data && list">';
+			body += '<div ng-if="!students && !loading" class="uk-margin-remove uk-placeholder uk-text-center uk-text-capitalize uk-text-muted">no students found</div>';
+			body += '<div ng-if="!list && !loading" uk-grid><user-pill user="student.user" name="false" ng-repeat="student in students" ng-if="!loading && students"></user-pill></div>'
+			body += '<table class="uk-table uk-table-hover uk-table-middle uk-table-small" ng-if="!loading && students && list">';
 			body += '	<thead>';
 			body += '		<tr>';
 			//body += '			<th class="uk-table-shrink"></th>';
@@ -37,7 +37,7 @@ angular.module('nimbusEduApp')
 			body += '		</tr>';
 			body += '	</thead>';
 			body += '	<tbody>';
-			body += '		<tr ng-repeat="student in students.data">';
+			body += '		<tr ng-repeat="student in students">';
 			body += '			<td class="uk-table-link"><user-pill user="student.user" name="true"></user-pill></td>';
 			//body += '			<td class="uk-table-link">';
 			//body += '				<a class="uk-link-reset uk-text-capitalize" ng-href="#!/profile/{{ student.user.id }}">{{ student.user.firstname }}, {{ student.user.lastname }}</a>';
@@ -59,18 +59,17 @@ angular.module('nimbusEduApp')
 			});		
 		return {
 			template: template,
-			scope:{courseId :'=course',list:'=list'},
+			scope:{course :'=course',list:'=list'},
 			controller : function($scope,courseService,grades,$localStorage){
 				
 				$scope.init = function(){
 					$scope.loading = true;
-					courseService.initCourse($localStorage.auth,$scope,{id:$scope.courseId}).then(function(result){
+					courseService.initCourse($localStorage.auth,$scope,{course_id:$scope.course.id}).then(function(result){
 						//console.log('studentList directive result',result);
-						$scope.course = result.data.data[0].course;
 						$scope.loading = false;
 						$scope.students = result.data;
 					}).catch(function(error){
-
+						$scope.loading = false;
 					});	
 				};
 				
