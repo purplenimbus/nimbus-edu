@@ -1,6 +1,7 @@
 <div ng-include="'views/partials/_toolbar.html'"></div>
 <section>
-	<div ng-if="!coursesList.data.length && $loading" class="uk-width-1-1">
+	<spinner ng-if="loading"></spinner>
+	<div ng-if="!coursesList.data.length && !loading" class="uk-width-1-1">
 		<div class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
 			<span class="uk-margin-small-right" uk-icon="ban"></span> {{ 'no courses' | uppercase }}
 		</div>

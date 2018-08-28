@@ -173,7 +173,8 @@ angular.module('nimbusEduApp')
 			$scope.searchFilter = searchFilter;
 			$scope.init(1,$scope.searchFilter.id);
 		});
-
+		
+		$scope.searchFilter = false;
 		$scope.init();
 		
 	});
