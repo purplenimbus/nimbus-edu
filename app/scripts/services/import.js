@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.import
+ * @name nimbusEduApp.import
  * @description
  * # import
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .service('importService', function (uikit3) {
     this.render = function(){
     	var str = '',body = '',header='',selection='';

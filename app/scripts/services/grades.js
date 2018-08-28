@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.grades
+ * @name nimbusEduApp.grades
  * @description
  * # grades
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.service('grades', function () {
 		return {
 			getGrade : function(total){

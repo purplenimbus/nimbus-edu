@@ -5,11 +5,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:myCourses
+ * @name nimbusEduApp.directive:myCourses
  * @description
  * # myCourses
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('myCourses', function () {
     return {
 		templateUrl: 'views/templates/myCourses.html',

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.csvParser
+ * @name nimbusEduApp.csvParser
  * @description
  * # csvParser
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   	.service('csvParser', function ($window,$q) {
     	this.parse = function(files){
     		var workbook = [],

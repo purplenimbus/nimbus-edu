@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:userPill
+ * @name nimbusEduApp.directive:userPill
  * @description
  * # userPill
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('userPill', function () {
 	var user = {fname:'tony'};
     return {

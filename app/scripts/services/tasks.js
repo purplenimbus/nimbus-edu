@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.tasks
+ * @name nimbusEduApp.tasks
  * @description
  * # tasks
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .service('tasks', function ($http) {
 	this.endpoint = 'http://localhost:8000';
 		

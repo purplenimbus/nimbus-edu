@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:activityFeed
+ * @name nimbusEduApp.directive:activityFeed
  * @description
  * # activityFeed
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.directive('activityFeed', function () {
 		return {
 			templateUrl: 'views/templates/activityFeed.html',

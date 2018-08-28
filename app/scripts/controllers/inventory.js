@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:InventoryCtrl
+ * @name nimbusEduApp.controller:InventoryCtrl
  * @description
  * # InventoryCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.controller('InventoryCtrl', function ($scope,$window) {
 		$scope.inventoryData = [{
 			sku:'0000-0001',

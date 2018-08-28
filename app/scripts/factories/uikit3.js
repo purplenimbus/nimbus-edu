@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.uikit3
+ * @name nimbusEduApp.uikit3
  * @description
  * # uikit3
- * Factory in the nimbusEmsApp.
+ * Factory in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.factory('uikit3', function () {
 
 		return {

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:AuthCtrl
+ * @name nimbusEduApp.controller:AuthCtrl
  * @description
  * # AuthCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.controller('AuthCtrl', function ($auth,$state,$rootScope,$scope,validation,form,elements,modal,$route,auth) {
 		
 		//$rootScope.loggedIn = false; //Initialize logged in flag

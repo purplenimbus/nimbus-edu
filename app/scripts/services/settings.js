@@ -2,12 +2,12 @@
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 /**
  * @ngdoc service
- * @name nimbusEmsApp.settings
+ * @name nimbusEduApp.settings
  * @description
  * # settings
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .service('settings', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
 	this.settings = {

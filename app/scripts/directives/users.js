@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:users
+ * @name nimbusEduApp.directive:users
  * @description
  * # users
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('users', function () {
     return {
       templateUrl: 'views/templates/users.html',

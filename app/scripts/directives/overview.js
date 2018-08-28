@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name nimbusEmsApp.directive:overview
+ * @name nimbusEduApp.directive:overview
  * @description
  * # overview
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .directive('overview', function () {
   	
   	var template = '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid>';

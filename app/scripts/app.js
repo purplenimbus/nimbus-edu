@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name nimbusEmsApp
+ * @name nimbusEduApp
  * @description
- * # nimbusEmsApp
+ * # nimbusEduApp
  *
  * Main module of the application.
  */
 angular
-	.module('nimbusEmsApp', [
+	.module('nimbusEduApp', [
 		'ngAnimate',
 		'ngCookies',
 		'ngResource',

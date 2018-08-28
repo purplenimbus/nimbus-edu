@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.moment
+ * @name nimbusEduApp.moment
  * @description
  * # moment
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .service('moment', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
   });

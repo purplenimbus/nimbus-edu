@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.tasksConst
+ * @name nimbusEduApp.tasksConst
  * @description
  * # tasksConst
- * Constant in the nimbusEmsApp.
+ * Constant in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.constant('tasksConst', function(){
 		return {
 			statusTypes : [{

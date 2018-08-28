@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name nimbusEmsApp.controller:LoginCtrl
+ * @name nimbusEduApp.controller:LoginCtrl
  * @description
  * # LoginCtrl
- * Controller of the nimbusEmsApp
+ * Controller of the nimbusEduApp
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.controller('LoginCtrl', function ($scope,$route,$rootScope,validation,$auth,auth,$window,user,$location,$http,userService) {
 		
 	if(!$auth.isAuthenticated){

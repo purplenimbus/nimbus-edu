@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.breadcrumbs
+ * @name nimbusEduApp.breadcrumbs
  * @description
  * # breadcrumbs
- * Factory in the nimbusEmsApp.
+ * Factory in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .factory('breadcrumbs', function () {
     // Service logic
     // ...

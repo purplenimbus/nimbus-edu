@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.emsApi
+ * @name nimbusEduApp.emsApi
  * @description
  * # emsApi
- * Factory in the nimbusEmsApp.
+ * Factory in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.factory('graphApi', function ($http) {
 		var self = this;
 		// Service logic

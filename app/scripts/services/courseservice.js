@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.courseService
+ * @name nimbusEduApp.courseService
  * @description
  * # courseService
- * Service in the nimbusEmsApp.
+ * Service in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
 	.service('courseService', function (modal,form,uikit3,$window,eduApi,user,apiConst) {
 		//this.newAsset = {};
 

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name nimbusEmsApp.sweetAlert
+ * @name nimbusEduApp.sweetAlert
  * @description
  * # sweetAlert
- * Factory in the nimbusEmsApp.
+ * Factory in the nimbusEduApp.
  */
-angular.module('nimbusEmsApp')
+angular.module('nimbusEduApp')
   .factory('sweetAlert', function ($window) {
     // Service logic
     return {
