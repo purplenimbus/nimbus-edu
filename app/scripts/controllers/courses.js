@@ -8,43 +8,7 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('CoursesCtrl', function ($scope,coursesData,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card) {
-		$scope.user = $localStorage.auth;
-		$scope.showAdvanced = false;
-		$scope.asset = { 
-			meta : {
-				course_grade_id : 1, // jshint ignore:line
-				course_schema : { // jshint ignore:line
-		            lab: {value:5,enabled:true},
-		            exam: {value:35,enabled:true},
-		            quiz: {value:10,enabled:true},
-		            midterm: {value:30,enabled:true},
-		            assignment: {value:15,enabled:true},
-		            attendance: {value:5,enabled:true}
-		        }
-			} 
-		};
-
-		$scope.coursesList = coursesData;
-
-		if(!coursesData.length){
-			$scope.noCoursesMessage = 'No Content';
-		}
-
-		$scope.createCourseInit = false;
-
-		$scope.offCanvasOpen = false;
-
-		$scope.filter = {
-			courseGrade : {
-				options: courseService.getClasses(),
-				label:'filter by class'
-			},
-			assigned : {
-				value:false,
-				label:'assigned'
-			}
-		};
+	.controller('CoursesCtrl', function ($scope,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card) {
 
 		$scope.getSchema = function(){
 			return Object.keys($scope.asset.meta.course_schema); // jshint ignore:line
@@ -173,5 +137,64 @@ angular.module('nimbusEduApp')
 
 			console.log(type+' card',$scope);
 		};
+
+		$scope.init = function(page=1,classId=false){
+			$scope.loading = true; 
+			$scope.user = $localStorage.auth;
+			$scope.showAdvanced = false;
+			$scope.asset = { 
+				meta : {
+					course_grade_id : 1, // jshint ignore:line
+					course_schema : { // jshint ignore:line
+			            lab: {value:5,enabled:true},
+			            exam: {value:35,enabled:true},
+			            quiz: {value:10,enabled:true},
+			            midterm: {value:30,enabled:true},
+			            assignment: {value:15,enabled:true},
+			            attendance: {value:5,enabled:true}
+			        }
+				} 
+			};
+
+			$scope.createCourseInit = false;
+
+			$scope.offCanvasOpen = false;
+
+			$scope.filter = {
+				courseGrade : {
+					options: courseService.getClasses(),
+					label:'filter by class'
+				},
+				assigned : {
+					value:false,
+					label:'assigned'
+				}
+			};
+			console.log();
+			courseService.getCourses($scope.user,page,classId).then(function(result){
+				console.log('courseService init',result);
+				$scope.coursesList = result.data;
+				$scope.loading = false; 
+			})
+			.catch(function(){
+				$scope.loading = false; 
+				sweetAlert.alert({
+				   	title: 'Something\'s Wrong',
+				   	text : error.data.message,
+				   	icon: 'error',
+				   	buttons:{
+						confirm: sweetAlert.button({text:'ok'})
+					}
+				});
+			});
+		}
+
+		$scope.$on('searchFilter', function(e,searchFilter) { 
+			console.log('searchFilter',searchFilter); 
+			$scope.coursesList = [];
+			$scope.init(1,searchFilter.id);
+		});
+
+		$scope.init();
 		
 	});
