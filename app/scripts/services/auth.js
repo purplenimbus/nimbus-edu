@@ -38,7 +38,7 @@ angular.module('nimbusEduApp')
 
 				delete $scope.user;
 
-				$scope.$apply;
+				$scope.$apply();
 												
 			}
 		};

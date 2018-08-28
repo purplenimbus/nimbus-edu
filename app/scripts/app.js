@@ -185,32 +185,7 @@ angular
 			.when('/learning/courses', {
 				templateUrl: 'views/courses.html',
 				controller: 'CoursesCtrl',
-				controllerAs: 'courses',
-				resolve:	{
-					coursesData : function(eduApi,$window,apiConst,$localStorage,sweetAlert){
-
-						var user = $localStorage.auth;
-
-						return eduApi.api('GET',user.tenant.id+'/courses?paginate='+apiConst.widgetPagination+'&page=1').then(function(result){
-
-							console.log(result);
-
-							return result.data;
-						})
-						.catch(function(error){
-							console.log('eduApi course error',error);
-							sweetAlert.alert({
-							   	title: 'Something\'s Wrong',
-							   	text : error.data.message,
-							   	icon: 'error',
-							   	buttons:{
-									confirm: sweetAlert.button({text:'ok'})
-								}
-							});
-						});
-						
-					}
-				}
+				controllerAs: 'courses'
 			})
 			.when('/register', {
 				templateUrl: 'views/register.html',

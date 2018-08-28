@@ -13,7 +13,9 @@
 				<li ng-if="false">
 					<a ng-click="editCourse()" uk-icon="icon: file-edit" data-target="#create"></a>
 				</li>
-				
+				<li ng-if="filter">
+					<search-filter filter="filter"></search-filter>
+				</li>
 			</ul>
 		</div>
 	</div>

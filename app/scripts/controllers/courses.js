@@ -8,36 +8,7 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('CoursesCtrl', function ($scope,coursesData,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card) {
-		$scope.user = $localStorage.auth;
-		$scope.showAdvanced = false;
-		$scope.asset = { 
-			meta : {
-				course_grade_id : 1, // jshint ignore:line
-				course_schema : { // jshint ignore:line
-		            lab: {value:5,enabled:true},
-		            exam: {value:35,enabled:true},
-		            quiz: {value:10,enabled:true},
-		            midterm: {value:30,enabled:true},
-		            assignment: {value:15,enabled:true},
-		            attendance: {value:5,enabled:true}
-		        }
-			} 
-		};
-
-		$scope.coursesList = coursesData;
-
-		if(!coursesData.length){
-			$scope.noCoursesMessage = 'No Content';
-		}
-
-		$scope.createCourseInit = false;
-
-		$scope.classes = courseService.getClasses();
-
-		$scope.classFilter = $scope.classes[0];
-
-		$scope.offCanvasOpen = false;
+	.controller('CoursesCtrl', function ($scope,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card) {
 
 		$scope.getSchema = function(){
 			return Object.keys($scope.asset.meta.course_schema); // jshint ignore:line
@@ -49,28 +20,6 @@ angular.module('nimbusEduApp')
 		
 		$scope.courseGrade = function(course){
 			return grades.getGrade(grades.getAverage(course));
-		};
-		
-		$scope.filterByClass = function(classId){
-			console.log('filterByClass',classId);
-			courseService.getCourses($scope.user,false,classId)
-			.then(function(result){
-
-				$scope.coursesList = result.data;
-
-				$scope.loading = false;
-			}).catch(function(error){
-				console.log('eduApi error',error);
-
-				$window.UIkit.notification({
-					message: error.data.message,
-					status: 'danger',
-					pos: 'top-right',
-					timeout: 5000
-				});
-
-				$scope.loading = false;
-			});
 		};
 
 		$scope.createCourse = function(){
@@ -135,7 +84,7 @@ angular.module('nimbusEduApp')
 		$scope.next = function(page){
 
 			$scope.loading = true;
-			courseService.getCourses($scope.user,page,($scope.user.meta.course_grade_id || false)) // jshint ignore:line
+			courseService.getCourses($scope.user,page,($scope.searchFilter.id || false)) // jshint ignore:line
 			.then(function(result){
 
 				result.data.data = $scope.coursesList.data.concat(result.data.data);
@@ -166,5 +115,66 @@ angular.module('nimbusEduApp')
 
 			console.log(type+' card',$scope);
 		};
+
+		$scope.init = function(page=1,classId=false){
+			$scope.loading = true; 
+			$scope.user = $localStorage.auth;
+			$scope.showAdvanced = false;
+			$scope.asset = { 
+				meta : {
+					course_grade_id : 1, // jshint ignore:line
+					course_schema : { // jshint ignore:line
+			            lab: {value:5,enabled:true},
+			            exam: {value:35,enabled:true},
+			            quiz: {value:10,enabled:true},
+			            midterm: {value:30,enabled:true},
+			            assignment: {value:15,enabled:true},
+			            attendance: {value:5,enabled:true}
+			        }
+				} 
+			};
+
+			$scope.createCourseInit = false;
+
+			$scope.offCanvasOpen = false;
+
+			$scope.filter = {
+				courseGrade : {
+					options: courseService.getClasses(),
+					label:'filter by class'
+				},
+				assigned : {
+					value:false,
+					label:'assigned'
+				}
+			};
+			console.log();
+			courseService.getCourses($scope.user,page,classId).then(function(result){
+				console.log('courseService init',result);
+				$scope.coursesList = result.data;
+				$scope.loading = false; 
+			})
+			.catch(function(){
+				$scope.loading = false; 
+				sweetAlert.alert({
+				   	title: 'Something\'s Wrong',
+				   	text : error.data.message,
+				   	icon: 'error',
+				   	buttons:{
+						confirm: sweetAlert.button({text:'ok'})
+					}
+				});
+			});
+		}
+
+		$scope.$on('searchFilter', function(e,searchFilter) { 
+			console.log('searchFilter',searchFilter); 
+			$scope.coursesList = [];
+			$scope.searchFilter = searchFilter;
+			$scope.init(1,$scope.searchFilter.id);
+		});
+		
+		$scope.searchFilter = false;
+		$scope.init();
 		
 	});

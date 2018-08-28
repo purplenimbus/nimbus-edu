@@ -1,19 +1,20 @@
 <div ng-include="'views/partials/_toolbar.html'"></div>
 <section>
-	<div ng-if="!coursesList.data.length" class="uk-width-1-1">
+	<spinner ng-if="loading"></spinner>
+	<div ng-if="!coursesList.data.length && !loading" class="uk-width-1-1">
 		<div class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
-			<span class="uk-margin-small-right" uk-icon="ban"></span> {{ noCoursesMessage }}
+			<span class="uk-margin-small-right" uk-icon="ban"></span> {{ 'no courses' | uppercase }}
 		</div>
 	</div>
-	<main ng-if="coursesList.data.length" class="uk-padding-small">
+	<main ng-if="coursesList.data.length" class="uk-padding-small uk-overflow-auto">
 		<table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
 			<thead>
 				<tr>
 					<th class="uk-table-shrink"></th>
 					<th class="uk-table-expand">Course Name</th>
 					<th class="uk-table-small">Class</th>
-					<th class="uk-table-small">Instuctor</th>
-					<th class="uk-width-small">
+					<th class="uk-table-small uk-visible@m">Instuctor</th>
+					<th class="uk-width-small ">
 						<select class="uk-select uk-text-capitalize uk-text-small" ng-select="filterByClass(classFilter)" ng-options="class as class.name for class in classes track by class.id" ng-model="classFilter" ng-if="false"></select>
 					</th>
 				</tr>
@@ -24,13 +25,13 @@
 					<td>
 						<a class="uk-link-reset uk-text-capitalize" ng-click="view(course,'course')">
 							{{ course.name }}
-							<span class="uk-text-muted uk-text-small">{{ course.code }}</span>
+							<span class="uk-text-muted uk-text-small uk-visible@m">{{ course.code }}</span>
 						</a>
 					</td>
 					<td>
 						{{ course.grade.name | uppercase }}
 					</td>
-					<td>
+					<td class="uk-visible@m">
 						<a  class="uk-link-reset uk-text-capitalize" 
 							ng-if="course.instructor" 
 							ng-disabled="offCanvasOpen">
