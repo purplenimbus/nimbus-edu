@@ -8,7 +8,7 @@
  * Service in the nimbusEduApp.
  */
 angular.module('nimbusEduApp')
-	.service('courseService', function (modal,form,uikit3,$window,eduApi,$localStorage,apiConst) {
+	.service('courseService', function (modal,form,uikit3,$window,eduApi,$localStorage,apiConst,queryString) {
 		//this.newAsset = {};
 
 		this.initTypeAhead = function($scope,fields){
@@ -78,9 +78,17 @@ angular.module('nimbusEduApp')
 			
 			$scope.students = [];
 			
-			console.log('courseService params',params);
-			
-			return eduApi.api('GET',user.tenant.id+'/registrations?course_id='+params.id+'&paginate='+apiConst.componentPagination+'&page=1');
+			if(typeof params === 'object'){
+				params.paginate = apiConst.widgetPagination;
+			}
+
+			//params.course_id = params.id;
+
+			//delete params.id;
+
+			console.log('courseService initCourse',params,queryString.objectToQuerystring(params));
+						
+			return eduApi.api('GET',user.tenant.id+'/registrations'+queryString.objectToQuerystring(params));
 		};
 
 		this.getClasses = function(){
@@ -96,11 +104,17 @@ angular.module('nimbusEduApp')
 				{ id:9,name:'JS 3'},
 				{ id:10,name:'SS 1'},
 				{ id:11,name:'SS 2'},
-				{ id:12,name:'a level'}
+				{ id:12,name:'SS 3'},
+				{ id:13,name:'a level'}
 			];
 		};
 
-		this.getCourses = function(user,page,classId){
-			return eduApi.api('GET',user.tenant.id+'/courses?paginate='+apiConst.widgetPagination+(page ? '&page='+page : '')+(classId ? '&course_grade_id='+classId : ''));
+		this.getCourses = function(user,params){
+
+			if(typeof params === 'object'){
+				params.paginate = apiConst.widgetPagination;
+			}
+			
+			return eduApi.api('GET',user.tenant.id+'/courses'+queryString.objectToQuerystring(params));
 		};
 	});

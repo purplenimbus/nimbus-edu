@@ -11,7 +11,6 @@ angular.module('nimbusEduApp')
     return {
 		scope:{user:'=user',label:'=label',showName:'=name'},
 		controller : function($scope,format){
-			console.log('userpill scope',$scope);
 			$scope.widgetTitle = function(fname){ return format.widgetTitle(fname); };
 		},
 		template: function(){ 
@@ -21,7 +20,7 @@ angular.module('nimbusEduApp')
 							'</div>'+
 							'<div class="uk-width-expand" ng-if="showName">'+
 								'<p ng-if="user" class="uk-text-capitalize title uk-margin-remove">{{ user.firstname }} {{ user.lastname }}</p>'+
-								'<p ng-if="label" class="uk-text-meta uk-margin-remove-top uk-text-small uk-text-muted uk-text-uppercase">{{ label }} instructor</p>'+
+								'<p ng-if="label" class="uk-text-meta uk-margin-remove-top uk-text-small uk-text-muted uk-text-uppercase">{{ label }}</p>'+
 							'</div>'+
 						'</div>';
 		},

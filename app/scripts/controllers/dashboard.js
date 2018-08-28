@@ -13,6 +13,5 @@ angular.module('nimbusEduApp')
 
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 
-
-		
+	 	console.log('Dashboard',$scope);
   	});

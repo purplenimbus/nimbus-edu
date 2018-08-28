@@ -9,15 +9,17 @@
  */
 angular.module('nimbusEduApp')
 	.controller('CourseCtrl', function ($scope,$window,grades,eduApi,apiConst,modal,courseService,$localStorage,$route,sweetAlert) {
-		$scope.init = function(){
-			
-			var params = $route.current.params;
-			
+		$scope.init = function(params){
+						
 			$scope.user = $localStorage.auth;
 			
+			console.log('course init params',params);
+
 			courseService.initCourse($scope.user,$scope,params).then(function(result){
-				console.log('courseService result',result);
+				
 				$scope.courseData = result.data;
+
+				console.log('course result',result);
 
 				if($scope.courseData.data){
 					$scope.pageTitle = $scope.courseData.data[0].course.name;
@@ -93,7 +95,9 @@ angular.module('nimbusEduApp')
 
 		});
 		
-		$scope.init();
+		$scope.init({
+			course_id : $route.current.params.id
+		});
 		
 		$scope.course = courseService;
 

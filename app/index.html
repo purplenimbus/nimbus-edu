@@ -34,7 +34,7 @@
 		      <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
 
 			<button class="uk-offcanvas-close" type="button" uk-close></button>
-            <usercard id="user"></usercard>
+            <usercard user="user"></usercard>
 			<ul class="uk-nav-default uk-nav-parent-icon uk-position-bottom uk-padding" uk-nav>
 				<li ng-repeat="(key , nav) in navSettings" ng-if="!nav.disabled && user.access_level.id >= nav.access_level" ng-class="nav.children ? 'uk-parent' : ''">
 					<a ng-href="#!/{{ nav.url }}">
@@ -165,6 +165,7 @@
         <script src="scripts/factories/sweetalert.js"></script>
         <script src="scripts/directives/searchfilter.js"></script>
         <script src="scripts/directives/spinner.js"></script>
+        <script src="scripts/directives/instructorcourses.js"></script>
         <!-- endbuild -->
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script>

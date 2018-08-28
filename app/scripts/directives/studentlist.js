@@ -14,7 +14,7 @@ angular.module('nimbusEduApp')
 			header += '	<a ng-href="#!/learning/course/{{ courseId }}" ';
 			header += '	class="title uk-text-capitalize uk-text-bold uk-margin-remove uk-link-reset" ';
 			header += '	href="#!/learning/course/{{ courseId }}">';
-			header += '	<user-pill user="course.instructor" label="course.code" name="true"></user-pill>';
+			header += '	<user-pill user="course.instructor" label="\'instructor \'+course.code" name="true"></user-pill>';
 			//header += ' <span class="uk-text-muted uk-text-uppercase">{{course.code}}</span>'
 			header += '	</a>';
 			header += '</div>';
@@ -26,7 +26,7 @@ angular.module('nimbusEduApp')
 
 			body += '<div class="uk-card-body uk-overflow-auto uk-padding-remove">';
 			body += '<spinner ng-if="loading"></spinner>';
-			body += '<div ng-if="!students.data" class="uk-placeholder uk-text-capitalize uk-text-muted">no students found</div>';
+			body += '<div ng-if="!students.data && !loading" class="uk-placeholder uk-text-capitalize uk-text-muted">no students found</div>';
 			body += '<div ng-if="!list && !loading" uk-grid><user-pill user="student.user" name="false" ng-repeat="student in students.data" ng-if="!loading && students.data"></user-pill></div>'
 			body += '<table class="uk-table uk-table-hover uk-table-middle uk-table-small" ng-if="!loading && students.data && list">';
 			body += '	<thead>';
@@ -52,7 +52,7 @@ angular.module('nimbusEduApp')
 				header : header,
 				body : body,
 				classes:{
-					card : 'uk-card-default uk-padding-remove',
+					card : 'uk-card-default uk-padding-remove uk-width-1-1',
 					body:'uk-padding-small',
 					header : 'uk-padding-small'
 				}

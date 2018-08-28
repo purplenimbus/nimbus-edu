@@ -11,23 +11,6 @@ angular.module('nimbusEduApp')
 	.service('auth', function ($q,$http,$rootScope,$localStorage) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 		return	{
-			objectToQuerystring : function(obj) {
-				var str = '';
-								
-				if(obj !== 'undefined'){
-					str = '?';
-					
-					for(var prop=0; prop < Object.keys(obj).length; prop++){
-													
-						str += Object.keys(obj)[prop]+'='+obj[Object.keys(obj)[prop]];
-				
-						str += Object.keys(obj)[prop + 1] ? '&' : '';
-					}
-						
-				}
-				
-				return encodeURI(str);
-			},
 			clearUser : function($scope){
 								
 				delete $localStorage.auth;
@@ -38,7 +21,7 @@ angular.module('nimbusEduApp')
 
 				delete $scope.user;
 
-				$scope.$apply();
+				//$scope.$apply();
 												
 			}
 		};

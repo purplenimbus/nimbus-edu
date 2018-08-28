@@ -8,7 +8,7 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('AccountCtrl', function ($scope,$window,eduApi,$route,apiConst,user,sweetAlert,userService,$localStorage) {
+	.controller('AccountCtrl', function ($scope,$window,eduApi,$route,apiConst,sweetAlert,userService,$localStorage) {
 	
 	$scope.init = function(){
 		//console.log('profile init',$localStorage.auth);

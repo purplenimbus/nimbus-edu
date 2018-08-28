@@ -43,7 +43,7 @@ angular.module('nimbusEduApp')
 	.factory('eduApi', function ($http) {
 		var self = this;
 		
-		self.apiEndPoint = 'https://nimbus-learning-api.herokuapp.com/api/v1/';
+		self.apiEndPoint = 'http://edu.nimbus.com:7070/api/v1/';//https://nimbus-learning-api.herokuapp.com/api/v1/';
 
 		return {
 			apiEndPoint : self.apiEndPoint,
@@ -57,6 +57,24 @@ angular.module('nimbusEduApp')
 			}
 		};
 	})
-	.factory('user', function ($localStorage) {		
-		return { user:$localStorage.auth };
+	.factory('queryString', function () {		
+		return { 
+			objectToQuerystring : function(obj) {
+				var str = '';
+								
+				if(obj !== 'undefined'){
+					str = '?';
+					
+					for(var prop=0; prop < Object.keys(obj).length; prop++){
+													
+						str += Object.keys(obj)[prop]+'='+obj[Object.keys(obj)[prop]];
+				
+						str += Object.keys(obj)[prop + 1] ? '&' : '';
+					}
+						
+				}
+				
+				return encodeURI(str);
+			}
+		};
 	});
