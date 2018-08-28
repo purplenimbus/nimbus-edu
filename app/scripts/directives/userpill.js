@@ -13,7 +13,7 @@ angular.module('nimbusEduApp')
 		scope:true,
 		controller : function($scope,format,$localStorage){
 			//console.log('$auth',$localStorage.auth);
-			$scope.user = JSON.parse($localStorage.auth);
+			$scope.user = $localStorage.auth;
 			$scope.widgetTitle = function(fname){ return format.widgetTitle(fname); };
 		},
 		template: function(){ 

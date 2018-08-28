@@ -39,7 +39,7 @@ angular.module('nimbusEduApp')
 				$scope.loading  = true;
 				$scope.error  = false;
 				
-				$scope.user = JSON.parse($localStorage.auth);
+				$scope.user = $localStorage.auth;
 
 				console.log('mygroup',$scope.user);
 				
