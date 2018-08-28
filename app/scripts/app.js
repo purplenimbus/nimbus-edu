@@ -26,8 +26,7 @@ angular
 			// Allow same origin resource loads.
 			'self',
 			// Allow loading from our assets domain. **.
-			'http://edu.nimbus.com:7070/**',
-			'http://graph.nimbus.com:8000/**'
+			'https://nimbus-learning-staging.herokuapp.com/**',
 		]);
   
 		$authProvider.baseUrl = 'https://nimbus-learning-staging.herokuapp.com';
