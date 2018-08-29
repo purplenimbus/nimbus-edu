@@ -31,10 +31,11 @@
 		<div id="view" ng-view="" ng-if="!$root.showLoader"></div>
 		<!-- This is the off-canvas -->
 		<div id="side-menu" uk-offcanvas ng-controller="NavCtrl">
-		      <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
+		    <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
 
 			<button class="uk-offcanvas-close" type="button" uk-close></button>
-            <usercard id="user"></usercard>
+            <user-pill user="user" name="true" label="user.user_type.name || user.access_level.name"></user-pill>
+            
 			<ul class="uk-nav-default uk-nav-parent-icon uk-position-bottom uk-padding" uk-nav>
 				<li ng-repeat="(key , nav) in navSettings" ng-if="!nav.disabled && user.access_level.id >= nav.access_level" ng-class="nav.children ? 'uk-parent' : ''">
 					<a ng-href="#!/{{ nav.url }}">
@@ -52,7 +53,7 @@
 				</li>
 				<li class="uk-nav-divider" ng-if="auth.isAuthenticated() && user.access_level.id >= 2"></li>
                 <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/tools" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: bolt"></span> tools</a></li>
-                <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/settings" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: cog"></span> settings</a></li>
+                <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/settings" class="uk-text-uppercase uk-hidden"><span class="uk-margin-small-right" uk-icon="icon: cog"></span> settings</a></li>
                 <li ng-if="auth.isAuthenticated()" class="uk-text-uppercase">
                     <a href="#!/profile/settings/">
                     <span class="uk-margin-small-right" uk-icon="icon: user"></span>
@@ -165,6 +166,7 @@
         <script src="scripts/factories/sweetalert.js"></script>
         <script src="scripts/directives/searchfilter.js"></script>
         <script src="scripts/directives/spinner.js"></script>
+        <script src="scripts/directives/instructorcourses.js"></script>
         <!-- endbuild -->
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script>

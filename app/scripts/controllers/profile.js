@@ -9,10 +9,10 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('ProfileCtrl', function ($scope,$window,$route,graphApi,modal,$localStorage,user) {
+	.controller('ProfileCtrl', function ($scope,$window,$route,graphApi,modal,$localStorage) {
 		
 		$scope.init = function(){
-			$scope.profileData = user;
+			$scope.profileData = $localStorage.auth;
 			$scope.initiated = true;
 		};
 		

@@ -13,8 +13,8 @@ angular.module('nimbusEduApp')
       restrict: 'E',
       link: function postLink(scope, element) {
         element.on('$destroy', function () {
-			scope.$destroy();
-		});
+    			scope.$destroy();
+    		});
       }
     };
   });

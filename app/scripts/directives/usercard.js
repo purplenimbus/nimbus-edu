@@ -20,9 +20,8 @@ angular.module('nimbusEduApp')
       			body:'uk-text-center uk-padding-small',
       		}
       }),
-      controller : function($scope,$localStorage){
-      	$scope.user = $localStorage.auth;
-      },
+      scope : {user:'=user'},
+      //controller : function($scope,$localStorage){},
       restrict: 'E',
       link: function postLink(scope, element) {
         element.on('$destroy', function () {

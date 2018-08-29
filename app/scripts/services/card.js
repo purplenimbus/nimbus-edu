@@ -8,7 +8,7 @@
  * Service in the nimbusEduApp.
  */
 angular.module('nimbusEduApp')
-  	.service('card', function (uikit3,form,courseService,eduApi,user) {
+  	.service('card', function (uikit3,form,courseService,eduApi) {
   		var self = this;
     	this.type = function(type,key,$scope,edit){
     		return uikit3.card(self[type](key,$scope,edit));
@@ -74,7 +74,7 @@ angular.module('nimbusEduApp')
 					},{
 						name:'instructors',
 						display:'firstname',
-						endPoint:eduApi.apiEndPoint+user.tenant.id+'/users?user_type=teacher'
+						endPoint:eduApi.apiEndPoint+$scope.user.tenant.id+'/users?user_type=teacher'
 					}]);
 				}
 

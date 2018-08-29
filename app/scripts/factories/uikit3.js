@@ -285,7 +285,7 @@ angular.module('nimbusEduApp')
 				    str += '<div class="uk-card-header ';
 				    str += attrs.classes.header ? attrs.classes.header : '';
 				    str += '">';
-				    str += '<h3 class="uk-card-title uk-text-capitalize">'+attrs.header+'</h3>';
+				    str += attrs.header;
 				    str += '</div>';
 				}
 

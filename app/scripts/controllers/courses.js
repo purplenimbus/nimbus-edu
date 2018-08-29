@@ -84,7 +84,7 @@ angular.module('nimbusEduApp')
 		$scope.next = function(page){
 
 			$scope.loading = true;
-			courseService.getCourses($scope.user,page,($scope.searchFilter.id || false)) // jshint ignore:line
+			courseService.getCourses($scope.user,{page:page,course_grade_id:$scope.searchFilter.id}) // jshint ignore:line
 			.then(function(result){
 
 				result.data.data = $scope.coursesList.data.concat(result.data.data);
@@ -148,7 +148,8 @@ angular.module('nimbusEduApp')
 					label:'assigned'
 				}
 			};
-			courseService.getCourses($scope.user,page,classId).then(function(result){
+
+			courseService.getCourses($scope.user,{page:page,course_grade_id:classId}).then(function(result){
 				console.log('courseService init',result);
 				$scope.coursesList = result.data;
 				$scope.loading = false; 
@@ -173,7 +174,8 @@ angular.module('nimbusEduApp')
 			$scope.init(1,$scope.searchFilter.id);
 		});
 		
-		$scope.searchFilter = false;
-		$scope.init();
+		$scope.searchFilter = courseService.getClasses()[0];
+		
+		$scope.init(1,$scope.searchFilter.id);
 		
 	});

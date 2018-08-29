@@ -9,25 +9,31 @@
  */
 angular.module('nimbusEduApp')
 	.controller('CourseCtrl', function ($scope,$window,grades,eduApi,apiConst,modal,courseService,$localStorage,$route,sweetAlert) {
-		$scope.init = function(){
-			
-			var params = $route.current.params;
+		$scope.init = function(params){
+			$scope.loading = true;
 			
 			$scope.user = $localStorage.auth;
-			
+
 			courseService.initCourse($scope.user,$scope,params).then(function(result){
-				console.log('courseService result',result);
+				
 				$scope.courseData = result.data;
 
-				if($scope.courseData.data){
-					$scope.pageTitle = $scope.courseData.data[0].course.name;
-					$scope.pageTitle += ' | '+$scope.courseData.data[0].course.code;
+				if($scope.courseData){
+					$scope.course =  $scope.courseData.data[0].course;
+
+					if($scope.courseData.data){
+						$scope.pageTitle = $scope.course.name;
+						$scope.pageTitle += ' | '+$scope.course.grade.alias;
+					}
+
+					$scope.authorized = $scope.user.id === $scope.course.instructor.id ? true : false;
 				}
-				
-				$scope.loadingHome = false;
+
+				$scope.loading = false;
+
 			}).catch(function(error){
 				console.log('courseService error',error);
-				$scope.loadingHome = false;
+				$scope.loading = false;
 				sweetAlert.alert({
 							   	title: 'Somethings wrong!',
 							   	icon: 'error',
@@ -40,20 +46,11 @@ angular.module('nimbusEduApp')
 			});
 		
 		};
-		
-		$scope.getTotal = function(course){	
-			if(course.meta){
-				return 	grades.getTotal(course.meta.grades,course.course.meta.course_schema); // jshint ignore:line
-			}else{
-				return false;
-			}
-		};
 				
-		$scope.getGrade = function(course){
-			if(course.meta){
-				return grades.getGrade(grades.getTotal(course.meta.grades,course.course.meta.course_schema)); // jshint ignore:line
-			}else{
-				return false;
+		$scope.getGrade = function(scores){
+			
+			if(scores){
+				return grades.getGrade(grades.getTotal(scores,$scope.course.meta.course_schema)); // jshint ignore:line
 			}
 		};
 		
@@ -82,6 +79,24 @@ angular.module('nimbusEduApp')
 				$scope.outlineMessage = 'No Course Data';
 			}
 		};
+
+		$scope.save = function(data){
+
+    		$scope.loading = true;
+
+			console.log('save data',data);
+
+			/*courseService.saveCourse($scope.user,data,params)
+				.then(function(result){
+					console.log('save result',result);
+					$scope.loading = false;
+				})
+				.catch(function(error){
+					console.log('save error',error);
+					$scope.loading = false;
+				});*/
+			
+		};
 		
 		angular.element('.uk-switcher').on({
 
@@ -93,7 +108,10 @@ angular.module('nimbusEduApp')
 
 		});
 		
-		$scope.init();
+		$scope.init({
+			course_id : $route.current.params.id,
+			paginate : 10
+		});
 		
 		$scope.course = courseService;
 
