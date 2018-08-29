@@ -13,23 +13,22 @@ angular.module('nimbusEduApp')
 						
 			$scope.user = $localStorage.auth;
 			
-			console.log('course init params',params);
+			//console.log('course init params',params);
 
 			courseService.initCourse($scope.user,$scope,params).then(function(result){
 				
 				$scope.courseData = result.data;
-
-				console.log('course result',result);
+				$scope.course = $scope.courseData.data[0].course;
 
 				if($scope.courseData.data){
-					$scope.pageTitle = $scope.courseData.data[0].course.name;
-					$scope.pageTitle += ' | '+$scope.courseData.data[0].course.code;
+					$scope.pageTitle = $scope.course.name;
+					$scope.pageTitle += ' | '+$scope.course.grade.alias;
 				}
 				
-				$scope.loadingHome = false;
+				$scope.loading = false;
 			}).catch(function(error){
 				console.log('courseService error',error);
-				$scope.loadingHome = false;
+				$scope.loading = false;
 				sweetAlert.alert({
 							   	title: 'Somethings wrong!',
 							   	icon: 'error',
@@ -42,20 +41,11 @@ angular.module('nimbusEduApp')
 			});
 		
 		};
-		
-		$scope.getTotal = function(course){	
-			if(course.meta){
-				return 	grades.getTotal(course.meta.grades,course.course.meta.course_schema); // jshint ignore:line
-			}else{
-				return false;
-			}
-		};
 				
-		$scope.getGrade = function(course){
-			if(course.meta){
-				return grades.getGrade(grades.getTotal(course.meta.grades,course.course.meta.course_schema)); // jshint ignore:line
-			}else{
-				return false;
+		$scope.getGrade = function(scores){
+			
+			if(scores){
+				return grades.getGrade(grades.getTotal(scores,$scope.course.meta.course_schema)); // jshint ignore:line
 			}
 		};
 		
@@ -96,7 +86,8 @@ angular.module('nimbusEduApp')
 		});
 		
 		$scope.init({
-			course_id : $route.current.params.id
+			course_id : $route.current.params.id,
+			paginate : 10
 		});
 		
 		$scope.course = courseService;

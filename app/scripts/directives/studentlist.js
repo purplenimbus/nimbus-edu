@@ -11,10 +11,10 @@ angular.module('nimbusEduApp')
 		var template = '',header = '',body = '';
 
 			header += '<div class="uk-align-left uk-margin-remove uk-width-2-3">';
-			header += '	<a ng-href="#!/learning/course/{{ courseId }}" ';
-			header += '	class="title uk-text-capitalize uk-text-bold uk-margin-remove uk-link-reset" ';
-			header += '	href="#!/learning/course/{{ courseId }}">';
-			header += '	<user-pill user="course.instructor" label="\'instructor \'+course.code" name="true"></user-pill>';
+			header += '	<a ';
+			header += '	class="title uk-margin-remove uk-link-reset" ';
+			header += '	href="#!/learning/course/{{ course.id }}">';
+			header += '	<user-pill user="course.instructor" label="course.code" name="true"></user-pill>';
 			//header += ' <span class="uk-text-muted uk-text-uppercase">{{course.code}}</span>'
 			header += '	</a>';
 			header += '</div>';

@@ -12,40 +12,49 @@
 						<div class="uk-card uk-card-default widget">
 							<div class="uk-card-header uk-clear-fix uk-padding-small">
 								<div class="uk-align-left uk-margin-remove uk-width-1-2">
-									<p class="uk-align-left title">{{ courseData.data[0].course.grade.alias || 'Student List' | uppercase }}</p> <!-- add instructor element here -->
-									<user-pill firstname="instructor.firstname" class="uk-hidden"></user-pill>
+									<user-pill 
+										user="course.instructor" 
+										name="true" 
+										label="'teacher' | uppercase" 
+										ng-show="!loading">
+									</user-pill>
 								</div>
 								<div class="uk-align-right">
-									<ul class="uk-iconnav toolbar">
-										<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>
-									</ul>
+									<ul class="uk-iconnav toolbar"></ul>
 								</div>
 							</div>
 							<div class="uk-card-body uk-overflow-auto uk-padding-remove">
-								<div class="uk-text-center uk-padding-small" ng-if="loadingHome"><div uk-spinner></div></div>
-								<div ng-if="!loadingHome && !courseData.data.length" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
+								<div class="uk-text-center uk-padding-small" ng-if="loading"><div uk-spinner></div></div>
+								<div ng-if="!loading && !courseData.data.length" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
 									<span class="uk-margin-small-right uk-text-capitalize" uk-icon="ban"></span> {{ 'no students found' }}
 								</div>
-								<table class="uk-table uk-table-hover uk-table-middle uk-table-small uk-margin-remove" ng-if="!loadingHome && students && !message">
+								<table class="uk-table uk-table-hover uk-table-middle uk-table-small uk-margin-remove" ng-if="!loading && courseData.data.length && !message">
 									<thead ng-if="courseData.data">
 										<tr>
-											<th class="uk-table-shrink"></th>
 											<th class="uk-table-small">Name</th>
-											<th ng-repeat="(key , grade) in courseData.data[0].course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }}</th>
+											<th ng-repeat="(key , grade) in course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }}</th>
 											<th class="uk-table-small uk-text-small uk-visible@s">Total</th>
 											<th class="uk-table-shrink uk-text-small">Grade</th>
 										</tr>
 									</thead>
 									<tbody ng-if="courseData.data">
 										<tr ng-repeat="student in courseData.data">
-
-											<td><img class="uk-preserve-width uk-border-circle" src="{{ student.user.image }}" width="40" alt=""></td>
-											<td class="uk-table-link">
-												<span class="uk-link-reset uk-text-capitalize">{{ student.user.firstname }} {{ student.user.lastname }}</span>
+											<td>
+												<user-pill 
+													user="student.user" 
+													name="true" 
+													class="uk-link-reset uk-text-capitalize">
+												</user-pill>
 											</td>
-											<td ng-repeat="(key , grade) in student.meta.grades" class="uk-visible@s uk-visible@m uk-width-small"><input type="number" class="uk-input uk-form-blank" ng-model="grade" max="{{student.course.meta.course_schema[key]}}"  ng-disabled="true"/></td>
-											<td class="uk-width-small uk-visible@s"><input type="number" class="uk-input uk-form-blank" ng-value="student.meta.grades.quiz + student.meta.grades.assignment + student.meta.grades.midterm + student.meta.grades.lab + student.meta.grades.exam" ng-disabled="true"/></td>
-											<td class="uk-text-center"><span class="uk-text-{{getGrade(student).className}}">{{getGrade(student).grade}}</span></td>
+											<td ng-repeat="(key , grade) in course.meta.course_schema" class="uk-visible@s uk-visible@m uk-width-small">
+												<input type="number" class="uk-input" ng-init="!student.meta.grades[key] ? student.meta.grades[key] = 0 : null" ng-model="student.meta.grades[key]" max="{{course.meta.course_schema[key]}}" min="0"/>
+											</td>
+											<td class="uk-width-small uk-visible@s">
+												<input type="number" class="uk-input" ng-value="student.meta.grade.quiz + student.meta.grades.assignment + student.meta.grades.midterm + student.meta.grades.lab + student.meta.grades.exam" min="0" disabled="true" />
+											</td>
+											<td class="uk-text-center">
+												<span class="uk-text-{{getGrade(student.meta.grades).className}}">{{getGrade(student.meta.grades).grade}}</span>
+											</td>
 										</tr>
 									</tbody>
 								</table>
