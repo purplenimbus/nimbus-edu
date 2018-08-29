@@ -62,13 +62,11 @@ angular.module('nimbusEduApp')
 			});
 		};
 
-		this.saveCourse = function(data){
-			console.log('saveCourse',data);			
-			/*eduApi.api('POST','courses',data).then(function(result){
-				console.log('result',result);
-			}).catch(function(error){
-				console.log('save',error);
-			});*/
+		this.saveCourse = function(user,data,params){
+			console.log('saveCourse',data,params);
+
+			//return eduApi.api('POST',user.tenant.id+'/courses/edit',data)
+
 		};
 		
 		this.initCourse = function(user,$scope,params){

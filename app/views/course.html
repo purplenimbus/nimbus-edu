@@ -19,19 +19,19 @@
 										ng-show="!loading">
 									</user-pill>
 								</div>
-								<div class="uk-align-right" ng-if="authorized">
+								<div class="uk-align-right" ng-if="false">
 									<ul class="uk-iconnav toolbar">
     									<li><a ng-click="save(courseData.data)" uk-icon="icon: cloud-upload" class="uk-text-primary"></a></li>
 									</ul>
 								</div>
 							</div>
-							<div class="uk-card-body uk-overflow-auto uk-padding-remove">
-								<div class="uk-text-center uk-padding-small" ng-if="loading"><div uk-spinner></div></div>
-								<div ng-if="!loading && !courseData.data.length" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
-									<span class="uk-margin-small-right uk-text-capitalize" uk-icon="ban"></span> {{ 'no students found' }}
+							<div class="uk-card-body uk-overflow-auto">
+								<spinner ng-if="loading"></spinner>
+								<div ng-if="!loading && !courseData.data" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
+									<span class="uk-margin-small-right uk-text-uppercase" uk-icon="ban"></span> {{ 'no students found' }}
 								</div>
-								<table class="uk-table uk-table-hover uk-table-middle uk-table-small uk-margin-remove" ng-if="!loading && courseData.data.length && !message">
-									<thead ng-if="courseData.data">
+								<table class="uk-table uk-table-hover uk-table-middle uk-table-small uk-margin-remove" ng-if="!loading && courseData.data">
+									<thead>
 										<tr>
 											<th class="uk-table-small">Name</th>
 											<th ng-repeat="(key , grade) in course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }}</th>
@@ -39,7 +39,7 @@
 											<th class="uk-table-shrink uk-text-small">Grade</th>
 										</tr>
 									</thead>
-									<tbody ng-if="courseData.data">
+									<tbody>
 										<tr ng-repeat="student in courseData.data">
 											<td>
 												<user-pill 
