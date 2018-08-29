@@ -8,7 +8,19 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('CourseCtrl', function ($scope,$window,grades,eduApi,apiConst,modal,courseService,$localStorage,$route,sweetAlert) {
+	.controller('CourseCtrl', function (
+		$scope,
+		$window,
+		grades,
+		eduApi,
+		apiConst,
+		modal,
+		courseService,
+		$localStorage,
+		$route,
+		sweetAlert,
+		offcanvas,
+		card) {
 		$scope.init = function(params){
 			$scope.loading = true;
 			
@@ -19,11 +31,11 @@ angular.module('nimbusEduApp')
 				$scope.courseData = result.data;
 
 				if($scope.courseData){
-					$scope.course =  $scope.courseData.data[0].course;
+					$scope.course =  courseService.savedCourse || $scope.courseData.data[0].course;
 
 					if($scope.courseData.data){
 						$scope.pageTitle = $scope.course.name;
-						$scope.pageTitle += ' | '+$scope.course.grade.alias;
+						$scope.pageTitle += ' | '+$scope.course.grade.alias || $scope.course.grade.name;
 					}
 
 					$scope.authorized = $scope.user.id === $scope.course.instructor.id ? true : false;
@@ -80,11 +92,11 @@ angular.module('nimbusEduApp')
 			}
 		};
 
-		$scope.save = function(data){
+		$scope.save = function(data,type){
 
     		$scope.loading = true;
 
-			console.log('save data',data);
+			console.log('save data',data,type);
 
 			/*courseService.saveCourse($scope.user,data,params)
 				.then(function(result){
@@ -97,6 +109,16 @@ angular.module('nimbusEduApp')
 				});*/
 			
 		};
+
+		$scope.edit = function(course){
+			console.log('edit course',course);
+			$scope.getSchema = courseService.getSchema(course.meta.course_schema);
+			$scope.classes = courseService.getClasses();
+			$scope.payload = {};
+			offcanvas.open({
+				body : card.type('course','course',$scope,true)
+			},$scope);
+		}
 		
 		angular.element('.uk-switcher').on({
 
@@ -113,8 +135,8 @@ angular.module('nimbusEduApp')
 			paginate : 10
 		});
 		
-		$scope.course = courseService;
+		//$scope.course = courseService;
 
-		console.log('course init',$scope);
+		console.log('course init',$scope,courseService);
 		
 	});

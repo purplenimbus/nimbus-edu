@@ -19,9 +19,10 @@
 										ng-show="!loading">
 									</user-pill>
 								</div>
-								<div class="uk-align-right" ng-if="false">
+								<div class="uk-align-right" ng-if="authorized">
 									<ul class="uk-iconnav toolbar">
     									<li><a ng-click="save(courseData.data)" uk-icon="icon: cloud-upload" class="uk-text-primary"></a></li>
+    									<li><a ng-click="edit(course)" uk-icon="icon: cog" class="uk-text-muted"></a></li>
 									</ul>
 								</div>
 							</div>

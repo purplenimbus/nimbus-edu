@@ -114,7 +114,7 @@ angular.module('nimbusEduApp')
 			return str;
 		};
 		
-		this.editCourse = function(key){
+		this.editCourse = function(key,$scope){
 			var str = '';
 			
 			str += '<form>';
@@ -134,24 +134,24 @@ angular.module('nimbusEduApp')
 					});
 			str += '	</div>';
 			str += '		<div class="uk-width-1-2@m uk-width-1-2@xs">';
-			str += '			<select class="uk-select" ng-model="asset.meta.course_grade_id" ng-options="class.id as class.name for class in classes"></select>';
+			str += '			<select class="uk-select" ng-model="'+key+'.grade" ng-options="class.id as class.name for class in classes"></select>';
 			str += '		</div>';
 			str += '	</div>';
 
 			str += '	<div class="uk-margin typeahead">';
 			str += uikit3.typeahead({
-						directive:'datasets="instructorsDataSet" options="instructorsOptions" ng-model="'+key+'.meta.instructor" sf-typeahead',
+						directive:'datasets="instructorsDataSet" options="instructorsOptions" ng-model="'+key+'.instructor" sf-typeahead',
 						type:'text',
 						required:true,
 						cls:'uk-input uk-search-input uk-width-1-1 typeahead uk-text-capitalize',
 						placeholder:'Instructor'
 					});
-			str += '	</div>';		
-			//str += '	<div class="uk-margin typeahead">';
-			//str += '		<div ng-if="asset.meta.instructor" class="preview">';			
-			//str += 				uikit3.typeaheadPreview({image:'{{asset.meta.instructor.image_url}}'});
-			//str += '		</div>';			
-			//str += '	</div>';
+			str += '	</div>';
+
+			str += '	<div class="uk-margin typeahead">';
+			str += '	<label class="uk-form-label uk-text-muted uk-text-uppercase uk-margin-bottom">instructor</label>';
+			str += '		<user-pill name="true" user="'+key+'.instructor" ng-if="'+key+'.instructor"></user-pill>';						
+			str += '	</div>';
 			
 			//TO DO : Move this somewhere else , perhaps on the course edit page? its badly slowing down the modal load
 
@@ -164,18 +164,18 @@ angular.module('nimbusEduApp')
 			str += '	<div ng-if="showAdvanced">';
 			str += '		<div class="uk-margin">';
 			str += '			<ul uk-grid>';
-			str += '				<li ng-repeat="schema in getSchema()">'+uikit3.checkbox({label:' {{ schema | uppercase }}',directive:'ng-model="'+key+'.meta.course_schema[schema].enabled"',checked:true})+'</li>';
+			str += '				<li ng-repeat="schema in getSchema">'+uikit3.checkbox({label:' {{ schema | uppercase }}',directive:'ng-model="'+key+'.meta.course_schema[schema]"',checked:true})+'</li>';
 			str += '			</ul>';
 			str += '		</div>';
 
 			str += '		<div class="uk-margin">';
 			str += '			<ul uk-grid>';	
-			str += '			<li class="uk-width-1-1" ng-repeat="schema in getSchema()" ng-if="'+key+'meta.course_schema[schema].enabled">';
+			str += '			<li class="uk-width-1-1" ng-repeat="schema in getSchema" ng-if="'+key+'meta.course_schema[schema]">';
 			str +=				uikit3.range({
-									directive:'ng-model="'+key+'.meta.course_schema[schema].value"',
+									directive:'ng-model="'+key+'.meta.course_schema[schema]"',
 									type:'range',
 									cls:'uk-range',
-									label:'{{schema | uppercase }} {{ '+key+'.meta.course_schema[schema].value }}',
+									label:'{{schema | uppercase }} {{ '+key+'.meta.course_schema[schema] }}',
 									min:0,
 									max:100,
 									step:5

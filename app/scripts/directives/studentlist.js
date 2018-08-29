@@ -13,7 +13,7 @@ angular.module('nimbusEduApp')
 			header += '<div class="uk-align-left uk-margin-remove uk-width-2-3">';
 			header += '	<a ';
 			header += '	class="title uk-margin-remove uk-link-reset" ';
-			header += '	href="#!/learning/course/{{ course.id }}">';
+			header += '	ng-click="route(course)">';
 			header += '	<user-pill user="course.instructor" label="course.code" name="true"></user-pill>';
 			//header += ' <span class="uk-text-muted uk-text-uppercase">{{course.code}}</span>'
 			header += '	</a>';
@@ -60,7 +60,13 @@ angular.module('nimbusEduApp')
 		return {
 			template: template,
 			scope:{course :'=course',list:'=list'},
-			controller : function($scope,courseService,grades,$localStorage){
+			controller : function($scope,courseService,grades,$localStorage,$route,$location){
+
+				$scope.route = function(course){
+					courseService.savedCourse = course;
+					//console.log('route','/learning/course/'+course.id);
+					$location.path('/learning/course/'+course.id);
+				};
 				
 				$scope.init = function(){
 					$scope.loading = true;

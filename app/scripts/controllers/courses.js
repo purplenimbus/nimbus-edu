@@ -10,9 +10,7 @@
 angular.module('nimbusEduApp')
 	.controller('CoursesCtrl', function ($scope,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card,sweetAlert) {
 
-		$scope.getSchema = function(){
-			return Object.keys($scope.asset.meta.course_schema); // jshint ignore:line
-		};
+		$scope.getSchema = courseService.getSchema($scope.asset.meta.course_schema);
 						
 		$scope.courseAverage = function(course){
 			return grades.getAverage(course);

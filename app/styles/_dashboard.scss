@@ -63,3 +63,20 @@
 	}
 }
 
+.letter-thumb{
+	width: 40px;
+    height: 40px;
+    span{
+    	font-size:20px !important;
+    }
+}
+
+user-pill{
+	display:block;
+}
+
+instructor-courses{	
+	user-pill{
+		margin-bottom:5px !important;
+	}	
+}
