@@ -9,7 +9,7 @@
  */
 angular.module('nimbusEduApp')
 	.service('courseService', function (modal,form,uikit3,$window,eduApi,$localStorage,apiConst,queryString) {
-		//this.newAsset = {};
+		this.savedCourse = false;
 
 		this.initTypeAhead = function($scope,fields){
 			fields.forEach(function(field){

@@ -19,7 +19,7 @@ angular.module('nimbusEduApp')
 				$scope.courseData = result.data;
 
 				if($scope.courseData){
-					$scope.course =  $scope.courseData.data[0].course;
+					$scope.course =  courseService.savedCourse || $scope.courseData.data[0].course;
 
 					if($scope.courseData.data){
 						$scope.pageTitle = $scope.course.name;
@@ -113,8 +113,8 @@ angular.module('nimbusEduApp')
 			paginate : 10
 		});
 		
-		$scope.course = courseService;
+		//$scope.course = courseService;
 
-		console.log('course init',$scope);
+		console.log('course init',$scope,courseService);
 		
 	});
