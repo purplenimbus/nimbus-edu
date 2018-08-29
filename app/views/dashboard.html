@@ -2,6 +2,6 @@
 <section class="uk-padding-small">
 	<main uk-grid>
 		<overview class="uk-width-1-1" ng-if="user.access_level.id >= 3"></overview>
-	   	<instructor-courses list="false" user="user" class="uk-width-1-1" ng-if="user.user_type.name === 'teacher'"></instructor-course>
+	   	<instructor-courses list="true" user="user" class="uk-width-1-1" ng-if="user.user_type.name === 'teacher'"></instructor-course>
 	</main>
 </section>
