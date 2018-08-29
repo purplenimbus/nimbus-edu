@@ -43,7 +43,7 @@ angular.module('nimbusEduApp')
 	.factory('eduApi', function ($http) {
 		var self = this;
 		
-		self.apiEndPoint = 'http://edu.nimbus.com:7070/api/v1/';//https://nimbus-learning-api.herokuapp.com/api/v1/';
+		self.apiEndPoint = 'https://nimbus-learning-api.herokuapp.com/api/v1/';
 
 		return {
 			apiEndPoint : self.apiEndPoint,
