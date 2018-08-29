@@ -27,7 +27,7 @@ angular.module('nimbusEduApp')
 			body += '<div class="uk-card-body uk-overflow-auto uk-padding-remove">';
 			body += '<spinner ng-if="loading"></spinner>';
 			body += '<div ng-if="!students && !loading" class="uk-margin-remove uk-placeholder uk-text-center uk-text-capitalize uk-text-muted">no students found</div>';
-			body += '<div ng-if="!list && !loading" uk-grid><user-pill user="student.user" name="false" ng-repeat="student in students" ng-if="!loading && students"></user-pill></div>'
+			body += '<div ng-if="!list && !loading" uk-grid><user-pill user="student.user" name="false" ng-repeat="student in students" ng-if="!loading && students"></user-pill></div>';
 			body += '<table class="uk-table uk-table-hover uk-table-middle uk-table-small" ng-if="!loading && students && list">';
 			body += '	<thead>';
 			body += '		<tr>';
@@ -70,6 +70,7 @@ angular.module('nimbusEduApp')
 						$scope.students = result.data;
 					}).catch(function(error){
 						$scope.loading = false;
+						$scope.error = error;
 					});	
 				};
 				

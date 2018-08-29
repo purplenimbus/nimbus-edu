@@ -11,7 +11,7 @@ angular.module('nimbusEduApp')
   	
   	var template =  '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid>';
       	template += '  <div ng-repeat="(key,metric) in metrics.breakdown">';
-        template += '   <h5 class="uk-text-uppercase">{{metric.count}} {{key}}</h5>'
+        template += '   <h5 class="uk-text-uppercase">{{metric.count}} {{key}}</h5>';
         template += '  </div>';
   		  template += '</div>';
 
@@ -43,7 +43,7 @@ angular.module('nimbusEduApp')
               count : 0
             }
           }
-        }
+        };
       },
 		  link: function postLink(scope, element) {
 			   element.on('$destroy', function () {

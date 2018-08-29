@@ -19,8 +19,10 @@
 										ng-show="!loading">
 									</user-pill>
 								</div>
-								<div class="uk-align-right">
-									<ul class="uk-iconnav toolbar"></ul>
+								<div class="uk-align-right" ng-if="authorized">
+									<ul class="uk-iconnav toolbar">
+    									<li><a ng-click="save(courseData.data)" uk-icon="icon: cloud-upload" class="uk-text-primary"></a></li>
+									</ul>
 								</div>
 							</div>
 							<div class="uk-card-body uk-overflow-auto uk-padding-remove">
@@ -47,7 +49,7 @@
 												</user-pill>
 											</td>
 											<td ng-repeat="(key , grade) in course.meta.course_schema" class="uk-visible@s uk-visible@m uk-width-small">
-												<input type="number" class="uk-input" ng-init="!student.meta.grades[key] ? student.meta.grades[key] = 0 : null" ng-model="student.meta.grades[key]" max="{{course.meta.course_schema[key]}}" min="0"/>
+												<input type="number" class="uk-input" ng-init="!student.meta.grades[key] ? student.meta.grades[key] = 0 : null" ng-model="student.meta.grades[key]" max="{{course.meta.course_schema[key]}}" min="0" ng-disabled="!authorized"/>
 											</td>
 											<td class="uk-width-small uk-visible@s">
 												<input type="number" class="uk-input" ng-value="student.meta.grade.quiz + student.meta.grades.assignment + student.meta.grades.midterm + student.meta.grades.lab + student.meta.grades.exam" min="0" disabled="true" />

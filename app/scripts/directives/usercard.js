@@ -21,8 +21,7 @@ angular.module('nimbusEduApp')
       		}
       }),
       scope : {user:'=user'},
-      controller : function($scope,$localStorage){
-      },
+      //controller : function($scope,$localStorage){},
       restrict: 'E',
       link: function postLink(scope, element) {
         element.on('$destroy', function () {
