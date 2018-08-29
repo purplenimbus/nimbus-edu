@@ -78,7 +78,7 @@ angular.module('nimbusEduApp')
 					}]);
 				}
 
-	    		body += form.editCourse(key);
+	    		body += form.editCourse(key,$scope);
 
 	    		$scope.createCourseInit = true;
     		}

@@ -20,7 +20,7 @@ angular.module('nimbusEduApp')
 					optionsName = field.name+'Options';
 
 				$scope[listName] = new $window.Bloodhound({
-					datumTokenizer: function(d) { return $window.Bloodhound.tokenizers.whitespace(d[field.display]); },
+					datumTokenizer: function(d) { console.log('bloodhound',d[field.display]); return $window.Bloodhound.tokenizers.whitespace(d[field.display]); },
 					queryTokenizer: $window.Bloodhound.tokenizers.whitespace,
 					remote:	field.endPoint
 				});	
@@ -36,6 +36,9 @@ angular.module('nimbusEduApp')
 						//header: '<h3 class="uk-text-muted uk-text-small">Users</h3>',
 						//TO DO Move strings below to its own function
 						suggestion: function(data){ 
+
+							console.log('TypeAhead',data[field.display]);
+
 							var str = 		'<li class="uk-text-capitalize">'+data[field.display]+'</li>';
 
 							return str;
@@ -104,5 +107,9 @@ angular.module('nimbusEduApp')
 			}
 			
 			return eduApi.api('GET',user.tenant.id+'/courses'+queryString.objectToQuerystring(params));
+		};
+
+		this.getSchema = function(schema){
+			return Object.keys(schema); // jshint ignore:line
 		};
 	});
