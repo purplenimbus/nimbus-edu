@@ -117,7 +117,8 @@ angular.module('nimbusEduApp')
 		this.editCourse = function(key){
 			var str = '';
 			
-			str += '<form ng=if="!saving">';
+			str += '<spinner ng-if="saving"></spinner>';
+			str += '<form ng-if="!saving">';
 			str += '	<div class="uk-margin uk-grid-small" uk-grid>';
 			str += '		<div class="uk-width-1-1">';
 			str += uikit3.inputIcon({model:key+'.name',icon:'user',type:'text',required:true,placeholder:'Course Title' , cls:'uk-text-capitalize'});
@@ -152,7 +153,7 @@ angular.module('nimbusEduApp')
 			str += '	<div class="uk-margin typeahead">';
 			str += '		<div class="uk-form-label uk-text-muted uk-text-uppercase uk-margin-bottom uk-clearfix">';
 			str += '			<label class="uk-float-left">instructor</label>';
-			str += '			<div class="uk-float-right" ng-if="'+key+'.instructor && authorized"><a ng-click="'+key+'.instructor = \'\'" class="uk-text-danger uk-text-uppercase uk-link-reset">remove</a></div>';
+			str += '			<div class="uk-float-right" ng-if="'+key+'.instructor && authorized"><a ng-click="'+key+'.instructor = \'\'" class="uk-text-danger uk-text-uppercase">remove</a></div>';
 			str += '		</div>';
 			str += '		<div class="uk-placeholder uk-padding-small" ng-class="!'+key+'.instructor.id ? \'uk-text-center\' : \'\'">';
 			str += '			<span ng-if="!'+key+'.instructor.id" class="uk-text-small uk-text-muted">{{ \'no instructor assigned\' | uppercase }}</span>';

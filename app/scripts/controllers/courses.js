@@ -8,7 +8,21 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('CoursesCtrl', function ($scope,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card,sweetAlert) {
+	.controller('CoursesCtrl', function (
+		$scope,
+		grades,
+		courseService,
+		modal,
+		form,
+		uikit3,
+		eduApi,
+		$localStorage,
+		apiConst,
+		$window,
+		offcanvas,
+		card,
+		sweetAlert,
+		auth) {
 						
 		$scope.courseAverage = function(course){
 			return grades.getAverage(course);
@@ -151,16 +165,18 @@ angular.module('nimbusEduApp')
 					$scope.coursesList = result.data;
 					$scope.loading = false; 
 
-					console.log('courseService list',$scope.coursesList);
+					//console.log('courseService list',$scope.coursesList);
 
 					if($scope.coursesList && $scope.coursesList.data){
-						$scope.getSchema = courseService.getSchema($scope.coursesList.data[0].meta.course_schema);
+						var course = $scope.coursesList.data[0];
+						$scope.getSchema = courseService.getSchema(course.meta.course_schema);
+						$scope.authorized = auth.authorized(course,'instructor',course.instructor);
 					}	
-					
+
 				})
 				.catch(function(error){
 
-					$scope.loading = false; 
+					/*$scope.loading = false; 
 					
 					sweetAlert.alert({
 					   	title: 'Something\'s Wrong',
@@ -169,7 +185,7 @@ angular.module('nimbusEduApp')
 					   	buttons:{
 							confirm: sweetAlert.button({text:'ok'})
 						}
-					});
+					});*/
 				});
 		};
 
