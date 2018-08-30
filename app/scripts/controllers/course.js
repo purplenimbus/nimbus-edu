@@ -140,7 +140,8 @@ angular.module('nimbusEduApp')
 			$scope.getSchema = courseService.getSchema(course.meta.course_schema);
 			$scope.classes = courseService.getClasses();
 			offcanvas.open({
-				body : card.type('course','course',$scope,true)
+				body : card.type('course','course',$scope,true),
+				flip:true
 			},$scope);
 		};
 

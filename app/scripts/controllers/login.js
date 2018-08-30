@@ -8,7 +8,7 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-	.controller('LoginCtrl', function ($scope,$route,$rootScope,validation,$auth,auth,$window,$location,$http,userService) {
+	.controller('LoginCtrl', function ($scope,$route,$rootScope,validation,$auth,auth,$window,$location,$http,userService,$localStorage) {
 		
 	if(!$auth.isAuthenticated){
 		auth.clearUser();

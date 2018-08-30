@@ -20,9 +20,10 @@ angular.module('nimbusEduApp')
 					optionsName = field.name+'Options';
 
 				$scope[listName] = new $window.Bloodhound({
-					datumTokenizer: function(d) { console.log('bloodhound',d[field.display]); return $window.Bloodhound.tokenizers.whitespace(d[field.display]); },
+					datumTokenizer: function(d) { return $window.Bloodhound.tokenizers.whitespace(d[field.display]); },
 					queryTokenizer: $window.Bloodhound.tokenizers.whitespace,
-					prefetch:	field.endPoint
+					prefetch:	field.endPoint,
+					cache: false 
 				});	
 				
 				$scope[listName].initialize(true);

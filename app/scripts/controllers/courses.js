@@ -153,7 +153,7 @@ angular.module('nimbusEduApp')
 			
 			$scope.selected = item;
 			
-			offcanvas.open({title:false,body:card.type(type,'selected',$scope,edit)},$scope);
+			offcanvas.open({title:false,body:card.type(type,'selected',$scope,edit),flip:true},$scope);
 
 			$scope.offCanvasOpen = true;
 
