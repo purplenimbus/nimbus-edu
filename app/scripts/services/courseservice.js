@@ -61,7 +61,7 @@ angular.module('nimbusEduApp')
 		this.saveCourse = function(user,course_id,data,params){
 			console.log('saveCourse',data,course_id,params);
 
-			return eduApi.api('POST',user.tenant.id+'/courses/'+(course_id || '')+(params ? queryString.objectToQuerystring(params) : '') ,data);
+			return eduApi.api('POST',user.tenant.id+'/courses/update/'+(course_id || '')+(params ? queryString.objectToQuerystring(params) : '') ,data);
 		};
 		
 		this.initCourse = function(user,$scope,params){

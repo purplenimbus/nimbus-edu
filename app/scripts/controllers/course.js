@@ -21,7 +21,8 @@ angular.module('nimbusEduApp')
 		sweetAlert,
 		offcanvas,
 		card,
-		auth) {
+		auth,
+		importService) {
 		$scope.init = function(params){
 			$scope.loading = true;
 			$scope.saving = false;
@@ -142,6 +143,35 @@ angular.module('nimbusEduApp')
 				body : card.type('course','course',$scope,true)
 			},$scope);
 		};
+
+		$scope.upload = function(data){
+
+			var payload = [data.map(function(value){
+				return { 
+					id:value.id || '',
+					meta:value.meta || false
+				}
+			})];
+
+			$scope.saving = true;
+
+			importService.import($scope.user,'results',payload)
+  				.then(function(result){
+  					console.log('upload result',result);
+
+  					$scope.saving = false;
+
+					$scope.saved = true;
+
+  				})
+  				.catch(function(error){
+  					console.log('upload error',error);
+
+  					$scope.saving = false;
+
+  					$scope.error = error;
+  				});
+		}
 		
 		angular.element('.uk-switcher').on({
 

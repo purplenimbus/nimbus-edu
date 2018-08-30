@@ -4,27 +4,6 @@
 			background:#e6e6e6;
 	  }
 	  main{
-		.uk-card{
-			.title{
-				margin:0px;
-			}
-			.uk-card-body {
-				padding: 15px;
-			}
-			.toolbar{
-				li{
-					a{
-					  /*line-height: 1.7;
-					  vertical-align: middle;*/
-					  padding:5px;
-					  svg{
-					  	width:30px;
-					  	height:30px;
-					  }
-					}
-				}
-			}
-		}
 		users{
 			form{
 				position:relative;
@@ -87,6 +66,28 @@ instructor-courses{
 			.uk-dropdown{
 				width:inherit;
 				display:block;
+			}
+		}
+	}
+}
+
+.uk-card{
+	.title{
+		margin:0px;
+	}
+	.uk-card-body {
+		padding: 15px;
+	}
+	.toolbar{
+		li{
+			a{
+			  /*line-height: 1.7;
+			  vertical-align: middle;*/
+			  padding:5px;
+			  svg{
+			  	width:30px;
+			  	height:30px;
+			  }
 			}
 		}
 	}

@@ -23,7 +23,7 @@
 									<spinner ng-if="saving"></spinner>
 									<ul ng-if="!saving"class="uk-iconnav toolbar">
     									<li>
-    										<a ng-click="save(courseData.data)" uk-icon="icon: cloud-upload"></a>
+    										<a ng-click="upload(courseData.data)" uk-icon="icon: cloud-upload"></a>
     									</li>
     									<li>
     										<a ng-click="edit(course)" uk-icon="icon: cog"></a>
@@ -40,7 +40,7 @@
 									<thead>
 										<tr>
 											<th class="uk-table-small">Name</th>
-											<th ng-repeat="(key , grade) in course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }}</th>
+											<th ng-repeat="(key , grade) in course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }} / {{course.meta.course_schema[key]}}</th>
 											<th class="uk-table-small uk-text-small uk-visible@s">Total</th>
 											<th class="uk-table-shrink uk-text-small">Grade</th>
 										</tr>
