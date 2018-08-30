@@ -118,8 +118,7 @@ angular.module('nimbusEduApp')
 			console.log('save data post',data,type);
 
 			courseService.saveCourse($scope.user,course_id,payload)
-				.then(function(result){
-					
+				.then(function(){
 					$scope.saving = false;
 
 					$scope.saved = true;

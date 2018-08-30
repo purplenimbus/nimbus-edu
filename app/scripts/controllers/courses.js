@@ -176,7 +176,9 @@ angular.module('nimbusEduApp')
 				})
 				.catch(function(error){
 
-					/*$scope.loading = false; 
+					console.log('courses init error ',error);
+
+					$scope.loading = false; 
 					
 					sweetAlert.alert({
 					   	title: 'Something\'s Wrong',
@@ -185,7 +187,7 @@ angular.module('nimbusEduApp')
 					   	buttons:{
 							confirm: sweetAlert.button({text:'ok'})
 						}
-					});*/
+					});
 				});
 		};
 
