@@ -22,7 +22,8 @@ angular.module('nimbusEduApp')
 		offcanvas,
 		card,
 		sweetAlert,
-		auth) {
+		auth,
+		$route) {
 						
 		$scope.courseAverage = function(course){
 			return grades.getAverage(course);
@@ -88,7 +89,40 @@ angular.module('nimbusEduApp')
 
 		$scope.save = function(data){ 
 			console.log('save course',data);
-			//courseService.saveCourse(data); 
+			$scope.saving = true;
+
+    		var course_id = data.id || false,
+    			payload = false;
+
+    			data.instructor_id = data.instructor.id || false;
+
+    			payload = courseService.trim(data,[
+	    			'grade',
+	    			'instructor',
+	    			'uuid',
+	    			'updated_at',
+	    			'created_at',
+	    			'code',
+	    			'id'
+    			]);
+
+
+			console.log('save data post',data);
+
+			courseService.saveCourse($scope.user,course_id,payload)
+				.then(function(){
+					$scope.saving = false;
+
+					$scope.saved = true;
+
+					offcanvas.close();
+
+					$route.reload();
+				})
+				.catch(function(error){
+					$scope.saving = false;
+					$scope.error = error;
+				}); 
 		};
 
 		$scope.next = function(page){

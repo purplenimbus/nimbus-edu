@@ -191,5 +191,5 @@ angular.module('nimbusEduApp')
 
     this.import = function(user,type,data){
         return eduApi.api('POST',user.tenant.id+'/courses/batch?type='+type,data);
-    }
+    };
   });
