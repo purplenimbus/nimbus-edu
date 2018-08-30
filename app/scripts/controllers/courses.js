@@ -9,8 +9,6 @@
  */
 angular.module('nimbusEduApp')
 	.controller('CoursesCtrl', function ($scope,grades,courseService,modal,form,uikit3,eduApi,$localStorage,apiConst,$window,offcanvas,card,sweetAlert) {
-
-		$scope.getSchema = courseService.getSchema($scope.asset.meta.course_schema);
 						
 		$scope.courseAverage = function(course){
 			return grades.getAverage(course);
@@ -118,7 +116,7 @@ angular.module('nimbusEduApp')
 			$scope.loading = true; 
 			$scope.user = $localStorage.auth;
 			$scope.showAdvanced = false;
-			$scope.asset = { 
+			/*$scope.asset = { 
 				meta : {
 					course_grade_id : 1, // jshint ignore:line
 					course_schema : { // jshint ignore:line
@@ -130,7 +128,7 @@ angular.module('nimbusEduApp')
 			            attendance: {value:5,enabled:true}
 			        }
 				} 
-			};
+			};*/
 
 			$scope.createCourseInit = false;
 
@@ -147,22 +145,32 @@ angular.module('nimbusEduApp')
 				}
 			};
 
-			courseService.getCourses($scope.user,{page:page,course_grade_id:classId}).then(function(result){
-				console.log('courseService init',result);
-				$scope.coursesList = result.data;
-				$scope.loading = false; 
-			})
-			.catch(function(error){
-				$scope.loading = false; 
-				sweetAlert.alert({
-				   	title: 'Something\'s Wrong',
-				   	text : error.data.message,
-				   	icon: 'error',
-				   	buttons:{
-						confirm: sweetAlert.button({text:'ok'})
-					}
+			courseService.getCourses($scope.user,{page:page,course_grade_id:classId})
+				.then(function(result){
+					
+					$scope.coursesList = result.data;
+					$scope.loading = false; 
+
+					console.log('courseService list',$scope.coursesList);
+
+					if($scope.coursesList && $scope.coursesList.data){
+						$scope.getSchema = courseService.getSchema($scope.coursesList.data[0].meta.course_schema);
+					}	
+					
+				})
+				.catch(function(error){
+
+					$scope.loading = false; 
+					
+					sweetAlert.alert({
+					   	title: 'Something\'s Wrong',
+					   	text : error,
+					   	icon: 'error',
+					   	buttons:{
+							confirm: sweetAlert.button({text:'ok'})
+						}
+					});
 				});
-			});
 		};
 
 		$scope.$on('searchFilter', function(e,searchFilter) { 

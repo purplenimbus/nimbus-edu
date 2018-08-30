@@ -23,6 +23,12 @@ angular.module('nimbusEduApp')
 
 				//$scope.$apply();
 												
+			},
+			authorized : function(resource,key,user){
+
+				var loggedinUser = $localStorage.auth;
+
+				return loggedinUser.access_level.id >= 3 || user.id === resource[key].id;
 			}
 		};
 	});

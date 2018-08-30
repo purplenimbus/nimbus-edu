@@ -20,10 +20,11 @@ angular.module('nimbusEduApp')
 		$route,
 		sweetAlert,
 		offcanvas,
-		card) {
+		card,
+		auth) {
 		$scope.init = function(params){
 			$scope.loading = true;
-			
+			$scope.saving = false;
 			$scope.user = $localStorage.auth;
 
 			courseService.initCourse($scope.user,$scope,params).then(function(result){
@@ -33,12 +34,12 @@ angular.module('nimbusEduApp')
 				if($scope.courseData){
 					$scope.course =  courseService.savedCourse || $scope.courseData.data[0].course;
 
-					if($scope.courseData.data){
+					if($scope.course){
 						$scope.pageTitle = $scope.course.name;
-						$scope.pageTitle += ' | '+$scope.course.grade.alias || $scope.course.grade.name;
+						$scope.pageTitle += $scope.course.code ? ' | '+$scope.course.code : '';
 					}
 
-					$scope.authorized = $scope.user.id === $scope.course.instructor.id ? true : false;
+					$scope.authorized = auth.authorized($scope.course,'instructor',$scope.course.instructor);
 				}
 
 				$scope.loading = false;
@@ -94,19 +95,43 @@ angular.module('nimbusEduApp')
 
 		$scope.save = function(data,type){
 
-    		$scope.loading = true;
+			//console.log('save data pre',data);
 
-			console.log('save data',data,type);
+    		$scope.saving = true;
 
-			/*courseService.saveCourse($scope.user,data,params)
+    		var course_id = data.id || false,
+    			payload = false;
+
+    			data.instructor_id = data.instructor.id || false;
+
+    			payload = courseService.trim(data,[
+	    			'grade',
+	    			'instructor',
+	    			'uuid',
+	    			'updated_at',
+	    			'created_at',
+	    			'code',
+	    			'id'
+    			]);
+
+
+			console.log('save data post',data,type);
+
+			courseService.saveCourse($scope.user,course_id,payload)
 				.then(function(result){
-					console.log('save result',result);
-					$scope.loading = false;
+					
+					$scope.saving = false;
+
+					$scope.saved = true;
+
+					offcanvas.close();
+
+					$route.reload();
 				})
 				.catch(function(error){
-					console.log('save error',error);
-					$scope.loading = false;
-				});*/
+					$scope.saving = false;
+					$scope.error = error;
+				});
 			
 		};
 
@@ -114,11 +139,10 @@ angular.module('nimbusEduApp')
 			console.log('edit course',course);
 			$scope.getSchema = courseService.getSchema(course.meta.course_schema);
 			$scope.classes = courseService.getClasses();
-			$scope.payload = {};
 			offcanvas.open({
 				body : card.type('course','course',$scope,true)
 			},$scope);
-		}
+		};
 		
 		angular.element('.uk-switcher').on({
 
