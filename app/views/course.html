@@ -66,6 +66,9 @@
 										</tr>
 									</tbody>
 								</table>
+								<div class="uk-width-1-1 uk-padding-small">
+									<button ng-if="courseData.next_page_url" ng-click="next(courseData.current_page + 1)" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Load More <div uk-spinner ng-if="paginate"></div></button>
+								</div>
 							</div>
 						</div>
 					</div>

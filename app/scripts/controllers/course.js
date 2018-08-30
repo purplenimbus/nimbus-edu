@@ -173,6 +173,33 @@ angular.module('nimbusEduApp')
   				});
 		};
 		
+		$scope.next = function(page){
+
+			$scope.paginate = true;
+			courseService.initCourse($scope.user,$scope,{
+				page:page,
+				course_id:$route.current.params.id,
+				paginate : 10
+			}) // jshint ignore:line
+			.then(function(result){
+
+				result.data.data = $scope.courseData.data.concat(result.data.data);
+
+				$scope.courseData = result.data;
+
+				$scope.paginate = false;
+			}).catch(function(error){
+				console.log('eduApi error',error);
+				$window.UIkit.notification({
+					message: 'Couldnt get users',
+					status: 'danger',
+					pos: 'top-right',
+					timeout: 5000
+				});
+
+				$scope.paginate = false;
+			});
+		};
 		angular.element('.uk-switcher').on({
 
 			'show': function(e){
