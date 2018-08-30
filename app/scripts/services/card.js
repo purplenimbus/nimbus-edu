@@ -33,7 +33,7 @@ angular.module('nimbusEduApp')
     	this.course = function(key,$scope,edit){
     		var body = '';
 
-    		console.log('course card');
+    		console.log('course card',key,$scope,edit);
 
     		body += '<article class="uk-text-center">';
     		body += '	<h3 class="uk-text-primary uk-text-capitalize"><a class="uk-link-reset" href="">{{ '+key+'.name }}</a></h3>';
@@ -66,30 +66,52 @@ angular.module('nimbusEduApp')
     		body += '</article>';
 
     		if(edit){
-	    		if(!$scope.createCourseInit){
+	    		//if(!$scope.createCourseInit){
 					courseService.initTypeAhead($scope,[{
 						name:'subjects',
 						display:'name',
-						endPoint:eduApi.apiEndPoint+'subjects'
+						endPoint:eduApi.apiEndPoint+'subjects',
+                        callback : function(data){ 
+
+                            var str =       '<li class="uk-text-capitalize">'+data.name+'</li>';
+
+                            return str;
+                        }
 					},{
 						name:'instructors',
 						display:'firstname',
-						endPoint:eduApi.apiEndPoint+$scope.user.tenant.id+'/users?user_type=teacher'
+						endPoint:eduApi.apiEndPoint+$scope.user.tenant.id+'/users?user_type=teacher',
+                        callback : function(data){ 
+
+                            var str =       '<li class="uk-text-capitalize">'+data.firstname+' '+data.lastname+'</li>';
+
+                            return str;
+                        }
 					}]);
-				}
+				//}
 
 	    		body += form.editCourse(key,$scope);
 
 	    		$scope.createCourseInit = true;
     		}
 
+            var footer = uikit3.button({
+                    cls:'uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom',
+                    icon:'upload',
+                    label:'Save',
+                    directive:'ng-click="save(course)"'}); 
+
+                footer += '<div class="uk-margin" ng-if="error">{{error}}</div>';  
+                
     		return {
     			body:body,
     			classes : {
     				body : 'uk-padding-remove',
     				footer : 'uk-padding-remove'
     			},
-    			footer	:	edit ? uikit3.button({cls:'uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom',icon:'upload',label:'Save',directive:'ng-click="save(course)"'}) : false
+    			footer	:	edit ? 
+                                footer  
+                            : false
     		};
     	};
   	});

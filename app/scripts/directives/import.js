@@ -66,7 +66,7 @@ angular.module('nimbusEduApp')
 					$scope.loading = true;
 					$scope.$apply();
 					if(e){
-						eduApi.api('POST',$scope.user.tenant.id+'/courses/batch?type='+type.value,data)
+						importService.import($scope.user,type.value,data)
 		  				.then(function(result){
 		  					console.log('import result',result);
 		  					$scope.loading = false;

@@ -13,7 +13,7 @@ angular.module('nimbusEduApp')
 
 		this.initTypeAhead = function($scope,fields){
 			fields.forEach(function(field){
-				//console.log('field',field);
+				//console.log('initTypeAhead field',field);
 
 				var listName = field.name+'List',
 					dataSetName = field.name+'DataSet',
@@ -22,7 +22,7 @@ angular.module('nimbusEduApp')
 				$scope[listName] = new $window.Bloodhound({
 					datumTokenizer: function(d) { console.log('bloodhound',d[field.display]); return $window.Bloodhound.tokenizers.whitespace(d[field.display]); },
 					queryTokenizer: $window.Bloodhound.tokenizers.whitespace,
-					remote:	field.endPoint
+					prefetch:	field.endPoint
 				});	
 				
 				$scope[listName].initialize(true);
@@ -31,18 +31,11 @@ angular.module('nimbusEduApp')
 					name	: field.name || '',
 					display	: field.display || '',
 					source	: $scope[listName].ttAdapter() || false,
-					limit	: field.limit || 2,
+					limit	: field.limit || 10,
 					templates: {
 						//header: '<h3 class="uk-text-muted uk-text-small">Users</h3>',
 						//TO DO Move strings below to its own function
-						suggestion: function(data){ 
-
-							console.log('TypeAhead',data[field.display]);
-
-							var str = 		'<li class="uk-text-capitalize">'+data[field.display]+'</li>';
-
-							return str;
-						},
+						suggestion: field.callback,
 						empty: [
 							'',
 							'No results were found ...',
@@ -65,21 +58,18 @@ angular.module('nimbusEduApp')
 			});
 		};
 
-		this.saveCourse = function(user,data,params){
-			console.log('saveCourse',data,params);
+		this.saveCourse = function(user,course_id,data,params){
+			console.log('saveCourse',data,course_id,params);
 
-			//return eduApi.api('POST',user.tenant.id+'/courses/edit',data)
-
+			return eduApi.api('POST',user.tenant.id+'/courses/update/'+(course_id || '')+(params ? queryString.objectToQuerystring(params) : '') ,data);
 		};
 		
 		this.initCourse = function(user,$scope,params){
-			//var self = this;
 			
 			$scope.loadingHome = true;
-
-			//console.log('courseService initCourse',params,queryString.objectToQuerystring(params));
 						
 			return eduApi.api('GET',user.tenant.id+'/registrations'+queryString.objectToQuerystring(params));
+		
 		};
 
 		this.getClasses = function(){
@@ -111,5 +101,16 @@ angular.module('nimbusEduApp')
 
 		this.getSchema = function(schema){
 			return Object.keys(schema); // jshint ignore:line
+		};
+
+		this.trim = function(data,keys){
+
+			keys.forEach(function(key){
+				if(data[key]){
+					delete data[key];
+				}
+			});
+
+			return data;
 		};
 	});

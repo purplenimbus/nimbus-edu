@@ -114,48 +114,56 @@ angular.module('nimbusEduApp')
 			return str;
 		};
 		
-		this.editCourse = function(key,$scope){
+		this.editCourse = function(key){
 			var str = '';
 			
-			str += '<form>';
+			str += '<spinner ng-if="saving"></spinner>';
+			str += '<form ng-if="!saving">';
 			str += '	<div class="uk-margin uk-grid-small" uk-grid>';
 			str += '		<div class="uk-width-1-1">';
 			str += uikit3.inputIcon({model:key+'.name',icon:'user',type:'text',required:true,placeholder:'Course Title' , cls:'uk-text-capitalize'});
 			str += '		</div>';
 			str += '	</div>';
-			str += '	<div class="uk-margin uk-grid-small" uk-grid>';
-			str += '		<div class="uk-width-1-2@m uk-width-1-2@xs">';
-			str += uikit3.typeahead({
-						directive:'datasets="subjectsDataSet" options="subjectsOptions" ng-model="'+key+'.meta.subject" sf-typeahead',
-						type:'text',
-						required:true,
-						cls:'uk-input uk-search-input uk-width-1-1 typeahead uk-text-capitalize',
-						placeholder:'Subject'
-					});
+			
+			//str += '	<div class="uk-margin uk-grid-small" uk-grid>';
+			//str += '		<div class="uk-width-1-2@m uk-width-1-2@xs">';
+			//str += uikit3.typeahead({
+						//directive:'datasets="subjectsDataSet" options="subjectsOptions" ng-model="'+key+'.meta.subject" sf-typeahead',
+						//type:'text',
+						//required:true,
+						//cls:'uk-input uk-search-input uk-width-1-1 typeahead uk-text-capitalize',
+						//placeholder:'Subject'
+					//});
+			//str += '	</div>';
+			//str += '		<div class="uk-width-1-1">';
+			//str += '			<select class="uk-select" ng-model="'+key+'.grade" ng-options="class.id as class.name for class in classes"></select>';
+			//str += '		</div>';
+			//str += '	</div>';
+
+			str += '	<div class="uk-margin typeahead" ng-if="authorized && !'+key+'.instructor.id">';
+			str += 		uikit3.typeahead({
+							directive:'datasets="instructorsDataSet" options="instructorsOptions" ng-model="'+key+'.instructor" sf-typeahead',
+							type:'text',
+							required:true,
+							cls:'uk-input uk-search-input uk-width-1-1 typeahead uk-text-capitalize',
+							placeholder:'Instructor'
+						});
 			str += '	</div>';
-			str += '		<div class="uk-width-1-2@m uk-width-1-2@xs">';
-			str += '			<select class="uk-select" ng-model="'+key+'.grade" ng-options="class.id as class.name for class in classes"></select>';
+
+			str += '	<div class="uk-margin typeahead">';
+			str += '		<div class="uk-form-label uk-text-muted uk-text-uppercase uk-margin-bottom uk-clearfix">';
+			str += '			<label class="uk-float-left">instructor</label>';
+			str += '			<div class="uk-float-right" ng-if="'+key+'.instructor && authorized"><a ng-click="'+key+'.instructor = \'\'" class="uk-text-danger uk-text-uppercase">remove</a></div>';
 			str += '		</div>';
-			str += '	</div>';
-
-			str += '	<div class="uk-margin typeahead">';
-			str += uikit3.typeahead({
-						directive:'datasets="instructorsDataSet" options="instructorsOptions" ng-model="'+key+'.instructor" sf-typeahead',
-						type:'text',
-						required:true,
-						cls:'uk-input uk-search-input uk-width-1-1 typeahead uk-text-capitalize',
-						placeholder:'Instructor'
-					});
-			str += '	</div>';
-
-			str += '	<div class="uk-margin typeahead">';
-			str += '	<label class="uk-form-label uk-text-muted uk-text-uppercase uk-margin-bottom">instructor</label>';
-			str += '		<user-pill name="true" user="'+key+'.instructor" ng-if="'+key+'.instructor"></user-pill>';						
+			str += '		<div class="uk-placeholder uk-padding-small" ng-class="!'+key+'.instructor.id ? \'uk-text-center\' : \'\'">';
+			str += '			<span ng-if="!'+key+'.instructor.id" class="uk-text-small uk-text-muted">{{ \'no instructor assigned\' | uppercase }}</span>';
+			str += '			<user-pill name="true" user="'+key+'.instructor" ng-if="'+key+'.instructor.id"></user-pill>';
+			str += '		</div>';						
 			str += '	</div>';
 			
 			//TO DO : Move this somewhere else , perhaps on the course edit page? its badly slowing down the modal load
 
-			str += '	<p class="uk-text-small uk-heading-line uk-text-center uk-text-uppercase uk-text-small" ng-click="showAdvanced = !showAdvanced"><span>';
+			/*str += '	<p class="uk-text-small uk-heading-line uk-text-center uk-text-uppercase uk-text-small" ng-click="showAdvanced = !showAdvanced"><span>';
 			str += '		Course Breakdown  ';
 			str += '		<span ng-if="!showAdvanced">[expand]</span>';
 			str += '		<span ng-if="showAdvanced">[hide]</span>';
@@ -183,7 +191,8 @@ angular.module('nimbusEduApp')
 			str += '			</li>';
 			str += '			</ul>';
 			str += '		</div>';
-			str += '	</div>';
+			str += '	</div>';*/
+
 			str += '	<div class="uk-margin">';
 			str += 			uikit3.textarea({model:key+'.meta.comments',placeholder:'Comments',label:false});
 			str += '	</div>';

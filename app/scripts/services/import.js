@@ -8,7 +8,7 @@
  * Service in the nimbusEduApp.
  */
 angular.module('nimbusEduApp')
-  .service('importService', function (uikit3) {
+  .service('importService', function (uikit3,eduApi) {
     this.render = function(){
     	var str = '',body = '',header='',selection='';
 
@@ -188,4 +188,8 @@ angular.module('nimbusEduApp')
         }];
 
     };
+
+    this.import = function(user,type,data){
+        return eduApi.api('POST',user.tenant.id+'/courses/batch?type='+type,data);
+    }
   });

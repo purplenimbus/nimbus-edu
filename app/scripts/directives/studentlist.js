@@ -20,7 +20,7 @@ angular.module('nimbusEduApp')
 			header += '</div>';
 			header += '<div class="uk-align-right">';
 			header += '	<ul class="uk-iconnav toolbar">';
-			header += '		<li><a ng-click="init()" uk-icon="icon: refresh"></a></li>';
+			header += '		<li ng-if="!loading"><a ng-click="init()" uk-icon="icon: refresh"></a></li>';
 			header += '	</ul>';
 			header += '</div>';
 
@@ -52,7 +52,7 @@ angular.module('nimbusEduApp')
 				header : header,
 				body : body,
 				classes:{
-					card : 'uk-card-default uk-padding-remove uk-width-1-1',
+					card : 'uk-padding-remove uk-width-1-1',
 					body:'uk-padding-small',
 					header : 'uk-padding-small'
 				}

@@ -20,13 +20,18 @@
 									</user-pill>
 								</div>
 								<div class="uk-align-right" ng-if="authorized">
-									<ul class="uk-iconnav toolbar">
-    									<li><a ng-click="save(courseData.data)" uk-icon="icon: cloud-upload" class="uk-text-primary"></a></li>
-    									<li><a ng-click="edit(course)" uk-icon="icon: cog" class="uk-text-muted"></a></li>
+									<spinner ng-if="saving"></spinner>
+									<ul ng-if="!saving"class="uk-iconnav toolbar">
+    									<li>
+    										<a ng-click="upload(courseData.data)" uk-icon="icon: cloud-upload"></a>
+    									</li>
+    									<li>
+    										<a ng-click="edit(course)" uk-icon="icon: cog"></a>
+    									</li>
 									</ul>
 								</div>
 							</div>
-							<div class="uk-card-body uk-overflow-auto">
+							<div class="uk-card-body uk-overflow-auto uk-padding-remove">
 								<spinner ng-if="loading"></spinner>
 								<div ng-if="!loading && !courseData.data" class="uk-placeholder uk-text-center uk-danger uk-text-muted uk-margin-remove uk-padding-small">
 									<span class="uk-margin-small-right uk-text-uppercase" uk-icon="ban"></span> {{ 'no students found' }}
@@ -35,7 +40,7 @@
 									<thead>
 										<tr>
 											<th class="uk-table-small">Name</th>
-											<th ng-repeat="(key , grade) in course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }}</th>
+											<th ng-repeat="(key , grade) in course.meta.course_schema" class="uk-width-small uk-text-small uk-visible@s uk-visible@m">{{ key }} / {{course.meta.course_schema[key]}}</th>
 											<th class="uk-table-small uk-text-small uk-visible@s">Total</th>
 											<th class="uk-table-shrink uk-text-small">Grade</th>
 										</tr>

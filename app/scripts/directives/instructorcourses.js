@@ -7,21 +7,21 @@
  * # instructorCourses
  */
 angular.module('nimbusEduApp')
-  .directive('instructorCourses', function () {
+  .directive('instructorCourses', function (uikit3) {
   	var template = '';
   		template += '<div uk-grid="masonry: true">';
-		template += '    <div class="uk-width-1-2@s uk-width-1-3@m" ng-repeat="course in coursesList.data">';
-		template += '    	<student-list class="uk-flex uk-flex-center uk-flex-middle" course="course"  list="list"></student-list>';
-		template += '    </div>';
-		/*template += '    <ul ng-if="list" class="uk-list uk-width-1-1">';
-		template += '		<li ng-repeat="course in coursesList.data">';
-		template += '		<a href="#" class="uk-margin-remove uk-text-primary">{{ course.name }} <span class="uk-text-muted uk-text-uppercase">{{ course.code }}</span></a>';
-		template += '		</li>';
-		template += '	 </ul>';*/
+		  template += '    <div class="uk-width-1-2@s uk-width-1-3@m" ng-repeat="course in coursesList.data">';
+		  template += '    	<student-list class="uk-flex uk-flex-center uk-flex-middle" course="course"  list="list"></student-list>';
+		  template += '    </div>';
+  		/*template += '    <ul ng-if="list" class="uk-list uk-width-1-1">';
+  		template += '		<li ng-repeat="course in coursesList.data">';
+  		template += '		<a href="#" class="uk-margin-remove uk-text-primary">{{ course.name }} <span class="uk-text-muted uk-text-uppercase">{{ course.code }}</span></a>';
+  		template += '		</li>';
+  		template += '	 </ul>';*/
 	    template += '</div>';
 
     return {
-      template: template,
+      template: uikit3.card({body:template,classes:{card:'uk-card-default uk-padding-remove',body:'uk-padding-remove'}}),
       restrict: 'E',
       scope:{user:'=user',list:'=list'},
       controller:function($scope,courseService){
