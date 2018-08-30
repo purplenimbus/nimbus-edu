@@ -99,7 +99,7 @@ angular.module('nimbusEduApp')
                     cls:'uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom',
                     icon:'upload',
                     label:'Save',
-                    directive:'ng-click="save(course)"'}); 
+                    directive:'ng-click="save('+key+')"'}); 
 
                 footer += '<div class="uk-margin" ng-if="error">{{error}}</div>';  
                 

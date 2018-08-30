@@ -150,7 +150,7 @@ angular.module('nimbusEduApp')
 				return { 
 					id:value.id || '',
 					meta:value.meta || false
-				}
+				};
 			})];
 
 			$scope.saving = true;
@@ -171,7 +171,7 @@ angular.module('nimbusEduApp')
 
   					$scope.error = error;
   				});
-		}
+		};
 		
 		angular.element('.uk-switcher').on({
 
