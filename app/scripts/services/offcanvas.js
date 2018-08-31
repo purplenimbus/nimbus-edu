@@ -36,7 +36,9 @@ angular.module('nimbusEduApp')
 	    };
 
 	    this.close = function(){
-	      $window.UIkit.offcanvas('#offcanvas').hide();
+	      if( $window.UIkit.offcanvas('#offcanvas')){ 
+	      	$window.UIkit.offcanvas('#offcanvas').hide();
+	      }
 	    };
 
 	});

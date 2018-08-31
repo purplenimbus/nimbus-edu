@@ -3,7 +3,12 @@
   <div class="uk-navbar-right">
 	<div class="uk-navbar-item">
 		<ul class="uk-iconnav uk-clearfix">
-			<li ng-if="auth.isAuthenticated()"><a ng-click="nav()" uk-icon="icon:  more-vertical" data-target="#nav"></a></li>
+			<li ng-if="auth.isAuthenticated()">
+				<a 
+				ng-click="offcanvas('nav').show()" 
+				uk-icon="icon:  more-vertical" 
+				data-target="#nav"></a>
+			</li>
 		</ul>
 	</div>
   </div>

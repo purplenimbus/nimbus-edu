@@ -22,7 +22,7 @@ angular.module('nimbusEduApp')
 	  				classes : []
 	  			}
 	  		};
-	  	}
+	  	};
 
   		$scope.init();
 

@@ -9,12 +9,15 @@
  */
 angular.module('nimbusEduApp')
   .controller('NavCtrl', function ($scope,offcanvas,modal,form,settings,$route,$rootScope,validation,$auth,auth,$location,breadcrumbs,$localStorage) {
+	
 	$scope.route = $route;
+    $scope.offcanvas = offcanvas.offcanvas;
+    $scope.user = $localStorage.auth;
 
-    $scope.nav = function(){
+    /*$scope.nav = function(){
 	    $scope.user = $localStorage.auth;
 
-	    var body =  '<user-pill user="user" name="true" label="user.user_type.name || user.access_level.name"></user-pill>';
+	    var body =  '	<div ng-controller="NavCtrl"><user-pill user="user" name="true" label="user.user_type.name || user.access_level.name"></user-pill>';
 			body += '	<ul class="uk-nav-default uk-nav-parent-icon uk-position-bottom uk-padding" uk-nav>';
 			body += '		<li ng-repeat="(key , nav) in navSettings" ng-if="!nav.disabled && user.access_level.id >= nav.access_level" ng-class="nav.children ? \'uk-parent\' : \'\'">';
 			body += '			<a ng-href="#!/{{ nav.url }}">';
@@ -43,12 +46,12 @@ angular.module('nimbusEduApp')
 	        body += '            <span class="uk-margin-small-right" uk-icon="icon: sign-out"></span>';
 	        body += '            Sign Out</a>';
 	        body += '       </li>';
-			body += '	</ul>';
+			body += '	</ul></div>';
 
 	    	offcanvas.open({
-		    	body:body
+		    	body:body,
 		    },$scope);
-    };
+    };*/
 	
 	$scope.logout = function() {
 		offcanvas.close();
@@ -93,4 +96,6 @@ angular.module('nimbusEduApp')
 	$scope.auth = $auth;
 	
 	$rootScope.user = $localStorage.auth;
+
+	console.log('NavCtrl scope',$scope);
   });
