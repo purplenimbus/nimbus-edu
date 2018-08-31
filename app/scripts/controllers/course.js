@@ -66,6 +66,15 @@ angular.module('nimbusEduApp')
 			if(scores){
 				return grades.getGrade(grades.getTotal(scores,$scope.course.meta.course_schema)); // jshint ignore:line
 			}
+			
+		};
+
+		$scope.getTotal = function(scores){
+			
+			if(scores){
+				return grades.getTotal(scores,$scope.course.meta.course_schema); // jshint ignore:line
+			}
+
 		};
 		
 		$scope.loadOutline = function(){
@@ -136,12 +145,12 @@ angular.module('nimbusEduApp')
 		};
 
 		$scope.edit = function(course){
-			console.log('edit course',course);
 			$scope.getSchema = courseService.getSchema(course.meta.course_schema);
 			$scope.classes = courseService.getClasses();
 			offcanvas.open({
 				body : card.type('course','course',$scope,true),
-				flip:true
+				flip:true,
+				el:'offcanvas'+course.id
 			},$scope);
 		};
 

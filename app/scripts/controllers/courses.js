@@ -149,15 +149,15 @@ angular.module('nimbusEduApp')
 			});
 		};
 
-		$scope.view  = function(item,type,edit){
+		$scope.view  = function(item,type,edit,index){
 			
 			$scope.selected = item;
 			
-			offcanvas.open({title:false,body:card.type(type,'selected',$scope,edit),flip:true},$scope);
+			offcanvas.open({title:false,body:card.type(type,'selected',$scope,edit),flip:true,el:'offcanvas'+(item.id || index)},$scope);
 
 			$scope.offCanvasOpen = true;
 
-			console.log(type+' card',$scope);
+			console.log(type+' card',$scope,item);
 		};
 
 		$scope.init = function(page,classId){

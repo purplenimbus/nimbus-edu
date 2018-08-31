@@ -33,6 +33,8 @@ angular.module('nimbusEduApp')
 					grade.grade = 'F'; 
 					grade.className = 'danger';
 				}
+
+				console.log('getGrade',total,grade);
 				
 				return grade;
 			},

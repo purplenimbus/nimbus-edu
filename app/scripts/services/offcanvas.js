@@ -27,18 +27,18 @@ angular.module('nimbusEduApp')
 	      angular.element('#uk-offcanvas-content')
 	        .append($compile(uikit3.offcanvas(attrs))($scope));
 
-	      	$window.UIkit.offcanvas('#offcanvas').show();
+	      	$window.UIkit.offcanvas('#'+attrs.el).show();
 	      
-	      	angular.element('#offcanvas').on('hidden',function(){
+	      	angular.element('#'+attrs.el).on('hidden',function(){
 	      		$scope.offCanvasOpen = false;
 	        	angular.element(this).remove();
 	      	});
 	    };
 
 	    this.close = function(){
-	      if( $window.UIkit.offcanvas('#offcanvas')){ 
-	      	$window.UIkit.offcanvas('#offcanvas').hide();
-	      }
+	      //if( $window.UIkit.offcanvas('.uk-offcanvas')){ 
+	      	$window.UIkit.offcanvas('.uk-offcanvas').hide();
+	      //}
 	    };
 
 	});

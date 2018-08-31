@@ -58,7 +58,7 @@
 												<input type="number" class="uk-input" ng-init="!student.meta.grades[key] ? student.meta.grades[key] = 0 : null" ng-model="student.meta.grades[key]" max="{{course.meta.course_schema[key]}}" min="0" ng-disabled="!authorized"/>
 											</td>
 											<td class="uk-width-small uk-visible@s">
-												<input type="number" class="uk-input" ng-value="student.meta.grade.quiz + student.meta.grades.assignment + student.meta.grades.midterm + student.meta.grades.lab + student.meta.grades.exam" min="0" disabled="true" />
+												<input type="number" class="uk-input" ng-value="getTotal(student.meta.grades)" min="0" disabled="true" />
 											</td>
 											<td class="uk-text-center">
 												<span class="uk-text-{{getGrade(student.meta.grades).className}}">{{getGrade(student.meta.grades).grade}}</span>
