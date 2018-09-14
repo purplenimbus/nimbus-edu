@@ -10,8 +10,8 @@ angular.module('nimbusEduApp')
   .directive('overview', function (uikit3) {
   	
   	var template =  '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid>';
-      	template += '  <div ng-repeat="(key,metric) in metrics.breakdown">';
-        template += '   <h5 class="uk-text-uppercase">{{metric.count}} {{key}}</h5>';
+      	template += '  <div ng-repeat="metric in metrics.breakdown">';
+        template += '   <stat-card title="metric.title" data="metric.data"></stat-card>';
         template += '  </div>';
   		  template += '</div>';
 
@@ -26,23 +26,39 @@ angular.module('nimbusEduApp')
         }
       }),
       restrict: 'E',
-      controller : function($scope){
+      controller : function($scope,$localStorage){
+        $scope.user = $localStorage.auth;
         $scope.metrics = {
           term : {
             name : 'first term',
             year : 2018
           },
-          breakdown : {
-            students : {
-              count : 0
+          breakdown : [
+            {
+              title : 'students',
+              data : {
+                endpoint : $scope.user.tenant.id+'/users?user_type=student'
+              }
             },
-            teachers : {
-              count : 0
+            {
+              title : 'teachers',
+              data : {
+                endpoint : $scope.user.tenant.id+'/users?user_type=teacher'
+              }
             },
-            courses : {
-              count : 0
-            }
-          }
+            /*{
+              title : 'registrations',
+              data : {
+                endpoint : $scope.user.tenant.id+'/registrations'
+              }
+            },
+            {
+              title : 'courses',
+              data : {
+                endpoint : $scope.user.tenant.id+'/'
+              }
+            }*/
+          ]
         };
       },
 		  link: function postLink(scope, element) {

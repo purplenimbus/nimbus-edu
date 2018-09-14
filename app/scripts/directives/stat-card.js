@@ -1,0 +1,88 @@
+'use strict';
+
+/**
+ * @ngdoc directive
+ * @name nimbusEduApp.directive:statCard
+ * @description
+ * # statCard
+ */
+angular.module('nimbusEduApp')
+  .directive('statCard', function (uikit3) {
+
+  	var body = '',
+  		template = '',
+  		header = '';
+
+  		header += '<div class="uk-clearfix">';
+  		header += '	<div class="uk-float-left">';
+  		//header += '		<h5 class="uk-text-uppercase uk-logo">{{title}}</h5>';
+  		header += '	</div>';
+  		header += '	<div class="uk-float-right">';
+  		header += uikit3.icons([{
+  			directive:'ng-click="init()"',
+  			icon:'refresh',
+  		}]);
+  		header += '	</div>';
+  		header += '</div>';
+
+  		body += '<spinner ng-if="loading"></spinner>'; 
+  		body += '<div ng-if="!loading" class="uk-text-center">';
+  		body += '<h5 class="uk-text-uppercase uk-logo">{{title}}</h5>';
+  		//body += '<canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels"></canvas>';
+  		body += '<span class="uk-logo">{{data.results.length}}</span>';
+  		body += '</div>';
+
+  		body +=  '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid ng-if="data.analysis">';
+      	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
+        body += '	<h5 class="uk-text-uppercase uk-text-small">{{metric.label}}</h5>';
+  		body += '	<span class="uk-logo">{{metric.value}}</span>';
+        body += '  </div>';
+  		body += '</div>';
+
+  		template += uikit3.card({
+  			header : header,
+  			body : body,
+  			classes:{
+  				header:'uk-padding-remove'
+  			}
+  		});
+  		
+      	
+    return {
+      template: template,
+      controller : function($scope,eduApi){
+      	$scope.init = function(){
+      		
+      		$scope.loading = true;
+      		$scope.error = false;
+
+      		eduApi.api('GET',$scope.data.endpoint).then(function(result){
+      			console.log('eduApi result',result);
+      			$scope.data.results = result.data;
+
+      			$scope.data.analysis = [];
+
+      			$scope.loading = false;
+			}).catch(function(error){
+				console.log('eduApi error',error);
+				$scope.loading = false;
+				$scope.error = true;
+			});
+      	};
+
+      	$scope.init();
+
+      	console.log('statCard scope',$scope);
+      },
+      scope : {
+      	title : '=title',
+      	data  : '=data'
+      },
+      restrict: 'E',
+      link: function postLink(scope, element) {
+        element.on('$destroy',function(){
+        	scope.$destroy();
+        });
+      }
+    };
+  });
