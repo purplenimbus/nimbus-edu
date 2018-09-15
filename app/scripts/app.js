@@ -20,6 +20,7 @@ angular
 		'satellizer',
 		'chart.js',
 		'ngStorage',
+		'angular-linq'
 	])
 	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider) {
 		$sceDelegateProvider.resourceUrlWhitelist([

@@ -18,10 +18,10 @@ angular.module('nimbusEduApp')
   		//header += '		<h5 class="uk-text-uppercase uk-logo">{{title}}</h5>';
   		header += '	</div>';
   		header += '	<div class="uk-float-right">';
-  		header += uikit3.icons([{
+  		/*header += uikit3.icons([{
   			directive:'ng-click="init()"',
   			icon:'refresh',
-  		}]);
+  		}]);*/
   		header += '	</div>';
   		header += '</div>';
 
@@ -34,8 +34,8 @@ angular.module('nimbusEduApp')
 
   		body +=  '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid ng-if="data.analysis">';
       	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
-        body += '	<h5 class="uk-text-uppercase uk-text-small">{{metric.label}}</h5>';
-  		body += '	<span class="uk-logo">{{metric.value}}</span>';
+        body += '	<h5 class="uk-text-uppercase uk-text-small">{{classes[metric.course_grade_id-1].name|uppercase}}</h5>';
+  		body += '	<span class="uk-logo">{{metric.data.length}}</span>';
         body += '  </div>';
   		body += '</div>';
 
@@ -50,19 +50,23 @@ angular.module('nimbusEduApp')
       	
     return {
       template: template,
-      controller : function($scope,eduApi){
+      controller : function($scope,eduApi,$linq,courseService){
       	$scope.init = function(){
       		
       		$scope.loading = true;
       		$scope.error = false;
+      		$scope.classes = courseService.getClasses();
 
       		eduApi.api('GET',$scope.data.endpoint).then(function(result){
       			console.log('eduApi result',result);
       			$scope.data.results = result.data;
 
-      			$scope.data.analysis = [];
+      			$scope.data.analysis = $scope.group($scope.type,$scope.data.results);
 
       			$scope.loading = false;
+
+      			console.log('scope analysis '+$scope.title,$scope.data);
+
 			}).catch(function(error){
 				console.log('eduApi error',error);
 				$scope.loading = false;
@@ -70,12 +74,52 @@ angular.module('nimbusEduApp')
 			});
       	};
 
+      	$scope.group = function(type,data){
+      		var group = [];
+
+      		switch(type){
+      			case 'students' : 
+      				group = $linq.Enumerable().From(data)
+					.GroupBy(
+						function(x){
+							return x.meta.course_grade_id;
+						},
+						null,
+						function(key,grouping){ 
+							return {
+								course_grade_id : parseInt(key),
+								data : grouping.source
+							};
+						})
+					.ToArray();
+					break;
+				case 'registrations' : 
+      				group = $linq.Enumerable().From(data)
+					.GroupBy(
+						function(x){
+							return x.user_id;
+						},
+						null,
+						function(key,grouping){ 
+							//console.log('GroupBy result '+type,key,grouping);
+							return {user_id:key,registrations:grouping.source}; 
+						}
+					)
+					.ToArray();
+					break;
+      			case 'teachers' : break;
+      			//default : break;
+      		}
+
+      		return group;
+      	};
+
       	$scope.init();
 
-      	console.log('statCard scope',$scope);
       },
       scope : {
       	title : '=title',
+      	type  : '=type',
       	data  : '=data'
       },
       restrict: 'E',
