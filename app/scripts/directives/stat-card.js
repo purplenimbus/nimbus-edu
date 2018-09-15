@@ -34,7 +34,7 @@ angular.module('nimbusEduApp')
 
   		body +=  '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid ng-if="data.analysis">';
       	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
-        body += '	<h5 class="uk-text-uppercase uk-text-small">{{classes[metric.course_grade_id-1].name|uppercase}}</h5>';
+        body += '	<h5 class="uk-text-uppercase uk-text-small">{{metric.key|uppercase}}</h5>';
   		body += '	<span class="uk-logo">{{metric.data.length}}</span>';
         body += '  </div>';
   		body += '</div>';
@@ -75,11 +75,12 @@ angular.module('nimbusEduApp')
       	};
 
       	$scope.group = function(type,data){
-      		var group = [];
+      		var group = [],
+      			linq = $linq.Enumerable().From(data);
 
       		switch(type){
       			case 'students' : 
-      				group = $linq.Enumerable().From(data)
+      				group = linq
 					.GroupBy(
 						function(x){
 							return x.meta.course_grade_id;
@@ -87,14 +88,15 @@ angular.module('nimbusEduApp')
 						null,
 						function(key,grouping){ 
 							return {
-								course_grade_id : parseInt(key),
+								key : $scope.classes[parseInt(key)-1].name,
 								data : grouping.source
 							};
 						})
 					.ToArray();
+					
 					break;
 				case 'registrations' : 
-      				group = $linq.Enumerable().From(data)
+      				group = linq
 					.GroupBy(
 						function(x){
 							return x.user_id;
@@ -102,12 +104,50 @@ angular.module('nimbusEduApp')
 						null,
 						function(key,grouping){ 
 							//console.log('GroupBy result '+type,key,grouping);
-							return {user_id:key,registrations:grouping.source}; 
+							return {
+								key:key,
+								data:grouping.source
+							}; 
+						}
+					)
+					.ToArray();
+
+					break;
+				case 'invoices' : 
+      				group = linq
+					.GroupBy(
+						function(x){
+							return x.status.name;
+						},
+						null,
+						function(key,grouping){ 
+							//console.log('GroupBy result '+type,key,grouping);
+							return {
+								key:key,
+								data:grouping.source
+							}; 
 						}
 					)
 					.ToArray();
 					break;
-      			case 'teachers' : break;
+      			case 'teachers' : 
+      				group = linq
+					.GroupBy(
+						function(x){
+							return x.account_status.name;
+						},
+						null,
+						function(key,grouping){ 
+							//console.log('GroupBy result '+type,key,grouping);
+							return {
+								key:key,
+								data:grouping.source
+							}; 
+						}
+					)
+					.ToArray();
+
+					break;
       			//default : break;
       		}
 

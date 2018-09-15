@@ -48,6 +48,13 @@ angular.module('nimbusEduApp')
                 endpoint : $scope.user.tenant.id+'/users?user_type=teacher'
               }
             },
+            {
+              title : 'invoices',
+              type : 'invoices',
+              data : {
+                endpoint : $scope.user.tenant.id+'/billing'
+              }
+            }
             /*{
               title : 'registrations',
               type : 'registrations',
