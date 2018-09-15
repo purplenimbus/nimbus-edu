@@ -17,7 +17,7 @@ angular.module('nimbusEduApp')
 
     return {
       template: uikit3.card({
-        header:'<h4 class="uk-card-title uk-text-uppercase"><span class="uk-text-muted uk-text-small">{{ metrics.term.name }} {{ metrics.term.year }}</span></h4>',
+        header:'<h4 class="uk-card-title uk-text-uppercase uk-text-center">{{ metrics.term.name }} {{ metrics.term.year }}</h4>',
         body:template,
         classes:{
           card:'uk-card-default uk-padding-remove',
@@ -26,8 +26,9 @@ angular.module('nimbusEduApp')
         }
       }),
       restrict: 'E',
-      controller : function($scope,$localStorage){
+      controller : function($scope,$localStorage,courseService){
         $scope.user = $localStorage.auth;
+        $scope.classes = courseService.getClasses();
         $scope.metrics = {
           term : {
             name : 'first term',
@@ -36,30 +37,96 @@ angular.module('nimbusEduApp')
           breakdown : [
             {
               title : 'students',
-              type : 'students',
               data : {
-                endpoint : $scope.user.tenant.id+'/users?user_type=student'
+                endpoint : $scope.user.tenant.id+'/users?user_type=student',
+                grouping : [
+                  function(x){
+                    return x.meta.course_grade_id;
+                  },
+                  null,
+                  function(key,grouping){ 
+                    return {
+                      key : $scope.classes[parseInt(key)-1].name,
+                      data : grouping.source
+                    };
+                  }
+                ]
               }
             },
             {
               title : 'teachers',
-              type : 'teachers',
               data : {
-                endpoint : $scope.user.tenant.id+'/users?user_type=teacher'
+                endpoint : $scope.user.tenant.id+'/users?user_type=teacher',
+                grouping : [
+                  function(x){
+                    return x.account_status.name;
+                  },
+                  null,
+                  function(key,grouping){ 
+                    //console.log('GroupBy result '+type,key,grouping);
+                    return {
+                      key:key,
+                      data:grouping.source
+                    }; 
+                  }
+                ]
               }
             },
             {
               title : 'invoices',
-              type : 'invoices',
               data : {
-                endpoint : $scope.user.tenant.id+'/billing'
+                endpoint : $scope.user.tenant.id+'/billing',
+                grouping : [
+                  function(x){
+                    return x.status.name;
+                  },
+                  null,
+                  function(key,grouping){ 
+                    //console.log('GroupBy result '+type,key,grouping);
+                    return {
+                      key:key,
+                      data:grouping.source
+                    }; 
+                  }
+                ]
               }
-            }
-            /*{
-              title : 'registrations',
-              type : 'registrations',
+            },
+            {
+              title : 'courses',
               data : {
-                endpoint : $scope.user.tenant.id+'/registrations'
+                endpoint : $scope.user.tenant.id+'/courses',
+                grouping : [
+                  function(x){
+                    return x.user_id;
+                  },
+                  null,
+                  function(key,grouping){ 
+                    //console.log('GroupBy result '+type,key,grouping);
+                    return {
+                      key:key,
+                      data:grouping.source
+                    }; 
+                  }
+                ]
+              }
+            }/*,
+            {
+              title : 'registrations',
+              data : {
+                endpoint : $scope.user.tenant.id+'/registrations',
+                grouping : [
+                  function(x){
+                    return x.user_id;
+                  },
+                  null,
+                  function(key,grouping){ 
+                    //console.log('GroupBy result '+type,key,grouping);
+                    return {
+                      key:key,
+                      data:grouping.source
+                    }; 
+                  }
+                ]
               }
             }*/
           ]

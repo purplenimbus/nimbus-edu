@@ -26,16 +26,18 @@ angular.module('nimbusEduApp')
   		header += '</div>';
 
   		body += '<spinner ng-if="loading"></spinner>'; 
-  		body += '<div ng-if="!loading" class="uk-text-center">';
-  		body += '<h5 class="uk-text-uppercase uk-logo">{{title}}</h5>';
-  		//body += '<canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels"></canvas>';
-  		body += '<span class="uk-logo">{{data.results.length}}</span>';
+  		body += '<div ng-if="!loading" class="uk-text-center uk-margin-bottom">';
+  		body += '<h5 class="uk-text-uppercase uk-logo uk-text-muted">{{title}}</h5>';
+  		body += '<div class="chart">';
+  		body += '<canvas id="doughnut" chart-options="options" chart-colors="colors" class="chart chart-doughnut" chart-data="datapoints" chart-labels="labels"></canvas>';
+  		body += '<span class="uk-logo label">{{data.results.length}}</span>';
+  		body += '</div>';
   		body += '</div>';
 
-  		body +=  '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid ng-if="data.analysis">';
+  		body +=  '<div class="uk-child-width-expand@s" uk-grid ng-if="data.analysis">';
       	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
-        body += '	<h5 class="uk-text-uppercase uk-text-small">{{metric.key|uppercase}}</h5>';
-  		body += '	<span class="uk-logo">{{metric.data.length}}</span>';
+        body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label">{{metric.key|uppercase}}</p>';
+  		body += '	<p class="uk-logo uk-text-small">{{metric.data.length}}</p>';
         body += '  </div>';
   		body += '</div>';
 
@@ -43,115 +45,58 @@ angular.module('nimbusEduApp')
   			header : header,
   			body : body,
   			classes:{
-  				header:'uk-padding-remove'
+  				header:'uk-padding-remove',
+  				body:'uk-padding-remove'
   			}
   		});
   		
       	
     return {
       template: template,
-      controller : function($scope,eduApi,$linq,courseService){
+      controller : function($scope,eduApi,$linq){
       	$scope.init = function(){
       		
       		$scope.loading = true;
       		$scope.error = false;
-      		$scope.classes = courseService.getClasses();
+
 
       		eduApi.api('GET',$scope.data.endpoint).then(function(result){
-      			console.log('eduApi result',result);
+      			//console.log('eduApi result',result);
       			$scope.data.results = result.data;
 
-      			$scope.data.analysis = $scope.group($scope.type,$scope.data.results);
+      			$scope.data.analysis = $linq.Enumerable()
+      										.From($scope.data.results)
+      										.GroupBy(
+      											$scope.data.grouping[0],
+      											$scope.data.grouping[1],
+      											$scope.data.grouping[2]
+      										)
+      										.ToArray();
+    			$scope.datapoints = [];
+      			$scope.labels = [];
+      			$scope.colors = ['#f7464a', '#1e87f0'];
+      			$scope.options = {
+      				//animation : false,
+      				cutoutPercentage: 80
+      			};
+      			
+      			$scope.data.analysis.forEach(function(value){
+
+      				$scope.labels.push(value.key);
+
+      				$scope.datapoints.push(value.data.length);
+      				
+      			});
 
       			$scope.loading = false;
 
-      			console.log('scope analysis '+$scope.title,$scope.data);
+      			console.log('scope analysis '+$scope.title,$scope);
 
 			}).catch(function(error){
 				console.log('eduApi error',error);
 				$scope.loading = false;
 				$scope.error = true;
 			});
-      	};
-
-      	$scope.group = function(type,data){
-      		var group = [],
-      			linq = $linq.Enumerable().From(data);
-
-      		switch(type){
-      			case 'students' : 
-      				group = linq
-					.GroupBy(
-						function(x){
-							return x.meta.course_grade_id;
-						},
-						null,
-						function(key,grouping){ 
-							return {
-								key : $scope.classes[parseInt(key)-1].name,
-								data : grouping.source
-							};
-						})
-					.ToArray();
-					
-					break;
-				case 'registrations' : 
-      				group = linq
-					.GroupBy(
-						function(x){
-							return x.user_id;
-						},
-						null,
-						function(key,grouping){ 
-							//console.log('GroupBy result '+type,key,grouping);
-							return {
-								key:key,
-								data:grouping.source
-							}; 
-						}
-					)
-					.ToArray();
-
-					break;
-				case 'invoices' : 
-      				group = linq
-					.GroupBy(
-						function(x){
-							return x.status.name;
-						},
-						null,
-						function(key,grouping){ 
-							//console.log('GroupBy result '+type,key,grouping);
-							return {
-								key:key,
-								data:grouping.source
-							}; 
-						}
-					)
-					.ToArray();
-					break;
-      			case 'teachers' : 
-      				group = linq
-					.GroupBy(
-						function(x){
-							return x.account_status.name;
-						},
-						null,
-						function(key,grouping){ 
-							//console.log('GroupBy result '+type,key,grouping);
-							return {
-								key:key,
-								data:grouping.source
-							}; 
-						}
-					)
-					.ToArray();
-
-					break;
-      			//default : break;
-      		}
-
-      		return group;
       	};
 
       	$scope.init();
