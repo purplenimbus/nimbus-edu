@@ -13,7 +13,7 @@ angular.module('nimbusEduApp')
       restrict: 'E',
 	  scope: true,
 	  controller : function($scope,eduApi,$window,apiConst,$localStorage){
-		$scope.widgetTitle = 'Users';
+		/*$scope.widgetTitle = 'Users';
 		
 		$scope.search = null;
 		
@@ -40,7 +40,7 @@ angular.module('nimbusEduApp')
 		};
 		
 		var userList = new $window.Bloodhound({
-			datumTokenizer: function(d) { /*console.log('bloodhound d',d);*/ return $window.Bloodhound.tokenizers.whitespace(d.firstname); },
+			datumTokenizer: function(d) { console.log('bloodhound d',d); return $window.Bloodhound.tokenizers.whitespace(d.firstname); },
 			queryTokenizer: $window.Bloodhound.tokenizers.whitespace,
 			remote:	eduApi.apiEndPoint+$scope.user.tenant.id+'/users'
 		});	
@@ -125,7 +125,7 @@ angular.module('nimbusEduApp')
 		
 		$scope.init();
 
-		console.log('Users Directive Scope',$scope);
+		console.log('Users Directive Scope',$scope);*/
 	  },
       link: function postLink(scope, element) {
 		element.on('$destroy', function () {

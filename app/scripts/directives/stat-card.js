@@ -34,11 +34,21 @@ angular.module('nimbusEduApp')
   		body += '</div>';
   		body += '</div>';
 
-  		body +=  '<div class="uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid ng-if="data.analysis">';
-      	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
-        body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label" style="background-color:{{colors[$index]}}">{{metric.key|uppercase}}</p>';
-  		body += '	<p class="uk-logo uk-text-small" style="color:{{colors[$index]}}">{{metric.data.length}}</p>';
-        body += '  </div>';
+  		body += '<div class="uk-child-width-1-1" uk-grid ng-if="data.analysis">';
+      body += '<ul class="uk-list uk-list-divider">';
+      body += ' <li ng-repeat="metric in data.analysis" class="uk-clearfix">';
+      body += '   <div class="uk-float-left">';
+      body += '     <p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label" style="background-color:{{colors[$index]}}">{{metric.key|uppercase}}</p>';
+      body += '   </div>';
+      body += '   <div class="uk-float-right">';
+      body += '     <p class="uk-text-small uk-margin-remove" style="color:{{colors[$index]}}">{{metric.data.length}}</p>';
+      body += '   </div>';
+      body += ' </li>';
+      body += '</ul>';
+      //body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
+      //body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label" style="background-color:{{colors[$index]}}">{{metric.key|uppercase}}</p>';
+  		//body += '	<p class="uk-logo uk-text-small" style="color:{{colors[$index]}}">{{metric.data.length}}</p>';
+      //body += '  </div>';
   		body += '</div>';
 
   		template += uikit3.card({

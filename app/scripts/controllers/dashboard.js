@@ -14,7 +14,7 @@ angular.module('nimbusEduApp')
 	 	$scope.classes = courseService.getClasses();
 	 	$scope.tabs = [{
 	 		name : 'students',
-	 		body : '',//$compile('<div class="" uk-grid><div class="uk-width-1-3@m"><stat-card title="metric.title" data="metric.data" type="metric.type"></stat-card></div></div>')($scope).html(),
+	 		body : '<stat-card title="tab.data.stats.title" data="tab.data.stats.data"></stat-card>',
 	 		data : {
 	 			stats : {
 	              	title : 'students',

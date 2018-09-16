@@ -17,7 +17,8 @@
     "papaparse": "^4.6.0",
     "angular-chart.js": "^1.1.1",
     "angular-linq": "^1.0.2",
-    "pusher-angular": "^1.0.0"
+    "pusher-angular": "^1.0.0",
+    "angular-datatables": "^6.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.7.3",
