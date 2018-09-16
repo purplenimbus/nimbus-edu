@@ -17,10 +17,10 @@ angular.module('nimbusEduApp')
 		      authEndpoint: eduApi.apiEndPoint+'pusher/auth',
 		    });
 	    	return $pusher(this.client);
-	    }
+	    };
 
 	    this.debug = function(value){
 	    	$window.Pusher.logToConsole = value;
-	    }
+	    };
 		
   	});

@@ -23,9 +23,7 @@ angular.module('nimbusEduApp')
   	breadcrumbs,
   	$localStorage,
   	notifications,
-  	eduApiConst,
-  	$window,
-  	$compile) {
+  	eduApiConst) {
 	
 	$scope.route = $route;
     $scope.offcanvas = offcanvas.offcanvas;
@@ -115,13 +113,13 @@ angular.module('nimbusEduApp')
 	$rootScope.user = $localStorage.auth;
 	
 	if($scope.user.access_level.id >= 3){
-		var channel = notifications.pusher()
-				.subscribe('private-App.Tenant.'+$scope.user.tenant.id)
-				.bind(eduApiConst.pusher.defaultEventName, function(data) {
-					console.log('notification',data);
-			      	//TO DO : Do Something
-			      	
-			    });
+		notifications.pusher()
+		.subscribe('private-App.Tenant.'+$scope.user.tenant.id)
+		.bind(eduApiConst.pusher.defaultEventName, function(data) {
+			console.log('notification',data);
+	      	//TO DO : Do Something
+	      	
+	    });
 
 	}
 	

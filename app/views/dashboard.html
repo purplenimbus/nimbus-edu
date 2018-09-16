@@ -1,8 +1,9 @@
 <div ng-include="'views/partials/_toolbar.html'"></div>
 <section class="uk-padding-small">
 	<main uk-grid>
-		<overview class="uk-width-1-1" ng-if="user.access_level.id >= 3"></overview>
+		<overview class="uk-width-1-1 uk-hidden" ng-if="user.access_level.id >= 3" ></overview>
 	   	<instructor-courses list="true" user="user" class="uk-width-1-3@m" ng-if="user.user_type.name === 'teacher'"></instructor-courses>
 	   	<my-courses list="true" user="user" class="uk-width-1-3@m" ng-if="user.user_type.name === 'student'"></my-courses>
+	   	<tabs tabs="tabs" class="uk-width-1-1"></tabs>
 	</main>
 </section>
