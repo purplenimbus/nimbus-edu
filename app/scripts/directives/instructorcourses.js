@@ -39,7 +39,7 @@ angular.module('nimbusEduApp')
       restrict: 'E',
       scope:{user:'=user',list:'=list'},
       controller:function($scope,courseService){
-        $scope.label = 'current term goes here';
+        $scope.label = '';//current term goes here  
       	$scope.init = function(){
       		$scope.loading = true;
 

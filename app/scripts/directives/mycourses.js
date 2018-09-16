@@ -44,7 +44,7 @@ angular.module('nimbusEduApp')
 			user:'=user',
 		},
 		controller : function($scope,eduApi,apiConst,grades){
-			$scope.label = 'current term goes here';			
+			$scope.label = '';//current term goes here			
 			
 			$scope.getTotal = function(course){	
 				if(course.meta){
