@@ -34,7 +34,7 @@ angular.module('nimbusEduApp')
   		body += '</div>';
   		body += '</div>';
 
-  		body +=  '<div class="uk-child-width-expand@s" uk-grid ng-if="data.analysis">';
+  		body +=  '<div class="uk-child-width-expand@m uk-child-width-1-2@s" uk-grid ng-if="data.analysis">';
       	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
         body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label">{{metric.key|uppercase}}</p>';
   		body += '	<p class="uk-logo uk-text-small">{{metric.data.length}}</p>';

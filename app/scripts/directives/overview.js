@@ -91,13 +91,13 @@ angular.module('nimbusEduApp')
                 ]
               }
             },
-            {
+            /*{
               title : 'courses',
               data : {
                 endpoint : $scope.user.tenant.id+'/courses',
                 grouping : [
                   function(x){
-                    return x.user_id;
+                    return x.grade.name;
                   },
                   null,
                   function(key,grouping){ 
@@ -109,14 +109,14 @@ angular.module('nimbusEduApp')
                   }
                 ]
               }
-            }/*,
+            },
             {
               title : 'registrations',
               data : {
                 endpoint : $scope.user.tenant.id+'/registrations',
                 grouping : [
                   function(x){
-                    return x.user_id;
+                    return x.course.code;
                   },
                   null,
                   function(key,grouping){ 
