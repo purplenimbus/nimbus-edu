@@ -16,10 +16,12 @@
     "angular-chart": "^0.5.0",
     "ngstorage": "^0.3.11",
     "papaparse": "^4.6.0",
-    "angular-chart.js": "^1.1.1"
+    "angular-chart.js": "^1.1.1",
+    "angular-linq": "^1.0.2"
   },
   "devDependencies": {
-    "angular-mocks": "^1.7.3"
+    "angular-mocks": "^1.7.3",
+    "angular-linq": "^1.0.2"
   },
   "appPath": "app",
   "moduleName": "nimbusEduApp"

@@ -125,7 +125,7 @@ angular.module('nimbusEduApp')
 				return str;
 			},
 			offcanvas : function(attrs){
-		        var str = '<div id="offcanvas" uk-offcanvas="flip: true;mode: push">';
+		        var str = '<div id="'+(attrs.el ? attrs.el : 'offcanvas')+'" uk-offcanvas="'+(attrs.flip ? 'flip:'+attrs.flip+';' : '')+'mode: push">';
 		            str += '<div class="uk-offcanvas-bar">';
 		            str += attrs.title ? attrs.title : '';
 		            str += attrs.body ? attrs.body : '';

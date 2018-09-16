@@ -53,7 +53,7 @@
 				</li>
 				<li class="uk-nav-divider" ng-if="auth.isAuthenticated() && user.access_level.id >= 2"></li>
                 <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/tools" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: bolt"></span> tools</a></li>
-                <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/settings" class="uk-text-uppercase uk-hidden"><span class="uk-margin-small-right" uk-icon="icon: cog"></span> settings</a></li>
+                <li ng-if="auth.isAuthenticated() && user.access_level.id >= 3"><a ng-href="#!/settings" class="uk-text-uppercase"><span class="uk-margin-small-right" uk-icon="icon: cog"></span> settings</a></li>
                 <li ng-if="auth.isAuthenticated()" class="uk-text-uppercase">
                     <a href="#!/profile/settings/">
                     <span class="uk-margin-small-right" uk-icon="icon: user"></span>
@@ -100,6 +100,7 @@
     <script src="bower_components/papaparse/papaparse.js"></script>
     <script src="bower_components/chart.js/dist/Chart.js"></script>
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="bower_components/angular-linq/angular-linq.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
@@ -168,6 +169,8 @@
         <script src="scripts/directives/spinner.js"></script>
         <script src="scripts/directives/instructorcourses.js"></script>
         <script src="scripts/directives/letterthumb.js"></script>
+        <script src="scripts/directives/stat-card.js"></script>
+        <script src="scripts/services/dashboardconst.js"></script>
         <!-- endbuild -->
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script>

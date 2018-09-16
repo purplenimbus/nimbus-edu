@@ -8,6 +8,23 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-  .controller('SettingsCtrl', function () {
+  	.controller('SettingsCtrl', function ($scope,$localStorage) {
+  		$scope.init = function(){
+  			$scope.settings = $localStorage.auth.tenant;
 
-  });
+	  		$scope.settings.meta = {
+	  			school : {
+	  				terms : [{
+	  					startDate:'',
+	  					endDate:''
+	  				}],
+	  				curricula : [],
+	  				classes : []
+	  			}
+	  		};
+	  	};
+
+  		$scope.init();
+
+  		console.log('SettingsCtrl scope',$scope,$localStorage.auth.tenant);
+  	});

@@ -20,8 +20,13 @@ angular
 		'satellizer',
 		'chart.js',
 		'ngStorage',
+		'angular-linq',
 	])
-	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider) {
+	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider,ChartJsProvider,dashboardConst) {
+		ChartJsProvider.setOptions({
+	      chartColors: dashboardConst.chart.colors
+	    });
+
 		$sceDelegateProvider.resourceUrlWhitelist([
 			// Allow same origin resource loads.
 			'self',
@@ -224,7 +229,7 @@ angular
 			});
 			
 	})
-	.run(function($rootScope, $location, $cookies, $http,$auth,$window) {
+	.run(function($rootScope, $location, $cookies, $http,$auth,$window,offcanvas) {
 		// keep user logged in after page refresh
 		
 		$rootScope.globals = $cookies.get('auth') || {};
@@ -236,8 +241,7 @@ angular
 		var history = [];
 
 		$rootScope.$on('$routeChangeStart', function() { 
-   			//close any open menus or modals
-			$window.UIkit.offcanvas('#side-menu').hide();
+			offcanvas.close();
 			$rootScope.showLoader = true;
 		});
 
