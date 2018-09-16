@@ -22,7 +22,11 @@ angular
 		'ngStorage',
 		'angular-linq',
 	])
-	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider) {
+	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider,ChartJsProvider,dashboardConst) {
+		ChartJsProvider.setOptions({
+	      chartColors: dashboardConst.chart.colors
+	    });
+
 		$sceDelegateProvider.resourceUrlWhitelist([
 			// Allow same origin resource loads.
 			'self',

@@ -97,5 +97,5 @@ angular.module('nimbusEduApp')
 	
 	$rootScope.user = $localStorage.auth;
 
-	console.log('NavCtrl scope',$scope);
+	//console.log('NavCtrl scope',$scope);
   });

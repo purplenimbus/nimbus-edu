@@ -34,10 +34,10 @@ angular.module('nimbusEduApp')
   		body += '</div>';
   		body += '</div>';
 
-  		body +=  '<div class="uk-child-width-expand@m uk-child-width-1-2@s" uk-grid ng-if="data.analysis">';
+  		body +=  '<div class="uk-child-width-1-4@m uk-child-width-1-2@m" uk-grid ng-if="data.analysis">';
       	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
-        body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label">{{metric.key|uppercase}}</p>';
-  		body += '	<p class="uk-logo uk-text-small">{{metric.data.length}}</p>';
+        body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label" style="background-color:{{colors[$index]}}">{{metric.key|uppercase}}</p>';
+  		body += '	<p class="uk-logo uk-text-small" style="color:{{colors[$index]}}">{{metric.data.length}}</p>';
         body += '  </div>';
   		body += '</div>';
 
@@ -53,7 +53,7 @@ angular.module('nimbusEduApp')
       	
     return {
       template: template,
-      controller : function($scope,eduApi,$linq){
+      controller : function($scope,eduApi,$linq,dashboardConst){
       	$scope.init = function(){
       		
       		$scope.loading = true;
@@ -74,7 +74,7 @@ angular.module('nimbusEduApp')
       										.ToArray();
     			$scope.datapoints = [];
       			$scope.labels = [];
-      			$scope.colors = ['#f7464a', '#1e87f0'];
+      			$scope.colors = dashboardConst.chart.colors;
       			$scope.options = {
       				//animation : false,
       				cutoutPercentage: 80
@@ -101,6 +101,9 @@ angular.module('nimbusEduApp')
 
       	$scope.init();
 
+      	$scope.$on('chart-create', function (event, chart) {
+		    $scope.colors = chart.config.options.colors;
+		});
       },
       scope : {
       	title : '=title',
