@@ -7,12 +7,54 @@
  * # users
  */
 angular.module('nimbusEduApp')
-  .directive('users', function () {
+  .directive('users', function (uikit3) {
+
+  	var table = '<spinner ng-if="loading"></spinner>';
+
+  	    table += '<table datatable="ng" class="uk-table uk-table uk-table-divider uk-table-small" ng-if="!loading">';
+    	table += '	<thead>';
+        table += '		<tr>';
+        table += '    		<th>{{type}}</th>';
+        table += '    		<th>#</th>';
+        table += '		</tr>';
+        table += '	</thead>';
+        table += '	<tbody>';
+        table += '		<tr ng-repeat="item in list.data">';
+        table += '		<td><user-pill user="item" name="true" labe="user.user_type"></user-pill></td>';
+        table += '		<td></td>';
+        table += '		</tr>';
+        table += '	</tbody>';
+    	table += '</table>';
+
     return {
-      templateUrl: 'views/templates/users.html',
+      template: uikit3.card({
+      	body:table,
+		classes:{
+	        card:'uk-card-default uk-padding-remove',
+	        body:'uk-padding-small',
+	        header : 'uk-padding-small'
+	    }
+      }),
       restrict: 'E',
-	  scope: true,
+	  scope: {
+	  	type:'=type',
+	  	source:'=source'
+	  },
 	  controller : function($scope,eduApi,$window,apiConst,$localStorage){
+	  	console.log('users scope',$scope);
+	  	$scope.init = function(){
+	  		$scope.loading = true;
+	  		eduApi.api('GET',$scope.source+'&paginate='+apiConst.componentPagination+'&page=1').then(function(result){
+	  			console.log('eduApi '+$scope.type+' result',result);
+	  			$scope.list = result.data;
+	  			$scope.loading = false;
+	  		})
+	  		.catch(function(error){
+				console.log('eduApi '+$scope.type+' error',error);
+				$scope.loading = false;
+			});
+	  	};
+	  	$scope.init();
 		/*$scope.widgetTitle = 'Users';
 		
 		$scope.search = null;

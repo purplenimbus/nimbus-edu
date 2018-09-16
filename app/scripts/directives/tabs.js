@@ -9,6 +9,7 @@
 angular.module('nimbusEduApp')
   .directive('tabs', function (uikit3) {
   	var str = '';
+
   		str += '<ul uk-tab>';
     	str += '	<li ng-repeat="tab in tabs"><a href="#">{{tab.name}}</a></li>';
 		str += '</ul>';
@@ -25,16 +26,11 @@ angular.module('nimbusEduApp')
 			        }
 			      });
     	str += '</div>';
-    	str += '<div class="uk-width-2-3@m">';
-    	str += uikit3.card({
-			        body:'{{tabe.name}} table goes here',
-			        classes:{
-			          card:'uk-card-default uk-padding-remove',
-			          body:'uk-padding-small',
-			          header : 'uk-padding-small'
-			        }
-			      });
-    	str += '</div>';
+
+
+    	str += '		<div class="uk-width-2-3@m">';
+    	str += '			<users type="tab.name" source="tab.data.stats.data.endpoint"></users>';
+    	str += '		</div>';
 	    str += '	</li>';
 		str += '</ul>';
 
@@ -45,6 +41,11 @@ angular.module('nimbusEduApp')
       		tabs : '=tabs'
       	},
       	controller : function($scope){
+      		$scope.init = function(){
+      			$scope.loading = true;
+      		};
+
+      		$scope.init();
       		console.log('tabs',$scope);
       	},
       	link: function postLink(scope, element) {
