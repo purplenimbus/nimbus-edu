@@ -20,7 +20,7 @@ angular.module('nimbusEduApp')
 	  	template += '   <ul ng-if="!loading" class="uk-list uk-width-1-1 uk-margin-remove uk-list-divider">';
 	    template += '   	<li ng-repeat="registration in registrations" class="uk-clear-fix">';
 	  	template += '		<div class="uk-float-left">';
-	  	template += '		 	<a href="#!/learning/course/{{registration.course.id}}" class="uk-margin-remove uk-text-primary uk-text-capitalize">{{ registration.course.name }} <span class="uk-text-muted uk-text-uppercase">{{ registration.course.code }}</span></a>';
+	  	template += '		 	<p class="uk-margin-remove uk-text-primary uk-text-capitalize">{{ registration.course.name }} <span class="uk-text-muted uk-text-uppercase">{{ registration.course.code }}</span></p>';
 	    template += '   	</div>';
 	    template += '   	<div class="uk-float-right">';
 	    template += '     		<span ng-if="getTotal(registration)" class="uk-margin-remove uk-text-{{getGrade(registration).className}}">{{ getTotal(registration) }}</span>';
