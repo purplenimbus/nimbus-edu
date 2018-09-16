@@ -60,7 +60,7 @@ angular.module('nimbusEduApp')
 
       	$scope.init();
 
-      	console.log('instructorCourses',$scope);
+      	//console.log('instructorCourses',$scope);
       },
       link: function postLink(scope, element) {
         element.on('$destroy', function () {

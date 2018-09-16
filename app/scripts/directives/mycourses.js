@@ -23,7 +23,7 @@ angular.module('nimbusEduApp')
 	  	template += '		 	<p class="uk-margin-remove uk-text-primary uk-text-capitalize">{{ registration.course.name }} <span class="uk-text-muted uk-text-uppercase">{{ registration.course.code }}</span></p>';
 	    template += '   	</div>';
 	    template += '   	<div class="uk-float-right">';
-	    template += '     		<span ng-if="getTotal(registration)" class="uk-margin-remove uk-text-{{getGrade(registration).className}}">{{ getTotal(registration) }}</span>';
+	    template += '     		<span ng-if="getTotal(registration) !== false" class="uk-margin-remove uk-text-{{getGrade(registration).className}}">{{ getTotal(registration) }}</span>';
 	    template += '   	</div>';
 	    template += '		</li>';
 	  	template += '	 </ul>';

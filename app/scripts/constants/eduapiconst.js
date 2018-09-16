@@ -16,5 +16,10 @@ angular.module('nimbusEduApp')
             midterm: {value:30,enabled:true},
             assignment: {value:15,enabled:true},
             attendance: {value:5,enabled:true}
+        },
+        pusher:{
+          API_KEY:'4f53145dc612228f6147',
+          cluster: 'us2',
+          defaultEventName : 'Illuminate\\Notifications\\Events\\BroadcastNotificationCreated'
         }
   	});

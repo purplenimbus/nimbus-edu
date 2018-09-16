@@ -90,7 +90,7 @@ angular.module('nimbusEduApp')
 
       			$scope.loading = false;
 
-      			console.log('scope analysis '+$scope.title,$scope);
+      			//console.log('scope analysis '+$scope.title,$scope);
 
 			}).catch(function(error){
 				console.log('eduApi error',error);

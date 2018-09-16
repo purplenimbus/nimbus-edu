@@ -21,6 +21,7 @@ angular
 		'chart.js',
 		'ngStorage',
 		'angular-linq',
+		'pusher-angular'
 	])
 	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider,ChartJsProvider,dashboardConst) {
 		ChartJsProvider.setOptions({
