@@ -11,7 +11,7 @@ angular.module('nimbusEduApp')
 
   	var table = '<spinner ng-if="loading"></spinner>';
 
-  	    table += '<table datatable="ng" class="uk-table uk-table uk-table-divider uk-table-small" ng-if="!loading">';
+  	    table += '<table datatable="ng" class="uk-table-hover uk-table uk-table uk-table-divider uk-table-small" ng-if="!loading">';
     	table += '	<thead>';
         table += '		<tr>';
         table += '    		<th>{{type}}</th>';
@@ -20,7 +20,7 @@ angular.module('nimbusEduApp')
         table += '	</thead>';
         table += '	<tbody>';
         table += '		<tr ng-repeat="item in list.data">';
-        table += '		<td><user-pill user="item" name="true" labe="user.user_type"></user-pill></td>';
+        table += '		<td ng-click="select(item)"><user-pill user="item" name="true" labe="user.user_type"></user-pill></td>';
         table += '		<td></td>';
         table += '		</tr>';
         table += '	</tbody>';
@@ -30,8 +30,8 @@ angular.module('nimbusEduApp')
       template: uikit3.card({
       	body:table,
 		classes:{
-	        card:'uk-card-default uk-padding-remove',
-	        body:'uk-padding-small',
+	        card:'uk-padding-remove',
+	        body:'uk-card-default uk-padding-remove',
 	        header : 'uk-padding-small'
 	    }
       }),
@@ -40,7 +40,7 @@ angular.module('nimbusEduApp')
 	  	type:'=type',
 	  	source:'=source'
 	  },
-	  controller : function($scope,eduApi,$window,apiConst,$localStorage){
+	  controller : function($scope,eduApi,$window,apiConst){
 	  	console.log('users scope',$scope);
 	  	$scope.init = function(){
 	  		$scope.loading = true;
@@ -55,6 +55,10 @@ angular.module('nimbusEduApp')
 			});
 	  	};
 	  	$scope.init();
+
+	  	$scope.select = function(item){
+	  		$scope.$emit('selected',item);
+	  	};
 		/*$scope.widgetTitle = 'Users';
 		
 		$scope.search = null;

@@ -11,16 +11,16 @@ angular.module('nimbusEduApp')
   	
   	var template =  '<div class="uk-grid-divider uk-child-width-expand@s" uk-grid>';
       	template += '  <div ng-repeat="metric in metrics.breakdown">';
-        template += '   <stat-card title="metric.title" data="metric.data" type="metric.type"></stat-card>';
+        template += '   <stat-card title="metric.title" data="metric.data" type="metric.type" legend="false"></stat-card>';
         template += '  </div>';
   		  template += '</div>';
 
     return {
       template: uikit3.card({
-        header:'<h4 class="uk-card-title uk-text-uppercase uk-text-center">{{ metrics.term.name }} {{ metrics.term.year }}</h4>',
+        //header:'<h4 class="uk-card-title uk-text-uppercase uk-text-center">{{ metrics.term.name }} {{ metrics.term.year }}</h4>',
         body:template,
         classes:{
-          card:'uk-card-default uk-padding-remove',
+          card:'uk-padding-remove uk-card-default',
           body:'uk-padding-small',
           header : 'uk-padding-small'
         }

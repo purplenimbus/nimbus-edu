@@ -25,16 +25,31 @@ angular.module('nimbusEduApp')
   		header += '	</div>';
   		header += '</div>';
 
-  		body += '<spinner ng-if="loading"></spinner>'; 
-  		body += '<div ng-if="!loading" class="uk-text-center uk-margin-bottom">';
+  		body += '<spinner ng-if="loading"></spinner>';
+
+      body += '<div ng-if="!loading" class="">';
+      body += ' <div class="uk-flex-middle uk-grid-small" uk-grid>';
+      body += '   <div class="uk-width-auto">';
+      body += '     <div class="chart">';
+      body += '       <canvas id="doughnut" chart-options="options" chart-colors="colors" class="chart chart-doughnut" chart-data="datapoints" chart-labels="labels"></canvas>';
+      body += '       <span class="uk-logo label">{{data.results.length}}</span>';
+      body += '     </div>';
+      body += '   </div>';
+      body += '   <div class="uk-width-expand">';
+      body += '     <h5 class="uk-text-uppercase uk-logo uk-text-muted uk-text-center">{{title}}</h5>';
+      body += '   </div>';
+      body += ' </div>';
+      body += '</div>';
+
+  		/*body += '<div ng-if="!loading" class="uk-text-center uk-margin-bottom">';
   		body += '<h5 class="uk-text-uppercase uk-logo uk-text-muted">{{title}}</h5>';
-  		body += '<div class="chart">';
+      body += '<div class="chart">';
   		body += '<canvas id="doughnut" chart-options="options" chart-colors="colors" class="chart chart-doughnut" chart-data="datapoints" chart-labels="labels"></canvas>';
   		body += '<span class="uk-logo label">{{data.results.length}}</span>';
   		body += '</div>';
-  		body += '</div>';
+  		body += '</div>';*/
 
-  		body += '<div class="uk-child-width-1-1" uk-grid ng-if="data.analysis">';
+  		body += '<div class="uk-child-width-1-1" uk-grid ng-if="data.analysis && legend">';
       body += '<ul class="uk-list uk-list-divider">';
       body += ' <li ng-repeat="metric in data.analysis" class="uk-clearfix">';
       body += '   <div class="uk-float-left">';
@@ -118,7 +133,8 @@ angular.module('nimbusEduApp')
       scope : {
       	title : '=title',
       	type  : '=type',
-      	data  : '=data'
+      	data  : '=data',
+        legend  : '=legend'
       },
       restrict: 'E',
       link: function postLink(scope, element) {

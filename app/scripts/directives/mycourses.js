@@ -82,6 +82,11 @@ angular.module('nimbusEduApp')
 			
 			$scope.init();
 
+			$scope.$on('reload',function(){
+				console.log('reload mycourses');
+				$scope.init();
+			})
+
 		},
 		link: function postLink(scope, element) {
 			element.on('$destroy', function () {
