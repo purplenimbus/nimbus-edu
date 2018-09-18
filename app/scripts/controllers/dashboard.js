@@ -8,18 +8,25 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
- 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,$compile,courseService) {
+ 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,$compile,courseService,apiConst) {
  		$scope.user = $localStorage.auth;
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 	 	$scope.classes = courseService.getClasses();
 	 	$scope.tabs = [{
 	 		name : 'students',
-	 		body : '<stat-card title="tab.data.stats.title" data="tab.data.stats.data"></stat-card>',
+	 		type : 'user',
 	 		data : {
 	 			stats : {
 	              	title : 'students',
 	             	data : {
-		                endpoint : $scope.user.tenant.id+'/users?user_type=student',
+		                source : {
+		                	endpoint : $scope.user.tenant.id+'/users',
+		                	query : {
+			                	paginate:apiConst.componentPagination,
+			                	page:1,
+			                	user_type:'student'
+			                }
+		                },
 		                grouping : [
 		                  	function(x){
 		                    	return x.meta.course_grade_id;
@@ -37,12 +44,19 @@ angular.module('nimbusEduApp')
 	 		}
 	 	},{
 	 		name : 'teachers',
-	 		body : 'teachers body goes here',
+	 		type : 'user',
 	 		data : {
 	 			stats : {
 	              	title : 'teachers',
 	              	data : {
-		                endpoint : $scope.user.tenant.id+'/users?user_type=teacher',
+		                source : {
+		                	endpoint : $scope.user.tenant.id+'/users',
+		                	query : {
+			                	paginate:apiConst.componentPagination,
+			                	page:1,
+			                	user_type:'teacher'
+			                }
+		                },
 		                grouping : [
 		                  	function(x){
 		                    	return x.account_status.name;
@@ -61,15 +75,21 @@ angular.module('nimbusEduApp')
 	 		}
 	 	},{
 	 		name : 'invoices',
-	 		body : 'invoices body goes here',
+	 		type : 'invoice',
 	 		data : {
 	 			stats : {
 	              	title : 'invoices',
 	              	data : {
-		                endpoint : $scope.user.tenant.id+'/billing',
+		                source : {
+		                	endpoint : $scope.user.tenant.id+'/billing',
+		                	query : {
+		                		paginate:apiConst.componentPagination,
+		                		page:1,
+		                	}
+		                },	
 		                grouping : [
 		                  	function(x){
-		                    	return x.status.name;
+		                    	return x.student_id;
 		                  	},
 		                  	null,
 		                  	function(key,grouping){ 
@@ -85,5 +105,5 @@ angular.module('nimbusEduApp')
 	 		}
 	 	}];
 
-	 	console.log('Dashboard',$scope);
+	 	//console.log('Dashboard',$scope);
   	});

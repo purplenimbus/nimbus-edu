@@ -41,7 +41,7 @@ angular.module('nimbusEduApp')
 	  	source:'=source'
 	  },
 	  controller : function($scope,eduApi,$window,apiConst){
-	  	console.log('users scope',$scope);
+	  	//console.log('users scope',$scope);
 	  	$scope.init = function(){
 	  		$scope.loading = true;
 	  		eduApi.api('GET',$scope.source+'&paginate='+apiConst.componentPagination+'&page=1').then(function(result){

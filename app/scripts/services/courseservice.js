@@ -73,8 +73,8 @@ angular.module('nimbusEduApp')
 		
 		};
 
-		this.getClasses = function(){
-			return 	[
+		this.getClasses = function(id){
+			var classes = [
 				{ id:1,name:'primary 1'},
 				{ id:2,name:'primary 2'},
 				{ id:3,name:'primary 3'},
@@ -89,6 +89,21 @@ angular.module('nimbusEduApp')
 				{ id:12,name:'SS 3'},
 				{ id:13,name:'a level'}
 			];
+
+			
+
+			if(id){
+				var grade = classes.find(function(c){
+					//console.log('find',c);
+					return c.id === parseInt(id);
+				});
+
+				console.log('getClasses',id,grade);
+
+				return grade;
+			}else{
+				return 	classes;
+			}
 		};
 
 		this.getCourses = function(user,params){

@@ -31,10 +31,10 @@ angular.module('nimbusEduApp')
 
     return {
 		template: uikit3.card({
-	        header:'<user-pill user="user" label="label" name="true" class="uk-margin-remove"></user-pill>',
+	        header:'<user-pill ng-if="heading" user="user" label="label" name="true" class="uk-margin-remove"></user-pill>',
 	        body:template,
 	        classes:{
-	          card:'uk-card-default uk-padding-remove',
+	          card:'uk-padding-remove',
 	          header:'uk-padding-small',
 	          body:'uk-padding-small'
 	        }
@@ -42,6 +42,7 @@ angular.module('nimbusEduApp')
 		restrict: 'E',
 		scope:{
 			user:'=user',
+			heading:'=heading',
 		},
 		controller : function($scope,eduApi,apiConst,grades){
 			$scope.label = '';//current term goes here			
@@ -87,6 +88,7 @@ angular.module('nimbusEduApp')
 				$scope.init();
 			})
 
+			console.log('myCourses',$scope);
 		},
 		link: function postLink(scope, element) {
 			element.on('$destroy', function () {

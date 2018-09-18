@@ -14,7 +14,7 @@ angular.module('nimbusEduApp')
 			
 			var deferred = $q.defer() , modal;
 						
-			angular.element('.uk-offcanvas-content').append($compile(uikit3.modal(obj))($scope));
+			angular.element('body').append($compile(uikit3.modal(obj))($scope));
 			
 			modal = $window.UIkit.modal('#modal');
 			
