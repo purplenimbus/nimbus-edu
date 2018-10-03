@@ -11,14 +11,27 @@ angular.module('nimbusEduApp')
   	var str = '';
 
   		str += '<ul uk-tab>';
-    	str += '	<li ng-repeat="tab in tabs"><a href="#">{{tab.name}}</a></li>';
+    	str += '	<li ng-repeat="(tab_key,tab) in tabs">';
+    	str += '		<a href="#">{{tab.name}}';
+
+    	/*str += '		<span ng-if="false">';
+    	str += '			<span class="uk-margin-small-left" uk-icon="icon: triangle-down"></span>';
+    	str += '			<div uk-dropdown="mode: click">';
+    	str += '			<ul class="uk-nav uk-dropdown-nav" ng-repeat="filter in tab.data.source.filters">';
+    	str += '				<li class="uk-active" ng-if="filter.options" ng-repeat="option in filter.options"><a class="uk-text-capitalize" ng-click="filterList(tab_key,option)">{{option.name}}</a></li>';
+    	str += '			</ul>';
+    	str += '			</div>';
+    	str += '		</span>';*/
+
+    	str += '		</a>';
+    	str += '	</li>';
 		str += '</ul>';
 
 		str += '<ul class="uk-switcher uk-margin">';
     	str += '	<li ng-repeat="tab in tabs">';
     	str += '		<div class="uk-grid-small" uk-grid>';
     	str += '			<div class="uk-width-1-1">';
-    	str += '				<list type="tab.name" source="tab.data.stats.data.source" template="\'table\'"></list>';
+    	str += '				<list type="tab.name" source="tab.data.source" template="\'table\'" filters="tab.data.source.filters"></list>';
     	str += '			</div>';
     	str += '		</div>';
 	    str += '	</li>';
@@ -48,6 +61,10 @@ angular.module('nimbusEduApp')
       			$scope.selected = false;
       		};
 
+      		$scope.filterList = function(key,filter){
+      			console.log('filter',key,filter);
+      		};
+
       		$scope.$on('selected',function(e,data){
       			console.log('selected',data);
       			$scope.selected = data;
@@ -57,7 +74,7 @@ angular.module('nimbusEduApp')
       				if(data.user_type){
       					str += $scope.getBody(data.user_type.name);
       				}else{
-
+      					//invoices here?
       				}
 
       			modal.modal({
@@ -84,7 +101,7 @@ angular.module('nimbusEduApp')
       			return body;
       		};
 
-      		console.log('tabs',$scope);
+      		//console.log('tabs',$scope);
       	},
       	link: function postLink(scope, element) {
         	element.on('$destory',function(){

@@ -21,7 +21,7 @@ angular.module('nimbusEduApp')
 					str +=		'</div>';
 					str +=		'<div class="uk-width-expand" ng-if="showName">';
 					str +=			'<p ng-if="user" class="uk-text-capitalize title uk-margin-remove">{{ user.firstname }} {{ user.lastname }}</p>';
-					str +=			'<p ng-if="label" class="uk-text-meta uk-margin-remove-top uk-text-small uk-text-primary uk-text-uppercase">{{ label }}</p>';
+					str +=			'<p ng-if="label" class="uk-text-meta uk-margin-remove-top uk-text-small uk-text-muted uk-text-uppercase">{{ label }}</p>';
 					str +=		'</div>';
 					str +=	'</div>';
 

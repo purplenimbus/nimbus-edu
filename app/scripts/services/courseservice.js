@@ -94,11 +94,8 @@ angular.module('nimbusEduApp')
 
 			if(id){
 				var grade = classes.find(function(c){
-					//console.log('find',c);
 					return c.id === parseInt(id);
 				});
-
-				console.log('getClasses',id,grade);
 
 				return grade;
 			}else{

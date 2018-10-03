@@ -11,10 +11,10 @@ angular.module('nimbusEduApp')
   	.directive('list', function () {
 		var table = '<spinner ng-if="loading"></spinner>';
 
-		table += '<table datatable="ng" class="uk-table-hover uk-table uk-table uk-table-divider uk-table-small" ng-if="!loading">';
+		table += '<table datatable="ng" class="uk-table-hover uk-table uk-table uk-table-divider uk-table-small uk-margin-remove" ng-if="!loading">';
 		table += '	<thead>';
 	    table += '		<tr>';
-	    table += '    		<th>{{type}}</th>';
+	    table += '    		<th uk-grid><search-filter filters="source.filters"></search-filter></th>';
 	    table += '    		<th>#</th>';
 	    table += '		</tr>';
 	    table += '	</thead>';
@@ -22,6 +22,9 @@ angular.module('nimbusEduApp')
 	    table += '		<tr ng-repeat="item in list.data">';
 	    table += '		<td ng-click="select(item)">';
 	    table += '		<user-pill ng-if="item.user_type" user="item" name="true" label="format.userMeta(item)"></user-pill></td>';
+	    table += '		<span ng-if="!item.user_type">';
+	    table += '		{{ item }}';
+	    table += '		</span>';
 	    table += '		<td></td>';
 	    table += '		</tr>';
 	    table += '	</tbody>';
@@ -33,11 +36,11 @@ angular.module('nimbusEduApp')
 		  	scope: {
 			  	type:'=type',
 			  	template:'=template',
-			  	source:'=source'
+			  	source:'=source',
 		  	},
 		  	controller : function($scope,eduApi,$window,apiConst,queryString,format){
 
-			  	console.log('source',$scope.source);
+			  	//console.log('source',$scope.source);
 
 			  	$scope.init = function(){
 			  		$scope.loading = true;
