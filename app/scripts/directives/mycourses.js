@@ -86,7 +86,7 @@ angular.module('nimbusEduApp')
 			$scope.$on('reload',function(){
 				console.log('reload mycourses');
 				$scope.init();
-			})
+			});
 
 			console.log('myCourses',$scope);
 		},

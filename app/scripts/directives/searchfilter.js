@@ -27,7 +27,7 @@ angular.module('nimbusEduApp')
         //directive += 'ng-change="filterResults(searchFilter)" ng-model="searchFilter" ';
         //directive += 'ng-if="'+value.name+'" ng-options="filter as filter.name for filter in filter.options track by filter.id"';  
 
-        template += '{{filter.template}}'
+        template += '{{filter.template}}';
         /*template += uikit3.input({
     		  placeholder:'{{filter.label | uppercase}}',
     		  cls:'uk-text-capitalize',

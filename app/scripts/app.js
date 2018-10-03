@@ -22,7 +22,7 @@ angular
 		'ngStorage',
 		'angular-linq',
 		'pusher-angular',
-		//'datatables'
+		'ngTable'
 	])
 	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider,ChartJsProvider,dashboardConst) {
 		ChartJsProvider.setOptions({

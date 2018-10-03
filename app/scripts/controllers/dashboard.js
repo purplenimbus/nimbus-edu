@@ -18,8 +18,8 @@ angular.module('nimbusEduApp')
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
-	                	paginate:apiConst.componentPagination,
-	                	page:1,
+	                	//paginate:apiConst.componentPagination,
+	                	//page:1,
 	                	user_type:'student'
 	                },
 	                filters : [{
@@ -65,8 +65,8 @@ angular.module('nimbusEduApp')
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
-	                	paginate:apiConst.componentPagination,
-	                	page:1,
+	                	//paginate:apiConst.componentPagination,
+	                	//page:1,
 	                	user_type:'teacher'
 	                },
 	                filters : [{
@@ -101,8 +101,8 @@ angular.module('nimbusEduApp')
                 source : {
                 	endpoint : $scope.user.tenant.id+'/billing',
                 	query : {
-                		paginate:apiConst.componentPagination,
-                		page:1,
+                		//paginate:apiConst.componentPagination,
+                		//page:1,
                 	},
                 	filters : []
                 },	
