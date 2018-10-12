@@ -24,16 +24,16 @@ angular.module('nimbusEduApp')
 	                },
 	                columns : [{
 	                	label:'firstname',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label :'lastname',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label:'email',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label:'ref_id',
-	                	hide : false
+	                	show : true
 	                }],
                 },
                 /*grouping : [
@@ -62,13 +62,13 @@ angular.module('nimbusEduApp')
 	                },
 	                columns : [{
 	                	label:'firstname',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label :'lastname',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label:'email',
-	                	hide : false
+	                	show : true
 	                }]
                 },
                 /*grouping : [
@@ -97,13 +97,13 @@ angular.module('nimbusEduApp')
 	                },
 	                columns : [{
 	                	label:'firstname',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label :'lastname',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label:'email',
-	                	hide : false
+	                	show : true
 	                }]
                 },
                 /*grouping : [
@@ -132,13 +132,13 @@ angular.module('nimbusEduApp')
                 	showColumns : ['id','student_id','status'],
                 	columns : [{
 	                	label:'id',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label :'student_id',
-	                	hide : false
+	                	show : true
 	                },{
 	                	label:'status',
-	                	hide : false
+	                	show : true
 	                }]
                 },	
                 /*grouping : [

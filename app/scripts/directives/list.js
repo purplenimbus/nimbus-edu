@@ -12,21 +12,21 @@ angular.module('nimbusEduApp')
 		var table = '';
 
 		table = '<div class="uk-button-group uk-margin-bottom">';
-		table += 	uikit3.button({cls:'uk-button-default',label:'dropdown'});
-		table += 	uikit3.buttonDropDown({cls:'uk-button-default',label:'<span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
+		//table += 	uikit3.button({cls:'uk-button-default',label:'dropdown'});
+		table += 	uikit3.buttonDropDown({cls:'uk-button-default',label:'Filter <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
 		table += '</div>';
 
 		table += '<table class="uk-table-hover uk-table uk-table-middle uk-table-divider uk-table-small uk-margin-remove">';
 		table += '	<thead>';
 	    table += '		<tr>';
-	    table += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="showColumn(key)">{{key}}</th>';
+	    table += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="showColumn(key).show">{{key}}</th>';
 	    table += '		</tr>';
 	   	table += '	</thead>';
 
 	   	table += '	<spinner ng-if="loading"></spinner>';
 	    table += '	<tbody ng-if="!loading">';
 	    table += '		<tr ng-repeat="row in list.data.data">';
-	    table += '			<td ng-click="select(column)" ng-repeat="(key,column) in row" ng-if="showColumn(key)">';
+	    table += '			<td ng-click="select(column)" ng-repeat="(key,column) in row" ng-if="showColumn(key).show">';
 	    table += '				<user-pill ng-if="column.user_type" user="column" name="true" label="format.userMeta(column)"></user-pill>';
 	    table += '				<span ng-if="!column.user_type">';
 	    table += '				{{ column }}';
@@ -43,7 +43,6 @@ angular.module('nimbusEduApp')
 	      	restrict: 'E',
 		  	scope: {
 			  	type:'=type',
-			  	//template:'=template',
 			  	source:'=source',
 		  	},
 		  	controller : function(
@@ -89,9 +88,16 @@ angular.module('nimbusEduApp')
 
 			  	$scope.showColumn = function(key){
 
-		  			return $scope.source.columns.find(function(column){
+		  			var index = $scope.source.columns.findIndex(function(column){
 			  			return column.label === key;
 			  		});
+
+		  			if($scope.source.columns[index]){
+		  				//console.log('showColumn',$scope.source.columns[index]);
+		  				return $scope.source.columns[index];
+		  			}else{
+		  				return false;
+		  			}
 			  	}
 
 			  	$scope.$on('pagination',function(e,payload){

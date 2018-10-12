@@ -74,7 +74,7 @@ angular.module('nimbusEduApp')
 				str += '	<div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">';
 				str += '		<ul class="uk-nav uk-dropdown-nav">';
 				str += '			<li ng-repeat="column in '+attrs.scope+'">';
-				str += '				{{ column.label }}'
+				str += '				<label><input class="uk-checkbox" type="checkbox" ng-model="column.show"> {{ column.label }} </label>';
 				str += '			</li>';
 				str += '		</ul>';
 				str += '	</div>';
