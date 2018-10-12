@@ -13,7 +13,7 @@ angular.module('nimbusEduApp')
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 	 	$scope.tabs = [{
 	 		name : 'students',
-	 		type : 'user',
+	 		type : 'list',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
@@ -54,7 +54,7 @@ angular.module('nimbusEduApp')
           	}
 	 	},{
 	 		name : 'teachers',
-	 		type : 'user',
+	 		type : 'list',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
@@ -92,7 +92,7 @@ angular.module('nimbusEduApp')
           	}
 	 	},{
 	 		name : 'parents',
-	 		type : 'user',
+	 		type : 'list',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
@@ -130,7 +130,7 @@ angular.module('nimbusEduApp')
           	}
 	 	},{
 	 		name : 'invoices',
-	 		type : 'invoice',
+	 		type : 'table',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/billing',
