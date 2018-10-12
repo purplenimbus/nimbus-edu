@@ -8,21 +8,27 @@
  */
 
 angular.module('nimbusEduApp')
-  	.directive('list', function () {
-		var table = '<spinner ng-if="loading"></spinner>';
+  	.directive('list', function (uikit3) {
+		var table = '';
 
-		table += '<table class="uk-table-hover uk-table uk-table uk-table-divider uk-table-small uk-margin-remove">';
+		table = '<div class="uk-button-group uk-margin-bottom">';
+		table += 	uikit3.button({cls:'uk-button-default',label:'dropdown'});
+		table += 	uikit3.buttonDropDown({cls:'uk-button-default',label:'<span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
+		table += '</div>';
+
+		table += '<table class="uk-table-hover uk-table uk-table-middle uk-table-divider uk-table-small uk-margin-remove">';
 		table += '	<thead>';
 	    table += '		<tr>';
-	    table += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="source.showColumns.includes(key)">{{key}}</th>';
+	    table += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="showColumn(key)">{{key}}</th>';
 	    table += '		</tr>';
 	   	table += '	</thead>';
 
+	   	table += '	<spinner ng-if="loading"></spinner>';
 	    table += '	<tbody ng-if="!loading">';
 	    table += '		<tr ng-repeat="row in list.data.data">';
-	    table += '			<td ng-click="select(row)" ng-repeat="(key,column) in row" ng-if="source.showColumns.includes(key)">';
-	    //table += '				<user-pill ng-if="row.user_type" user="row" name="true" label="format.userMeta(row)"></user-pill></td>';
-	    //table += '				<span ng-if="!row.user_type">';
+	    table += '			<td ng-click="select(column)" ng-repeat="(key,column) in row" ng-if="showColumn(key)">';
+	    table += '				<user-pill ng-if="column.user_type" user="column" name="true" label="format.userMeta(column)"></user-pill>';
+	    table += '				<span ng-if="!column.user_type">';
 	    table += '				{{ column }}';
 	    table += '				</span>';
 	    table += '			</td>';
@@ -48,8 +54,6 @@ angular.module('nimbusEduApp')
 		  		queryString,
 		  		format
 		  		){
-
-			  	console.log('source',$scope);
 
 			  	$scope.init = function(page){
 
@@ -82,6 +86,13 @@ angular.module('nimbusEduApp')
 			  	};
 
 			  	$scope.format = format;
+
+			  	$scope.showColumn = function(key){
+
+		  			return $scope.source.columns.find(function(column){
+			  			return column.label === key;
+			  		});
+			  	}
 
 			  	$scope.$on('pagination',function(e,payload){
 			  		$scope.init(payload.page);

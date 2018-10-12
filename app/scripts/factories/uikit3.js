@@ -66,6 +66,22 @@ angular.module('nimbusEduApp')
 				
 				return str;
 			},
+			buttonDropDown : function(attrs){
+				var str = '',self = this;
+
+				str += '<div class="uk-inline">';
+				str += 			self.button(attrs);
+				str += '	<div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">';
+				str += '		<ul class="uk-nav uk-dropdown-nav">';
+				str += '			<li ng-repeat="column in '+attrs.scope+'">';
+				str += '				{{ column.label }}'
+				str += '			</li>';
+				str += '		</ul>';
+				str += '	</div>';
+				str += '</div>';
+
+				return str;
+			},
 			textarea : function(attrs){
 				var str = '';
 				

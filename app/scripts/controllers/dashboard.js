@@ -22,7 +22,19 @@ angular.module('nimbusEduApp')
 	                	page:1,
 	                	user_type:'student'
 	                },
-	                showColumns : ['firstname','lastname','email','ref_id'],
+	                columns : [{
+	                	label:'firstname',
+	                	hide : false
+	                },{
+	                	label :'lastname',
+	                	hide : false
+	                },{
+	                	label:'email',
+	                	hide : false
+	                },{
+	                	label:'ref_id',
+	                	hide : false
+	                }],
                 },
                 /*grouping : [
                   	function(x){
@@ -48,7 +60,51 @@ angular.module('nimbusEduApp')
 	                	page:1,
 	                	user_type:'teacher'
 	                },
-	                showColumns : ['firstname','lastname','email']
+	                columns : [{
+	                	label:'firstname',
+	                	hide : false
+	                },{
+	                	label :'lastname',
+	                	hide : false
+	                },{
+	                	label:'email',
+	                	hide : false
+	                }]
+                },
+                /*grouping : [
+                  	function(x){
+                    	return x.account_status.name;
+                  	},
+                  	null,
+                  	function(key,grouping){ 
+	                    return {
+	                      	key:key,
+	                      	data:grouping.source
+	                    }; 
+                  	}
+                ]*/
+          	}
+	 	},{
+	 		name : 'parents',
+	 		type : 'user',
+	 		data : {
+                source : {
+                	endpoint : $scope.user.tenant.id+'/users',
+                	query : {
+	                	paginate:apiConst.componentPagination,
+	                	page:1,
+	                	user_type:'parent'
+	                },
+	                columns : [{
+	                	label:'firstname',
+	                	hide : false
+	                },{
+	                	label :'lastname',
+	                	hide : false
+	                },{
+	                	label:'email',
+	                	hide : false
+	                }]
                 },
                 /*grouping : [
                   	function(x){
@@ -73,7 +129,17 @@ angular.module('nimbusEduApp')
                 		paginate:apiConst.componentPagination,
                 		page:1,
                 	},
-                	showColumns : ['id','student_id','status']
+                	showColumns : ['id','student_id','status'],
+                	columns : [{
+	                	label:'id',
+	                	hide : false
+	                },{
+	                	label :'student_id',
+	                	hide : false
+	                },{
+	                	label:'status',
+	                	hide : false
+	                }]
                 },	
                 /*grouping : [
                   	function(x){
@@ -90,5 +156,4 @@ angular.module('nimbusEduApp')
           	}
 	 	}];
 
-	 	//console.log('Dashboard',$scope);
   	});
