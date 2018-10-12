@@ -11,15 +11,15 @@ angular.module('nimbusEduApp')
   	.directive('list', function () {
 		var table = '<spinner ng-if="loading"></spinner>';
 
-		table += '<table class="uk-table-hover uk-table uk-table uk-table-divider uk-table-small uk-margin-remove" ng-if="!loading">';
+		table += '<table class="uk-table-hover uk-table uk-table uk-table-divider uk-table-small uk-margin-remove">';
 		table += '	<thead>';
 	    table += '		<tr>';
-	    table += '    		<th ng-repeat="(key , label) in list.data[0]" ng-if="source.showColumns.includes(key)">{{key}}</th>';
+	    table += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="source.showColumns.includes(key)">{{key}}</th>';
 	    table += '		</tr>';
 	   	table += '	</thead>';
-	    table += '	<tbody>';
 
-	    table += '		<tr ng-repeat="row in list.data">';
+	    table += '	<tbody ng-if="!loading">';
+	    table += '		<tr ng-repeat="row in list.data.data">';
 	    table += '			<td ng-click="select(row)" ng-repeat="(key,column) in row" ng-if="source.showColumns.includes(key)">';
 	    //table += '				<user-pill ng-if="row.user_type" user="row" name="true" label="format.userMeta(row)"></user-pill></td>';
 	    //table += '				<span ng-if="!row.user_type">';
@@ -28,7 +28,9 @@ angular.module('nimbusEduApp')
 	    table += '			</td>';
 	    table += '		</tr>';
 	    table += '	</tbody>';
+
 		table += '</table>';
+		table += '<pagination ng-if="list.data" from="list.data.from" to="list.data.to" current="list.data.current_page" last="list.data.last_page"></pagination>';
 
 	    return {
 	      	template: table,
@@ -49,18 +51,22 @@ angular.module('nimbusEduApp')
 
 			  	console.log('source',$scope);
 
-			  	$scope.init = function(){
+			  	$scope.init = function(page){
 
 			  		$scope.loading = true;
 
+			  		if(page){
+			  			$scope.source.query.page = page;
+			  		}
+
 			  		var url = $scope.source.endpoint+queryString.objectToQuerystring($scope.source.query || {});
+
+			  		//console.log('',$scope);
 
 			  		eduApi.api('GET',url).then(function(result){
 			  			console.log('eduApi '+$scope.type+' result',result);
-			  			
 			  			$scope.loading = false;
-			  			$scope.list = result.data;
-			  			return result.data;
+			  			$scope.list = result;
 			  		})
 			  		.catch(function(error){
 						console.log('eduApi '+$scope.type+' error',error);
@@ -71,13 +77,15 @@ angular.module('nimbusEduApp')
 
 			  	$scope.init();
 
-			  	console.log('list init',$scope);
-
 			  	$scope.select = function(item){
 			  		$scope.$emit('selected',item);
 			  	};
 
 			  	$scope.format = format;
+
+			  	$scope.$on('pagination',function(e,payload){
+			  		$scope.init(payload.page);
+			  	});
 	      	},
 	      	link: function postLink(scope, element) {
 				element.on('$destroy', function () {
