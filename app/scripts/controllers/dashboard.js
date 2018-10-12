@@ -8,7 +8,7 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
- 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,$compile,courseService,apiConst,uikit3) {
+ 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst) {
  		$scope.user = $localStorage.auth;
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 	 	$scope.tabs = [{
@@ -18,34 +18,13 @@ angular.module('nimbusEduApp')
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
-	                	//paginate:apiConst.componentPagination,
-	                	//page:1,
+	                	paginate:apiConst.componentPagination,
+	                	page:1,
 	                	user_type:'student'
 	                },
-	                filters : [{
-						//value: '',
-						//label:'filter by name',
-						//name : 'name',
-						//type : 'text',
-						template : uikit3.input({
-			    		  placeholder:'filter by name',
-			    		  cls:'uk-text-capitalize',
-			    		  directive:''
-			    	  	})
-					},{
-						options: courseService.getClasses(),
-						//label:'filter by class',
-						//name : 'Class',
-						//type : 'select',
-						value: courseService.getClasses()[0],
-						template : uikit3.select({
-			    		  placeholder:'filter by class',
-			    		  cls:'uk-text-capitalize',
-			    		  directive:''
-			    	  	})
-					}]
+	                showColumns : ['firstname','lastname','email','ref_id'],
                 },
-                grouping : [
+                /*grouping : [
                   	function(x){
                     	return x.meta.course_grade_id;
                   	},
@@ -56,7 +35,7 @@ angular.module('nimbusEduApp')
 	                      data : grouping.source
 	                    };
                   	}
-                ]
+                ]*/
           	}
 	 	},{
 	 		name : 'teachers',
@@ -65,23 +44,13 @@ angular.module('nimbusEduApp')
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
-	                	//paginate:apiConst.componentPagination,
-	                	//page:1,
+	                	paginate:apiConst.componentPagination,
+	                	page:1,
 	                	user_type:'teacher'
 	                },
-	                filters : [{
-						//value:false,
-						//label:'assigned',
-						//type : 'checkbox',
-						//name : 'assigned',
-						template : uikit3.select({
-			    		  placeholder:'filter by assigned',
-			    		  cls:'uk-text-capitalize',
-			    		  directive:''
-			    	  	})
-					}]
+	                showColumns : ['firstname','lastname','email']
                 },
-                grouping : [
+                /*grouping : [
                   	function(x){
                     	return x.account_status.name;
                   	},
@@ -92,7 +61,7 @@ angular.module('nimbusEduApp')
 	                      	data:grouping.source
 	                    }; 
                   	}
-                ]
+                ]*/
           	}
 	 	},{
 	 		name : 'invoices',
@@ -101,12 +70,12 @@ angular.module('nimbusEduApp')
                 source : {
                 	endpoint : $scope.user.tenant.id+'/billing',
                 	query : {
-                		//paginate:apiConst.componentPagination,
-                		//page:1,
+                		paginate:apiConst.componentPagination,
+                		page:1,
                 	},
-                	filters : []
+                	showColumns : ['id','student_id','status']
                 },	
-                grouping : [
+                /*grouping : [
                   	function(x){
                     	return x.student_id;
                   	},
@@ -117,7 +86,7 @@ angular.module('nimbusEduApp')
                       		data:grouping.source
                     	}; 
                   	}
-                ]
+                ]*/
           	}
 	 	}];
 
