@@ -32,6 +32,9 @@ angular.module('nimbusEduApp')
 	                	label:'email',
 	                	show : true
 	                },{
+	                	label:'account_status',
+	                	show : true
+	                },{
 	                	label:'ref_id',
 	                	show : true
 	                }],
@@ -69,6 +72,9 @@ angular.module('nimbusEduApp')
 	                },{
 	                	label:'email',
 	                	show : true
+	                },{
+	                	label:'account_status',
+	                	show : true
 	                }]
                 },
                 /*grouping : [
@@ -103,6 +109,9 @@ angular.module('nimbusEduApp')
 	                	show : true
 	                },{
 	                	label:'email',
+	                	show : true
+	                },{
+	                	label:'account_status',
 	                	show : true
 	                }]
                 },

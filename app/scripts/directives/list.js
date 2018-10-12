@@ -11,11 +11,19 @@ angular.module('nimbusEduApp')
   	.directive('list', function (uikit3) {
 		var table = '';
 
-		table = '<div class="uk-button-group uk-margin-bottom">';
-		//table += 	uikit3.button({cls:'uk-button-default',label:'dropdown'});
-		table += 	uikit3.buttonDropDown({cls:'uk-button-default',label:'Filter <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
-		table += '</div>';
+		table += '<div class="uk-clearfix">';
+		table += '	<form class="uk-grid-small uk-float-left" uk-grid>';
+		table += 	'	<div class="uk-button-group uk-margin-bottom">';
+		table += 			uikit3.buttonDropDown({cls:'uk-button-default',label:'Filter <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
+		table += 	'	</div>';
+		table += 	'	<div class="">';
+		table += 			uikit3.inputIcon({icon:'pencil',directive:'ng-model="search.$"',cls:'uk-input'});
+		table += 	'	</div>';
+		table += '	</form>';
+		table += '	<div class="uk-float-right">';
 
+		table += '	</div>';
+		table += '</div>';
 		table += '<table class="uk-table-hover uk-table uk-table-middle uk-table-divider uk-table-small uk-margin-remove">';
 		table += '	<thead>';
 	    table += '		<tr>';
@@ -25,7 +33,7 @@ angular.module('nimbusEduApp')
 
 	   	table += '	<spinner ng-if="loading"></spinner>';
 	    table += '	<tbody ng-if="!loading">';
-	    table += '		<tr ng-repeat="row in list.data.data">';
+	    table += '		<tr ng-repeat="row in list.data.data | filter:search:strict">';
 	    table += '			<td ng-click="select(column)" ng-repeat="(key,column) in row" ng-if="showColumn(key).show">';
 	    table += '				<user-pill ng-if="column.user_type" user="column" name="true" label="format.userMeta(column)"></user-pill>';
 	    table += '				<span ng-if="!column.user_type">';
@@ -98,7 +106,7 @@ angular.module('nimbusEduApp')
 		  			}else{
 		  				return false;
 		  			}
-			  	}
+			  	};
 
 			  	$scope.$on('pagination',function(e,payload){
 			  		$scope.init(payload.page);

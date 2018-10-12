@@ -45,7 +45,7 @@ angular.module('nimbusEduApp')
 				var str = '',self = this;
 				
 				str +=	'<div class="uk-inline uk-width-1-1">';
-				str +=	'<a class="uk-form-icon uk-form-icon-flip" href=""';
+				str +=	'<a class="uk-form-icon uk-form-icon" href=""';
 				str +=  attrs.icon ? 'uk-icon="icon: '+attrs.icon+'"' : 'uk-icon="icon: "';
 				str +=  '></a>';
 				str += 	self.input(attrs);
