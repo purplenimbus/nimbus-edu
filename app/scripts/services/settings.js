@@ -81,7 +81,7 @@ angular.module('nimbusEduApp')
 						url:'learning/courses',
 						access_level : 3, // jshint ignore:line
 					},
-					students : {
+					/*students : {
 						display:true,
 						disabled:false,
 						icon: 'users',
@@ -108,7 +108,7 @@ angular.module('nimbusEduApp')
 						icon: 'hashtag',
 						url:'users/other',
 						access_level : 3, // jshint ignore:line
-					}
+					}*/
 				}
 			}
 		}

@@ -8,12 +8,12 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
- 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst) {
+ 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst,courseService) {
  		$scope.user = $localStorage.auth;
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 	 	$scope.tabs = [{
 	 		name : 'students',
-	 		type : 'list',
+	 		type : 'card',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
@@ -23,21 +23,34 @@ angular.module('nimbusEduApp')
 	                	user_type:'student'
 	                },
 	                columns : [{
-	                	label:'firstname',
+	                	label:'first name',
+	                	name :'firstname',
 	                	show : true
 	                },{
-	                	label :'lastname',
+	                	label :'last name',
+	                	name :'lastname',
 	                	show : true
 	                },{
-	                	label:'email',
+	                	label: 'email',
+	                	name : 'email',
 	                	show : true
 	                },{
-	                	label:'account_status',
-	                	show : true
+	                	label:'account status',
+	                	name : 'account_status',
+	                	show : true,
+	                	key : 'account_status.name'
 	                },{
-	                	label:'ref_id',
+	                	label:'ref id',
+	                	name : 'ref_id',
 	                	show : true
 	                }],
+	                filters : [{
+	                	type : 'select',
+	                	label : 'Filter by Class',
+	                	name : 'course_grade_id',
+	                	options : courseService.getClasses(),
+	                	default : courseService.getClasses()[6]
+	                }]
                 },
                 /*grouping : [
                   	function(x){
@@ -54,7 +67,7 @@ angular.module('nimbusEduApp')
           	}
 	 	},{
 	 		name : 'teachers',
-	 		type : 'list',
+	 		type : 'card',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
@@ -64,16 +77,20 @@ angular.module('nimbusEduApp')
 	                	user_type:'teacher'
 	                },
 	                columns : [{
-	                	label:'firstname',
+	                	label:'first name',
+	                	name:'firstname',
 	                	show : true
 	                },{
-	                	label :'lastname',
+	                	label :'last name',
+	                	name:'lastname',
 	                	show : true
 	                },{
 	                	label:'email',
+	                	name:'email',
 	                	show : true
 	                },{
-	                	label:'account_status',
+	                	label:'account status',
+	                	name:'account_status',
 	                	show : true
 	                }]
                 },
@@ -102,16 +119,20 @@ angular.module('nimbusEduApp')
 	                	user_type:'parent'
 	                },
 	                columns : [{
-	                	label:'firstname',
+	                	label:'first name',
+	                	name:'first_name',
 	                	show : true
 	                },{
-	                	label :'lastname',
+	                	label :'last name',
+	                	name:'last_name',
 	                	show : true
 	                },{
 	                	label:'email',
+	                	name:'email',
 	                	show : true
 	                },{
-	                	label:'account_status',
+	                	label:'account status',
+	                	name:'account_status',
 	                	show : true
 	                }]
                 },
@@ -141,12 +162,15 @@ angular.module('nimbusEduApp')
                 	showColumns : ['id','student_id','status'],
                 	columns : [{
 	                	label:'id',
+	                	name:'id',
 	                	show : true
 	                },{
-	                	label :'student_id',
+	                	label :'student id',
+	                	name :'student_id',
 	                	show : true
 	                },{
-	                	label:'status',
+	                	label :'status',
+	                	name :'status',
 	                	show : true
 	                }]
                 },	
