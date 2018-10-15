@@ -13,16 +13,6 @@ angular.module('nimbusEduApp')
   		str += '<ul uk-tab>';
     	str += '	<li ng-repeat="(tab_key,tab) in tabs">';
     	str += '		<a href="#">{{tab.name}}';
-
-    	/*str += '		<span ng-if="false">';
-    	str += '			<span class="uk-margin-small-left" uk-icon="icon: triangle-down"></span>';
-    	str += '			<div uk-dropdown="mode: click">';
-    	str += '			<ul class="uk-nav uk-dropdown-nav" ng-repeat="filter in tab.data.source.filters">';
-    	str += '				<li class="uk-active" ng-if="filter.options" ng-repeat="option in filter.options"><a class="uk-text-capitalize" ng-click="filterList(tab_key,option)">{{option.name}}</a></li>';
-    	str += '			</ul>';
-    	str += '			</div>';
-    	str += '		</span>';*/
-
     	str += '		</a>';
     	str += '	</li>';
 		str += '</ul>';
@@ -31,7 +21,7 @@ angular.module('nimbusEduApp')
     	str += '	<li ng-repeat="tab in tabs">';
     	str += '		<div class="uk-grid-small" uk-grid>';
     	str += '			<div class="uk-width-1-1">';
-    	str += '				<list source="tab.data.source" type="tab.type"></list>';
+    	str += '				<list source="tab.data.source" type="tab.type" name="tab.name"></list>';
     	str += '			</div>';
     	str += '		</div>';
 	    str += '	</li>';
@@ -61,27 +51,21 @@ angular.module('nimbusEduApp')
       			$scope.selected = false;
       		};
 
-      		$scope.filterList = function(key,filter){
-      			console.log('filter',key,filter);
-      		};
-
       		$scope.$on('selected',function(e,data){
       			console.log('selected',data);
       			$scope.selected = data;
 
       			var str = '';
 
-      				if(data.user_type){
-      					str += $scope.getBody(data.user_type.name);
-      				}else{
-      					//invoices here?
-      				}
+  				if(data.user_type){
+  					str += $scope.getBody(data.user_type.name);
+  				}else{
+  					//invoices here?
+  				}
 
-      			modal.modal({
+				modal.modal({
       				body:str,
       			},$scope).then(function(){});
-
-      			$scope.offcanvas = true;
       			
       			$scope.$broadcast('reload',$scope.user);
       		});
@@ -91,10 +75,10 @@ angular.module('nimbusEduApp')
 
       			switch(type){
       				case 'teacher' : 
-      					body += '<instructor-courses user="selected" list="true"></instructor-courses>'; 
+      					body += '<usercard user="selected" list="true" tabs="false" type="'+type+'"></usercard>'; 
       					break;
       				default : 
-      					body += '<my-courses user="selected"></my-courses>'; 
+      					body += '<usercard user="selected" tabs="true" type="'+type+'"></usercard>'; 
       					break;
       			}
 

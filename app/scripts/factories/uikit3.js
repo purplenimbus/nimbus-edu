@@ -71,7 +71,7 @@ angular.module('nimbusEduApp')
 
 				str += '<div class="uk-inline">';
 				str += 			self.button(attrs);
-				str += '	<div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">';
+				str += '	<div class="uk-padding-small" uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">';
 				str += '		<ul class="uk-nav uk-dropdown-nav">';
 				str += '			<li ng-repeat="column in '+attrs.scope+'">';
 				str += '				<label><input class="uk-checkbox" type="checkbox" ng-model="column.show"> {{ column.label }} </label>';
@@ -142,7 +142,9 @@ angular.module('nimbusEduApp')
 			},
 			offcanvas : function(attrs){
 		        var str = '<div id="'+(attrs.el ? attrs.el : 'offcanvas')+'" uk-offcanvas="'+(attrs.flip ? 'flip:'+attrs.flip+';' : '')+'mode: push">';
-		            str += '<div class="uk-offcanvas-bar">';
+		            str += '<div class="uk-offcanvas-bar ';
+		            str += attrs.cls ? attrs.cls : '';
+		            str += '">';
 		            str += attrs.title ? attrs.title : '';
 		            str += attrs.body ? attrs.body : '';
 		            str +=    '<button class="uk-offcanvas-close" type="button" uk-close></button>';
@@ -174,7 +176,7 @@ angular.module('nimbusEduApp')
 					str += attrs.body ? this.fullModalBody(attrs) : '';
 				}else{
 					str += attrs.title ?'<div class="uk-modal-header"><h2 class="uk-modal-title uk-text-capitalize">'+attrs.title+'</h2></div>' : '';
-					str += attrs.body ? '		<div class="uk-modal-body uk-padding-small">'+attrs.body+'</div>' : '';
+					str += attrs.body ? '		<div class="uk-modal-body uk-padding-remove">'+attrs.body+'</div>' : '';
 					str += attrs.footer ?'		<div class="uk-modal-footer">'+attrs.footer+'</div>' : '';
 				}
 				

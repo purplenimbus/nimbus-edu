@@ -18,13 +18,18 @@ angular.module('nimbusEduApp')
 		table += 	'		<search-filter filter="countFilter"></search-filter>';
 		table += 	'	</div>';
 
-		table += 	'	<div class="uk-margin-bottom">';
+		table += 	'	<div class="uk-margin-bottom" ng-repeat="filter in source.filters" ng-if-"filter">';
 		//table += 			uikit3.button({cls:'uk-button-default',label:'filters'});
-		table += 	'		<search-filter ng-if-"source.filters[0]" filter="source.filters[0]"></search-filter>';
+		table += 	'		<search-filter filter="filter"></search-filter>';
 		table += 	'	</div>';
 
 		table += 	'	<div class="uk-button-group uk-margin-bottom" ng-if="type === \'table\'">';
 		table += 			uikit3.buttonDropDown({cls:'uk-button-default',label:'show/hide columns <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
+		table += 	'	</div>';
+		table += 	'	<div class="" ng-if="source.display">';
+		table += 	'		<div class="uk-button-group">';
+		table += 				uikit3.button({icon:'{{d.icon}}',directive:'ng-repeat="d in source.display" ng-click="showDisplay(d)" ng-class="d.name === type ? \'uk-button-primary\' : \'uk-button-default\'"' , cls : ' '});
+		table += 	'		</div>';
 		table += 	'	</div>';
 		table += 	'	<div class="">';
 		table += 			uikit3.inputIcon({icon:'search',directive:'ng-model="search.$"',cls:'uk-input'});
@@ -37,17 +42,19 @@ angular.module('nimbusEduApp')
 
 		table += '	<spinner ng-if="loading"></spinner>';
 
+		table += ' <div class="uk-placeholder uk-text-center" ng-if="!loading && !list.data.data.length">couldnt find any {{ name }}</div>';
+
 		table += '<div ng-if="type === \'card\'">';
-		table += '<ul ng-if="!loading" class="uk-grid-small uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>';
-		table += '	<li ng-repeat="row in list.data.data | filter:search:strict"">';
-		table += '		<usercard user="row"></usercard>';
+		table += '<ul ng-if="!loading" class="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid="masonry: true">';
+		table += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict">';
+		table += '		<usercard user="row" tabs="false"></usercard>';
 		table += '	</li>';
 		table += '</ul>';
 		table += '</div>';
 
 		table += '<div ng-if="type === \'list\'">';
 		table += '<ul ng-if="!loading" class="uk-list uk-list-divider">';
-		table += '	<li ng-repeat="row in list.data.data | filter:search:strict"">';
+		table += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict"">';
 		table += '		<user-pill user="row" name="true" label="format.userMeta(row)"></user-pill>';
 		table += '	</li>';
 		table += '</ul>';
@@ -62,15 +69,15 @@ angular.module('nimbusEduApp')
 
 	   	//table += '	<spinner ng-if="loading"></spinner>';
 	    table += '	<tbody ng-if="!loading">';
-	    table += '		<tr ng-repeat="row in list.data.data | filter:search:strict">';
-	    table += '			<td ng-click="select(column)" ng-repeat="(key,column) in row" ng-if="getColumn(key).show">';
+	    table += '		<tr ng-repeat="row in list.data.data | filter:search:strict" ng-click="select(row)">';
+	    table += '			<td ng-repeat="(key,column) in row" ng-if="getColumn(key).show">';
 	    table += '				{{ column.key || column }}';
 	    table += '			</td>';
 	    table += '		</tr>';
 	    table += '	</tbody>';
 
 		table += '</table>';
-		table += '<pagination ng-if="list.data" from="list.data.from" to="list.data.to" current="list.data.current_page" last="list.data.last_page" total="list.data.total" type="type"></pagination>';
+		table += '<pagination ng-if="list.data.data.length" from="list.data.from" to="list.data.to" current="list.data.current_page" last="list.data.last_page" total="list.data.total" type="type"></pagination>';
 
 	    return {
 	      	template: table,
@@ -78,6 +85,7 @@ angular.module('nimbusEduApp')
 		  	scope: {
 			  	type:'=type',
 			  	source:'=source',
+			  	name:'=name',
 		  	},
 		  	controller : function(
 		  		$scope,
@@ -87,8 +95,9 @@ angular.module('nimbusEduApp')
 		  		queryString,
 		  		format
 		  		){
-		  		$scope.searchFilter = {};
 
+		  		$scope.searchFilter = {};
+		  		$scope.selected = false;
 			  	$scope.init = function(query){
 
 			  		$scope.loading = true;
@@ -104,7 +113,6 @@ angular.module('nimbusEduApp')
 			  		eduApi.api('GET',url).then(function(result){
 			  			$scope.loading = false;
 			  			$scope.list = result;
-			  			//console.log($scope.list);
 			  		})
 			  		.catch(function(error){
 						console.log('eduApi '+$scope.type+' error',error);
@@ -126,8 +134,8 @@ angular.module('nimbusEduApp')
                 	label : 'Filter by Class',
                 	name : 'paginate',
                 	options : countFilterOptions,
-                	default : countFilterOptions[0]
-                }
+                	default : countFilterOptions[1]
+                };
 
 			  	$scope.select = function(item){
 			  		$scope.$emit('selected',item);
@@ -145,6 +153,10 @@ angular.module('nimbusEduApp')
 
 			  	};
 
+			  	$scope.showDisplay = function(display){
+			  		$scope.type = display.name;
+			  	}
+
 			  	$scope.$on('pagination',function(e,payload){
 
 			  		$scope.searchFilter = Object.assign({}, $scope.searchFilter, payload);
@@ -157,9 +169,8 @@ angular.module('nimbusEduApp')
 			  		
 			  		$scope.searchFilter = Object.assign({}, $scope.searchFilter, payload );
 
-			  		//console.log('searchFilter',$scope.searchFilter);
-
 			  		$scope.init($scope.searchFilter);
+
 			  	});
 
 			  	$scope.init($scope.searchFilter);

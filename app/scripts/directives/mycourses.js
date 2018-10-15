@@ -36,7 +36,7 @@ angular.module('nimbusEduApp')
 	        classes:{
 	          card:'uk-padding-remove',
 	          header:'uk-padding-small',
-	          body:'uk-padding-small'
+	          body:'uk-padding-small uk-card-default'
 	        }
 	    }),
 		restrict: 'E',

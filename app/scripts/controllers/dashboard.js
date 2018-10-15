@@ -8,19 +8,25 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
- 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst,courseService) {
+ 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst,courseService,$compile) {
  		$scope.user = $localStorage.auth;
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 	 	$scope.tabs = [{
 	 		name : 'students',
-	 		type : 'card',
+	 		type : 'table',
+	 		template : function(){
+	 			var str = '<list source="tab.data.source" type="tab.type" name="tab.name"></list>';
+
+	 			return str;
+	 		},
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
 	                	paginate:apiConst.componentPagination,
 	                	page:1,
-	                	user_type:'student'
+	                	user_type:'student',
+	                	course_grade_id:courseService.getClasses()[6].id
 	                },
 	                columns : [{
 	                	label:'first name',
@@ -34,12 +40,12 @@ angular.module('nimbusEduApp')
 	                	label: 'email',
 	                	name : 'email',
 	                	show : true
-	                },{
+	                },/*{
 	                	label:'account status',
 	                	name : 'account_status',
 	                	show : true,
 	                	key : 'account_status.name'
-	                },{
+	                },*/{
 	                	label:'ref id',
 	                	name : 'ref_id',
 	                	show : true
@@ -50,6 +56,19 @@ angular.module('nimbusEduApp')
 	                	name : 'course_grade_id',
 	                	options : courseService.getClasses(),
 	                	default : courseService.getClasses()[6]
+	                }],
+	               	display : [{
+	                	icon : 'table',
+	                	label : 'table',
+	                	name : 'table'
+	                },{
+	                	icon : 'list',
+	                	label : 'list',
+	                	name : 'list'
+	                },{
+	                	icon : 'thumbnails',
+	                	label : 'cards',
+	                	name : 'card'
 	                }]
                 },
                 /*grouping : [
@@ -68,6 +87,7 @@ angular.module('nimbusEduApp')
 	 	},{
 	 		name : 'teachers',
 	 		type : 'card',
+	 		template : '<list source="tab.data.source" type="tab.type" name="tab.name"></list>',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
@@ -88,10 +108,23 @@ angular.module('nimbusEduApp')
 	                	label:'email',
 	                	name:'email',
 	                	show : true
-	                },{
+	                }/*,{
 	                	label:'account status',
 	                	name:'account_status',
 	                	show : true
+	                }*/],
+	                display : [{
+	                	icon : 'table',
+	                	label : 'table',
+	                	name : 'table'
+	                },{
+	                	icon : 'list',
+	                	label : 'list',
+	                	name : 'list'
+	                },{
+	                	icon : 'thumbnails',
+	                	label : 'cards',
+	                	name : 'card'
 	                }]
                 },
                 /*grouping : [
@@ -109,7 +142,8 @@ angular.module('nimbusEduApp')
           	}
 	 	},{
 	 		name : 'parents',
-	 		type : 'list',
+	 		type : 'card',
+	 		template : '<list source="tab.data.source" type="tab.type" name="tab.name"></list>',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/users',
@@ -130,10 +164,23 @@ angular.module('nimbusEduApp')
 	                	label:'email',
 	                	name:'email',
 	                	show : true
-	                },{
+	                }/*,{
 	                	label:'account status',
 	                	name:'account_status',
 	                	show : true
+	                }*/],
+	               	display : [{
+	                	icon : 'table',
+	                	label : 'table',
+	                	name : 'table'
+	                },{
+	                	icon : 'list',
+	                	label : 'list',
+	                	name : 'list'
+	                },{
+	                	icon : 'thumbnails',
+	                	label : 'cards',
+	                	name : 'card'
 	                }]
                 },
                 /*grouping : [
@@ -152,6 +199,7 @@ angular.module('nimbusEduApp')
 	 	},{
 	 		name : 'invoices',
 	 		type : 'table',
+	 		template : '<list source="tab.data.source" type="tab.type" name="tab.name"></list>',
 	 		data : {
                 source : {
                 	endpoint : $scope.user.tenant.id+'/billing',
@@ -168,10 +216,23 @@ angular.module('nimbusEduApp')
 	                	label :'student id',
 	                	name :'student_id',
 	                	show : true
-	                },{
+	                }/*,{
 	                	label :'status',
 	                	name :'status',
 	                	show : true
+	                }*/],
+	                display : [{
+	                	icon : 'table',
+	                	label : 'table',
+	                	name : 'table'
+	                },{
+	                	icon : 'list',
+	                	label : 'list',
+	                	name : 'list'
+	                },{
+	                	icon : 'thumbnails',
+	                	label : 'cards',
+	                	name : 'card'
 	                }]
                 },	
                 /*grouping : [
