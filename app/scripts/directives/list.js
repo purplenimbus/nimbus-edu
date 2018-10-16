@@ -130,7 +130,7 @@ angular.module('nimbusEduApp')
 			  	$scope.$on('searchFilter',function(e,payload){
 			  		
 			  		$scope.searchFilter = Object.assign({}, $scope.searchFilter, payload );
-
+			  		$scope.searchFilter.page = 1;
 			  		$scope.init($scope.searchFilter);
 
 			  	});
