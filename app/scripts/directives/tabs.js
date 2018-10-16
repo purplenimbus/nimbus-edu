@@ -21,6 +21,7 @@ angular.module('nimbusEduApp')
     	str += '	<li ng-repeat="tab in tabs">';
     	str += '		<div class="uk-grid-small" uk-grid>';
     	str += '			<div class="uk-width-1-1">';
+    	str += '				<div ng-bind-html="tab.template"></div>';
     	str += '				<list source="tab.data.source" type="tab.type" name="tab.name"></list>';
     	str += '			</div>';
     	str += '		</div>';

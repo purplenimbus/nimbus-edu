@@ -23,12 +23,12 @@ angular.module('nimbusEduApp')
 		table += 	'		<search-filter filter="filter"></search-filter>';
 		table += 	'	</div>';
 
-		table += 	'	<div class="uk-button-group uk-margin-bottom" ng-if="type === \'table\'">';
+		table += 	'	<div class="uk-button-group uk-margin-bottom" ng-if="source.type === \'table\'">';
 		table += 			uikit3.buttonDropDown({cls:'uk-button-default',label:'show/hide columns <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
 		table += 	'	</div>';
 		table += 	'	<div class="" ng-if="source.display">';
 		table += 	'		<div class="uk-button-group">';
-		table += 				uikit3.button({icon:'{{d.icon}}',directive:'ng-repeat="d in source.display" ng-click="showDisplay(d)" ng-class="d.name === type ? \'uk-button-primary\' : \'uk-button-default\'"' , cls : ' '});
+		table += 				uikit3.button({icon:'{{d.icon}}',directive:'ng-repeat="d in source.display" ng-click="showDisplay(d)" ng-class="d.name === source.type ? \'uk-button-primary\' : \'uk-button-default\'"' , cls : ' '});
 		table += 	'		</div>';
 		table += 	'	</div>';
 		table += 	'	<div class="">';
@@ -44,7 +44,7 @@ angular.module('nimbusEduApp')
 
 		table += ' <div class="uk-placeholder uk-text-center" ng-if="!loading && !list.data.data.length">couldnt find any {{ name }}</div>';
 
-		table += '<div ng-if="type === \'card\'">';
+		table += '<div ng-if="source.type === \'card\'">';
 		table += '<ul ng-if="!loading" class="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid="masonry: true">';
 		table += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict">';
 		table += '		<usercard user="row" tabs="false"></usercard>';
@@ -52,7 +52,7 @@ angular.module('nimbusEduApp')
 		table += '</ul>';
 		table += '</div>';
 
-		table += '<div ng-if="type === \'list\'">';
+		table += '<div ng-if="source.type === \'list\'">';
 		table += '<ul ng-if="!loading" class="uk-list uk-list-divider">';
 		table += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict"">';
 		table += '		<user-pill user="row" name="true" label="format.userMeta(row)"></user-pill>';
@@ -60,7 +60,7 @@ angular.module('nimbusEduApp')
 		table += '</ul>';
 		table += '</div>';
 
-		table += '<table ng-if="type === \'table\'" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
+		table += '<table ng-if="source.type === \'table\'" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
 		table += '	<thead>';
 	    table += '		<tr>';
 	    table += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="getColumn(key).show">{{ getColumn(key).label }}</th>';
@@ -77,13 +77,12 @@ angular.module('nimbusEduApp')
 	    table += '	</tbody>';
 
 		table += '</table>';
-		table += '<pagination ng-if="list.data.data.length" from="list.data.from" to="list.data.to" current="list.data.current_page" last="list.data.last_page" total="list.data.total" type="type"></pagination>';
+		table += '<pagination ng-if="list.data.data.length" from="list.data.from" to="list.data.to" current="list.data.current_page" last="list.data.last_page" total="list.data.total" type="source.type"></pagination>';
 
 	    return {
 	      	template: table,
 	      	restrict: 'E',
 		  	scope: {
-			  	type:'=type',
 			  	source:'=source',
 			  	name:'=name',
 		  	},
@@ -115,19 +114,13 @@ angular.module('nimbusEduApp')
 			  			$scope.list = result;
 			  		})
 			  		.catch(function(error){
-						console.log('eduApi '+$scope.type+' error',error);
+						console.log('eduApi '+$scope.source.type+' error',error);
 						$scope.loading = false;
 						return false;
 					});
 			  	};
 
-			  	var countFilterOptions = [
-			  			{name:5,id:5},
-                		{name:10,id:10},
-                		{name:20,id:20},
-                		{name:50,id:50},
-                		{name:100,id:100}
-                	];
+			  	var countFilterOptions = apiConst.filterCount;
 
 			  	$scope.countFilter = {
                 	type : 'select',
@@ -154,7 +147,8 @@ angular.module('nimbusEduApp')
 			  	};
 
 			  	$scope.showDisplay = function(display){
-			  		$scope.type = display.name;
+			  		console.log('showDisplay',display);
+			  		$scope.source.type = display.name;
 			  	}
 
 			  	$scope.$on('pagination',function(e,payload){
@@ -173,7 +167,10 @@ angular.module('nimbusEduApp')
 
 			  	});
 
-			  	$scope.init($scope.searchFilter);
+			  	if($scope.source){
+			  		$scope.init($scope.searchFilter);
+			  	}
+			  	
 	      	},
 	      	link: function postLink(scope, element) {
 				element.on('$destroy', function () {
