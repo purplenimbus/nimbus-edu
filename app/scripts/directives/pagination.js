@@ -11,7 +11,9 @@ angular.module('nimbusEduApp')
   	var str = '';
   		str += '<ul class="uk-pagination uk-margin-top">';
   		str += '	<li><button ng-disabled="current <= 1" ng-click="paginate(current-1)" ng-class="current <= 1 ? \'uk-button-default\' : \'\'" class="uk-button"><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</button></li>';
-      str += '  <li class=" uk-text-muted uk-flex-center uk-text-uppercase">Showing {{from}} to {{to}} of {{total}} entries</li>';
+      str += '  <li class=" uk-text-muted uk-inline uk-text-uppercase uk-width-expand">'
+      str += '    <span class="uk-position-center">Showing {{from}} to {{to}} of {{total}} entries</span>';
+      str += '  </li>';
   		str += '	<li class="uk-margin-auto-left"><button ng-disabled="current === last" ng-click="paginate(current+1)" ng-class="current === last ? \'uk-button-default\' : \'\'" class="uk-button">Next <span class="uk-margin-small-left" uk-pagination-next></span></button></li>';
   		str += '</ul>';
     return {

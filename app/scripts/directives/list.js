@@ -147,7 +147,6 @@ angular.module('nimbusEduApp')
 			  	};
 
 			  	$scope.showDisplay = function(display){
-			  		console.log('showDisplay',display);
 			  		$scope.source.type = display.name;
 			  	}
 
