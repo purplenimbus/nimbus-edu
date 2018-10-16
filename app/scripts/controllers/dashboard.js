@@ -58,7 +58,6 @@ angular.module('nimbusEduApp')
 	                	name : 'card',
 	                	template : uikit3.dataTable({
 	                		name : 'card',
-	                		info : 'students'
 		                })
 	                }],
                 },
@@ -81,7 +80,6 @@ angular.module('nimbusEduApp')
 	                	name : 'card',
 	                	template : uikit3.dataTable({
 	                		name : 'card',
-	                		info : 'teachers'
 		                })
 	                }],
                 },
@@ -104,10 +102,57 @@ angular.module('nimbusEduApp')
 	                	name : 'card',
 	                	template : uikit3.dataTable({
 	                		name : 'card',
-	                		info : 'parents'
 		                })
 	                }],
                 },
+          	}
+	 	},{
+	 		name : 'courses',
+	 		template : '<list source="tab.data.source" name="tab.name"></list>',
+	 		data : {
+                source : {
+                	type : 'table',
+                	endpoint : $scope.user.tenant.id+'/courses',
+                	query : {
+                		paginate:apiConst.componentPagination,
+                		page:1,
+                		course_grade_id:courseService.getClasses()[6].id
+                	},
+                	filters : [{
+	                	type : 'select',
+	                	label : 'Filter by Class',
+	                	name : 'course_grade_id',
+	                	options : courseService.getClasses(),
+	                	default : courseService.getClasses()[6]
+	                }],
+                	showColumns : ['id','name','code','course_grade_id'],
+                	columns : [{
+	                	label:'id',
+	                	name:'id',
+	                	show : true
+	                },{
+	                	label :'name',
+	                	name :'name',
+	                	show : true
+	                },{
+	                	label :'code',
+	                	name :'code',
+	                	show : true
+	                },{
+	                	label :'class',
+	                	name :'course_grade_id',
+	                	show : true
+	                }],
+	                display : [{
+	                	icon : 'table',
+	                	label : 'table',
+	                	name : 'table',
+	                	template : uikit3.dataTable({
+	                		name : 'table',
+	                		//template : invoiceTemplate
+		                })
+	                }]
+                },	
           	}
 	 	},{
 	 		name : 'invoices',
