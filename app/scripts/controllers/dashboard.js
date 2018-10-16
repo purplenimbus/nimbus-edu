@@ -11,7 +11,7 @@ angular.module('nimbusEduApp')
  	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst,courseService,$compile,uikit3) {
  		$scope.user = $localStorage.auth;
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
-	 	
+
         var invoiceTemplate = '';
 
 		invoiceTemplate += '<table ng-if="source.type === \'table\'" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
@@ -24,7 +24,8 @@ angular.module('nimbusEduApp')
 	    invoiceTemplate += '	<tbody ng-if="!loading">';
 	    invoiceTemplate += '		<tr ng-repeat="row in list.data.data | filter:search:strict" ng-click="select(row)">';
 	    invoiceTemplate += '			<td ng-repeat="(key,column) in row" ng-if="getColumn(key).show">';
-	    invoiceTemplate += '				{{ column.key || column }}';
+	    invoiceTemplate += '				<span ng-if="key !== \'status\'">{{ column }}</span>';
+	    invoiceTemplate += '				<span ng-if="key === \'status\'">{{ column.name }}</span>';
 	    invoiceTemplate += '			</td>';
 	    invoiceTemplate += '		</tr>';
 	    invoiceTemplate += '	</tbody>';
@@ -131,7 +132,7 @@ angular.module('nimbusEduApp')
 	                },{
 	                	label :'status',
 	                	name :'status',
-	                	show : false
+	                	show : true
 	                },{
 	                	label :'created',
 	                	name :'created_at',
