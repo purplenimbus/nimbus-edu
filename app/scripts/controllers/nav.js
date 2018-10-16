@@ -8,7 +8,22 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
-  .controller('NavCtrl', function ($scope,offcanvas,modal,form,settings,$route,$rootScope,validation,$auth,auth,$location,breadcrumbs,$localStorage) {
+  .controller('NavCtrl', function (
+  	$scope,
+  	offcanvas,
+  	modal,
+  	form,
+  	settings,
+  	$route,
+  	$rootScope,
+  	validation,
+  	$auth,
+  	auth,
+  	$location,
+  	breadcrumbs,
+  	$localStorage,
+  	notifications,
+  	eduApiConst) {
 	
 	$scope.route = $route;
     $scope.offcanvas = offcanvas.offcanvas;
@@ -96,6 +111,16 @@ angular.module('nimbusEduApp')
 	$scope.auth = $auth;
 	
 	$rootScope.user = $localStorage.auth;
+	
+	if($scope.user.access_level.id >= 3){
+		notifications.pusher()
+		.subscribe('private-App.Tenant.'+$scope.user.tenant.id)
+		.bind(eduApiConst.pusher.defaultEventName, function(data) {
+			console.log('notification',data);
+	      	//TO DO : Do Something
+	      	
+	    });
 
-	//console.log('NavCtrl scope',$scope);
+	}
+	
   });

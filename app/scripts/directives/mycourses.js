@@ -23,7 +23,7 @@ angular.module('nimbusEduApp')
 	  	template += '		 	<p class="uk-margin-remove uk-text-primary uk-text-capitalize">{{ registration.course.name }} <span class="uk-text-muted uk-text-uppercase">{{ registration.course.code }}</span></p>';
 	    template += '   	</div>';
 	    template += '   	<div class="uk-float-right">';
-	    template += '     		<span ng-if="getTotal(registration)" class="uk-margin-remove uk-text-{{getGrade(registration).className}}">{{ getTotal(registration) }}</span>';
+	    template += '     		<span ng-if="getTotal(registration) !== false" class="uk-margin-remove uk-text-{{getGrade(registration).className}}">{{ getTotal(registration) }}</span>';
 	    template += '   	</div>';
 	    template += '		</li>';
 	  	template += '	 </ul>';
@@ -31,17 +31,18 @@ angular.module('nimbusEduApp')
 
     return {
 		template: uikit3.card({
-	        header:'<user-pill user="user" label="label" name="true" class="uk-margin-remove"></user-pill>',
+	        header:'<user-pill ng-if="heading" user="user" label="label" name="true" class="uk-margin-remove"></user-pill>',
 	        body:template,
 	        classes:{
-	          card:'uk-card-default uk-padding-remove',
+	          card:'uk-padding-remove',
 	          header:'uk-padding-small',
-	          body:'uk-padding-small'
+	          body:'uk-padding-small uk-card-default'
 	        }
 	    }),
 		restrict: 'E',
 		scope:{
 			user:'=user',
+			heading:'=heading',
 		},
 		controller : function($scope,eduApi,apiConst,grades){
 			$scope.label = '';//current term goes here			
@@ -82,6 +83,12 @@ angular.module('nimbusEduApp')
 			
 			$scope.init();
 
+			$scope.$on('reload',function(){
+				console.log('reload mycourses');
+				$scope.init();
+			});
+
+			console.log('myCourses',$scope);
 		},
 		link: function postLink(scope, element) {
 			element.on('$destroy', function () {

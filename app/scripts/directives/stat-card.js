@@ -25,20 +25,45 @@ angular.module('nimbusEduApp')
   		header += '	</div>';
   		header += '</div>';
 
-  		body += '<spinner ng-if="loading"></spinner>'; 
-  		body += '<div ng-if="!loading" class="uk-text-center uk-margin-bottom">';
+  		body += '<spinner ng-if="loading"></spinner>';
+
+      body += '<div ng-if="!loading" class="">';
+      body += ' <div class="uk-flex-middle uk-grid-small" uk-grid>';
+      body += '   <div class="uk-width-auto">';
+      body += '     <div class="chart">';
+      body += '       <canvas id="doughnut" chart-options="options" chart-colors="colors" class="chart chart-doughnut" chart-data="datapoints" chart-labels="labels"></canvas>';
+      body += '       <span class="uk-logo label">{{data.results.length}}</span>';
+      body += '     </div>';
+      body += '   </div>';
+      body += '   <div class="uk-width-expand">';
+      body += '     <h5 class="uk-text-uppercase uk-logo uk-text-muted uk-text-center">{{title}}</h5>';
+      body += '   </div>';
+      body += ' </div>';
+      body += '</div>';
+
+  		/*body += '<div ng-if="!loading" class="uk-text-center uk-margin-bottom">';
   		body += '<h5 class="uk-text-uppercase uk-logo uk-text-muted">{{title}}</h5>';
-  		body += '<div class="chart">';
+      body += '<div class="chart">';
   		body += '<canvas id="doughnut" chart-options="options" chart-colors="colors" class="chart chart-doughnut" chart-data="datapoints" chart-labels="labels"></canvas>';
   		body += '<span class="uk-logo label">{{data.results.length}}</span>';
   		body += '</div>';
-  		body += '</div>';
+  		body += '</div>';*/
 
-  		body +=  '<div class="uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid ng-if="data.analysis">';
-      	body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
-        body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label" style="background-color:{{colors[$index]}}">{{metric.key|uppercase}}</p>';
-  		body += '	<p class="uk-logo uk-text-small" style="color:{{colors[$index]}}">{{metric.data.length}}</p>';
-        body += '  </div>';
+  		body += '<div class="uk-child-width-1-1" uk-grid ng-if="data.analysis && legend">';
+      body += '<ul class="uk-list uk-list-divider">';
+      body += ' <li ng-repeat="metric in data.analysis" class="uk-clearfix">';
+      body += '   <div class="uk-float-left">';
+      body += '     <p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label" style="background-color:{{colors[$index]}}">{{metric.key|uppercase}}</p>';
+      body += '   </div>';
+      body += '   <div class="uk-float-right">';
+      body += '     <p class="uk-text-small uk-margin-remove" style="color:{{colors[$index]}}">{{metric.data.length}}</p>';
+      body += '   </div>';
+      body += ' </li>';
+      body += '</ul>';
+      //body += '  <div ng-repeat="metric in data.analysis" class="uk-text-center">';
+      //body += '	<p class="uk-text-uppercase uk-text-small uk-margin-remove uk-label" style="background-color:{{colors[$index]}}">{{metric.key|uppercase}}</p>';
+  		//body += '	<p class="uk-logo uk-text-small" style="color:{{colors[$index]}}">{{metric.data.length}}</p>';
+      //body += '  </div>';
   		body += '</div>';
 
   		template += uikit3.card({
@@ -90,7 +115,7 @@ angular.module('nimbusEduApp')
 
       			$scope.loading = false;
 
-      			console.log('scope analysis '+$scope.title,$scope);
+      			//console.log('scope analysis '+$scope.title,$scope);
 
 			}).catch(function(error){
 				console.log('eduApi error',error);
@@ -108,7 +133,8 @@ angular.module('nimbusEduApp')
       scope : {
       	title : '=title',
       	type  : '=type',
-      	data  : '=data'
+      	data  : '=data',
+        legend  : '=legend'
       },
       restrict: 'E',
       link: function postLink(scope, element) {

@@ -45,7 +45,7 @@ angular.module('nimbusEduApp')
 				var str = '',self = this;
 				
 				str +=	'<div class="uk-inline uk-width-1-1">';
-				str +=	'<a class="uk-form-icon uk-form-icon-flip" href=""';
+				str +=	'<a class="uk-form-icon uk-form-icon" href=""';
 				str +=  attrs.icon ? 'uk-icon="icon: '+attrs.icon+'"' : 'uk-icon="icon: "';
 				str +=  '></a>';
 				str += 	self.input(attrs);
@@ -64,6 +64,22 @@ angular.module('nimbusEduApp')
 				str += attrs.label ? attrs.label : '';
 				str += '</button>';
 				
+				return str;
+			},
+			buttonDropDown : function(attrs){
+				var str = '',self = this;
+
+				str += '<div class="uk-inline">';
+				str += 			self.button(attrs);
+				str += '	<div class="uk-padding-small" uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">';
+				str += '		<ul class="uk-nav uk-dropdown-nav">';
+				str += '			<li ng-repeat="column in '+attrs.scope+'">';
+				str += '				<label><input class="uk-checkbox" type="checkbox" ng-model="column.show"> {{ column.label }} </label>';
+				str += '			</li>';
+				str += '		</ul>';
+				str += '	</div>';
+				str += '</div>';
+
 				return str;
 			},
 			textarea : function(attrs){
@@ -126,7 +142,9 @@ angular.module('nimbusEduApp')
 			},
 			offcanvas : function(attrs){
 		        var str = '<div id="'+(attrs.el ? attrs.el : 'offcanvas')+'" uk-offcanvas="'+(attrs.flip ? 'flip:'+attrs.flip+';' : '')+'mode: push">';
-		            str += '<div class="uk-offcanvas-bar">';
+		            str += '<div class="uk-offcanvas-bar ';
+		            str += attrs.cls ? attrs.cls : '';
+		            str += '">';
 		            str += attrs.title ? attrs.title : '';
 		            str += attrs.body ? attrs.body : '';
 		            str +=    '<button class="uk-offcanvas-close" type="button" uk-close></button>';
@@ -158,7 +176,7 @@ angular.module('nimbusEduApp')
 					str += attrs.body ? this.fullModalBody(attrs) : '';
 				}else{
 					str += attrs.title ?'<div class="uk-modal-header"><h2 class="uk-modal-title uk-text-capitalize">'+attrs.title+'</h2></div>' : '';
-					str += attrs.body ? '		<div class="uk-modal-body uk-padding-small">'+attrs.body+'</div>' : '';
+					str += attrs.body ? '		<div class="uk-modal-body uk-padding-remove">'+attrs.body+'</div>' : '';
 					str += attrs.footer ?'		<div class="uk-modal-footer">'+attrs.footer+'</div>' : '';
 				}
 				
@@ -350,6 +368,67 @@ angular.module('nimbusEduApp')
 				str += '</div>';
 
 				return str;
+			},
+			dataTable : function(attrs){
+				var template = '';
+				
+				if(attrs.template){
+					template += attrs.template;
+				}else if(attrs.name){
+
+					switch(attrs.name){
+						case 'card' : 
+
+							template += '<div ng-if="source.type === \'card\'">';
+							template += '<ul ng-if="!loading" class="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid="masonry: true">';
+							template += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict">';
+							template += '		<usercard user="row" tabs="false"></usercard>';
+							template += '	</li>';
+							template += '</ul>';
+							template += '</div>';
+
+							break;
+
+						case 'list' : 
+
+							template += '<div ng-if="source.type === \'list\'">';
+							template += '<ul ng-if="!loading" class="uk-list uk-list-divider">';
+							template += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict"">';
+							template += '		<user-pill user="row" name="true" label="format.userMeta(row)"></user-pill>';
+							template += '	</li>';
+							template += '</ul>';
+							template += '</div>';
+
+							break;
+
+						default : 
+
+					    	template += '<table ng-if="source.type === \'table\'" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
+							template += '	<thead>';
+						    template += '		<tr>';
+						    template += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="getColumn(key).show">{{ getColumn(key).label }}</th>';
+						    template += '		</tr>';
+						   	template += '	</thead>';
+
+						   	//table += '	<spinner ng-if="loading"></spinner>';
+						    template += '	<tbody ng-if="!loading">';
+						    template += '		<tr ng-repeat="row in list.data.data | filter:search:strict" ng-click="select(row)">';
+						    template += '			<td ng-repeat="(key,column) in row" ng-if="getColumn(key).show">';
+						    template += '				{{ column.key || column }}';
+						    template += '			</td>';
+						    template += '		</tr>';
+						    template += '	</tbody>';
+
+							template += '</table>';
+
+							break; 
+
+					}
+
+					
+				}
+
+				return template;
 			}
 		};
 	});

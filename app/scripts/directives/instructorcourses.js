@@ -17,7 +17,7 @@ angular.module('nimbusEduApp')
   		template += '   <ul ng-if="list && !loading" class="uk-list uk-width-1-1 uk-margin-remove uk-list-divider">';
       template += '   <li ng-repeat="course in coursesList.data" class="uk-clear-fix">';
   		template += '		<div class="uk-float-left">';
-  		template += '		 <a href="#!/learning/course/{{course.id}}" class="uk-margin-remove uk-text-primary uk-text-capitalize">{{ course.name }} <span class="uk-text-muted uk-text-uppercase">{{ course.code }}</span></a>';
+  		template += '		 <a href="#!/learning/course/{{course.id}}" class="uk-margin-remove uk-text-primary uk-text-capitalize">{{ course.name }} <span class="uk-text-uppercase uk-text-small uk-label">{{ course.code }}</span></a>';
       template += '   </div>';
       template += '   <div class="uk-float-right">';
       template += '     <p class="uk-margin-remove uk-text-muted uk-text-uppercase">{{course.registrations.length}} students</p>';
@@ -28,16 +28,20 @@ angular.module('nimbusEduApp')
 
     return {
       template: uikit3.card({
-        header:'<user-pill user="user" label="label" name="true" class="uk-margin-remove"></user-pill>',
+        header:'<user-pill ng-if="heading" user="user" label="label" name="true" class="uk-margin-remove"></user-pill>',
         body:template,
         classes:{
-          card:'uk-card-default uk-padding-remove',
+          card:'uk-padding-remove',
           header:'uk-padding-small',
           body:'uk-padding-small'
         }
       }),
       restrict: 'E',
-      scope:{user:'=user',list:'=list'},
+      scope:{
+        user:'=user',
+        list:'=list',
+        heading:'=heading'
+      },
       controller:function($scope,courseService){
         $scope.label = '';//current term goes here  
       	$scope.init = function(){

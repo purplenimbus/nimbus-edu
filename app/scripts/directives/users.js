@@ -7,13 +7,59 @@
  * # users
  */
 angular.module('nimbusEduApp')
-  .directive('users', function () {
+  .directive('users', function (uikit3) {
+
+  	var table = '<spinner ng-if="loading"></spinner>';
+
+  	    table += '<table datatable="ng" class="uk-table-hover uk-table uk-table uk-table-divider uk-table-small" ng-if="!loading">';
+    	table += '	<thead>';
+        table += '		<tr>';
+        table += '    		<th>{{type}}</th>';
+        table += '    		<th>#</th>';
+        table += '		</tr>';
+        table += '	</thead>';
+        table += '	<tbody>';
+        table += '		<tr ng-repeat="item in list.data">';
+        table += '		<td ng-click="select(item)"><user-pill user="item" name="true" labe="user.user_type"></user-pill></td>';
+        table += '		<td></td>';
+        table += '		</tr>';
+        table += '	</tbody>';
+    	table += '</table>';
+
     return {
-      templateUrl: 'views/templates/users.html',
+      template: uikit3.card({
+      	body:table,
+		classes:{
+	        card:'uk-padding-remove',
+	        body:'uk-card-default uk-padding-remove',
+	        header : 'uk-padding-small'
+	    }
+      }),
       restrict: 'E',
-	  scope: true,
-	  controller : function($scope,eduApi,$window,apiConst,$localStorage){
-		$scope.widgetTitle = 'Users';
+	  scope: {
+	  	type:'=type',
+	  	source:'=source'
+	  },
+	  controller : function($scope,eduApi,$window,apiConst){
+	  	//console.log('users scope',$scope);
+	  	$scope.init = function(){
+	  		$scope.loading = true;
+	  		eduApi.api('GET',$scope.source+'&paginate='+apiConst.componentPagination+'&page=1').then(function(result){
+	  			console.log('eduApi '+$scope.type+' result',result);
+	  			$scope.list = result.data;
+	  			$scope.loading = false;
+	  		})
+	  		.catch(function(error){
+				console.log('eduApi '+$scope.type+' error',error);
+				$scope.loading = false;
+			});
+	  	};
+	  	$scope.init();
+
+	  	$scope.select = function(item){
+	  		$scope.$emit('selected',item);
+	  	};
+		/*$scope.widgetTitle = 'Users';
 		
 		$scope.search = null;
 		
@@ -40,7 +86,7 @@ angular.module('nimbusEduApp')
 		};
 		
 		var userList = new $window.Bloodhound({
-			datumTokenizer: function(d) { /*console.log('bloodhound d',d);*/ return $window.Bloodhound.tokenizers.whitespace(d.firstname); },
+			datumTokenizer: function(d) { console.log('bloodhound d',d); return $window.Bloodhound.tokenizers.whitespace(d.firstname); },
 			queryTokenizer: $window.Bloodhound.tokenizers.whitespace,
 			remote:	eduApi.apiEndPoint+$scope.user.tenant.id+'/users'
 		});	
@@ -125,7 +171,7 @@ angular.module('nimbusEduApp')
 		
 		$scope.init();
 
-		console.log('Users Directive Scope',$scope);
+		console.log('Users Directive Scope',$scope);*/
 	  },
       link: function postLink(scope, element) {
 		element.on('$destroy', function () {
