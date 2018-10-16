@@ -8,19 +8,35 @@
  * Controller of the nimbusEduApp
  */
 angular.module('nimbusEduApp')
- 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst,courseService,$compile) {
+ 	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst,courseService,$compile,uikit3) {
  		$scope.user = $localStorage.auth;
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
+	 	
+        var invoiceTemplate = '';
+
+		invoiceTemplate += '<table ng-if="source.type === \'table\'" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
+		invoiceTemplate += '	<thead>';
+	    invoiceTemplate += '		<tr>';
+	    invoiceTemplate += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="getColumn(key).show">{{ getColumn(key).label }}</th>';
+	    invoiceTemplate += '		</tr>';
+	   	invoiceTemplate += '	</thead>';
+
+	    invoiceTemplate += '	<tbody ng-if="!loading">';
+	    invoiceTemplate += '		<tr ng-repeat="row in list.data.data | filter:search:strict" ng-click="select(row)">';
+	    invoiceTemplate += '			<td ng-repeat="(key,column) in row" ng-if="getColumn(key).show">';
+	    invoiceTemplate += '				{{ column.key || column }}';
+	    invoiceTemplate += '			</td>';
+	    invoiceTemplate += '		</tr>';
+	    invoiceTemplate += '	</tbody>';
+
+		invoiceTemplate += '</table>';
+
 	 	$scope.tabs = [{
-	 		name : 'test',
-	 		type : 'table',
-	 		template : '<list source="tab.data.source" name="tab.name"></list>',
-	 	},{
 	 		name : 'students',
 	 		template : '<list source="tab.data.source" name="tab.name"></list>',
 	 		data : {
                 source : {
-                	type : 'table',
+                	type : 'card',
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
 	                	paginate:apiConst.componentPagination,
@@ -28,28 +44,6 @@ angular.module('nimbusEduApp')
 	                	user_type:'student',
 	                	course_grade_id:courseService.getClasses()[6].id
 	                },
-	                columns : [{
-	                	label:'first name',
-	                	name :'firstname',
-	                	show : true
-	                },{
-	                	label :'last name',
-	                	name :'lastname',
-	                	show : true
-	                },{
-	                	label: 'email',
-	                	name : 'email',
-	                	show : true
-	                },/*{
-	                	label:'account status',
-	                	name : 'account_status',
-	                	show : true,
-	                	key : 'account_status.name'
-	                },*/{
-	                	label:'ref id',
-	                	name : 'ref_id',
-	                	show : true
-	                }],
 	                filters : [{
 	                	type : 'select',
 	                	label : 'Filter by Class',
@@ -58,35 +52,19 @@ angular.module('nimbusEduApp')
 	                	default : courseService.getClasses()[6]
 	                }],
 	               	display : [{
-	                	icon : 'table',
-	                	label : 'table',
-	                	name : 'table'
-	                },{
-	                	icon : 'list',
-	                	label : 'list',
-	                	name : 'list'
-	                },{
 	                	icon : 'thumbnails',
 	                	label : 'cards',
-	                	name : 'card'
-	                }]
+	                	name : 'card',
+	                	template : uikit3.dataTable({
+	                		name : 'card',
+	                		info : 'students'
+		                })
+	                }],
                 },
-                /*grouping : [
-                  	function(x){
-                    	return x.meta.course_grade_id;
-                  	},
-                  	null,
-                  	function(key,grouping){ 
-	                    return {
-	                      key : courseService.getClasses(parseInt(key)-1).name,
-	                      data : grouping.source
-	                    };
-                  	}
-                ]*/
           	}
 	 	},{
 	 		name : 'teachers',
-	 		template : '<list source="tab.data.source" type="tab.type" name="tab.name"></list>',
+	 		template : '<list source="tab.data.source" name="tab.name"></list>',
 	 		data : {
                 source : {
                 	type : 'card',
@@ -96,53 +74,20 @@ angular.module('nimbusEduApp')
 	                	page:1,
 	                	user_type:'teacher'
 	                },
-	                columns : [{
-	                	label:'first name',
-	                	name:'firstname',
-	                	show : true
-	                },{
-	                	label :'last name',
-	                	name:'lastname',
-	                	show : true
-	                },{
-	                	label:'email',
-	                	name:'email',
-	                	show : true
-	                },{
-	                	label:'account status',
-	                	name:'account_status',
-	                	show : false
-	                }],
 	                display : [{
-	                	icon : 'table',
-	                	label : 'table',
-	                	name : 'table'
-	                },{
-	                	icon : 'list',
-	                	label : 'list',
-	                	name : 'list'
-	                },{
 	                	icon : 'thumbnails',
 	                	label : 'cards',
-	                	name : 'card'
-	                }]
+	                	name : 'card',
+	                	template : uikit3.dataTable({
+	                		name : 'card',
+	                		info : 'teachers'
+		                })
+	                }],
                 },
-                /*grouping : [
-                  	function(x){
-                    	return x.account_status.name;
-                  	},
-                  	null,
-                  	function(key,grouping){ 
-	                    return {
-	                      	key:key,
-	                      	data:grouping.source
-	                    }; 
-                  	}
-                ]*/
           	}
 	 	},{
 	 		name : 'parents',
-	 		template : '<list source="tab.data.source" type="tab.type" name="tab.name"></list>',
+	 		template : '<list source="tab.data.source" name="tab.name"></list>',
 	 		data : {
                 source : {
                 	type : 'card',
@@ -152,53 +97,20 @@ angular.module('nimbusEduApp')
 	                	page:1,
 	                	user_type:'parent'
 	                },
-	                columns : [{
-	                	label:'first name',
-	                	name:'first_name',
-	                	show : true
-	                },{
-	                	label :'last name',
-	                	name:'last_name',
-	                	show : true
-	                },{
-	                	label:'email',
-	                	name:'email',
-	                	show : true
-	                },{
-	                	label:'account status',
-	                	name:'account_status',
-	                	show : false
-	                }],
 	               	display : [{
-	                	icon : 'table',
-	                	label : 'table',
-	                	name : 'table'
-	                },{
-	                	icon : 'list',
-	                	label : 'list',
-	                	name : 'list'
-	                },{
 	                	icon : 'thumbnails',
 	                	label : 'cards',
-	                	name : 'card'
-	                }]
+	                	name : 'card',
+	                	template : uikit3.dataTable({
+	                		name : 'card',
+	                		info : 'parents'
+		                })
+	                }],
                 },
-                /*grouping : [
-                  	function(x){
-                    	return x.account_status.name;
-                  	},
-                  	null,
-                  	function(key,grouping){ 
-	                    return {
-	                      	key:key,
-	                      	data:grouping.source
-	                    }; 
-                  	}
-                ]*/
           	}
 	 	},{
 	 		name : 'invoices',
-	 		template : '<list source="tab.data.source" type="tab.type" name="tab.name"></list>',
+	 		template : '<list source="tab.data.source" name="tab.name"></list>',
 	 		data : {
                 source : {
                 	type : 'table',
@@ -220,33 +132,26 @@ angular.module('nimbusEduApp')
 	                	label :'status',
 	                	name :'status',
 	                	show : false
+	                },{
+	                	label :'created',
+	                	name :'created_at',
+	                	show : true
+	                },{
+	                	label :'term id',
+	                	name :'term_id',
+	                	show : true
 	                }],
 	                display : [{
 	                	icon : 'table',
 	                	label : 'table',
-	                	name : 'table'
-	                }/*,{
-	                	icon : 'list',
-	                	label : 'list',
-	                	name : 'list'
-	                },{
-	                	icon : 'thumbnails',
-	                	label : 'cards',
-	                	name : 'card'
-	                }*/]
+	                	name : 'table',
+	                	template : uikit3.dataTable({
+	                		name : 'table',
+	                		info : 'invoices',
+	                		template : invoiceTemplate
+		                })
+	                }]
                 },	
-                /*grouping : [
-                  	function(x){
-                    	return x.student_id;
-                  	},
-                  	null,
-                  	function(key,grouping){ 
-                    	return {
-                      		key:key,
-                      		data:grouping.source
-                    	}; 
-                  	}
-                ]*/
           	}
 	 	}];
 

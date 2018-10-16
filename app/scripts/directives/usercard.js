@@ -27,25 +27,14 @@ angular.module('nimbusEduApp')
         showTabs:'=tabs',
         wrapper:'=wrapper'
       },
-      controller : function($scope,format,apiConst){
+      controller : function($scope,format){
         $scope.format = format;
         $scope.tabs = [{
           name : 'grades',
-          type : 'table',
-          data : {
-            source : {
-              endpoint : $scope.user.tenant.id+'/registrations',
-              query : {
-                user_id : $scope.user.id,
-                paginate:apiConst.componentPagination
-              },
-              columns : [{
-                label:'course',
-                name :'course',
-                show : true
-              }],
-            }
-          } 
+          template : 'this is a grades tab'
+        },{
+          name : 'invoices',
+          template : 'this is an invoices tab'
         }];
         //console.log('usercard scope',$scope);
       },

@@ -26,7 +26,7 @@ angular.module('nimbusEduApp')
 		table += 	'	<div class="uk-button-group uk-margin-bottom" ng-if="source.type === \'table\'">';
 		table += 			uikit3.buttonDropDown({cls:'uk-button-default',label:'show/hide columns <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
 		table += 	'	</div>';
-		table += 	'	<div class="" ng-if="source.display">';
+		table += 	'	<div class="" ng-if="source.display.length > 1">';
 		table += 	'		<div class="uk-button-group">';
 		table += 				uikit3.button({icon:'{{d.icon}}',directive:'ng-repeat="d in source.display" ng-click="showDisplay(d)" ng-class="d.name === source.type ? \'uk-button-primary\' : \'uk-button-default\'"' , cls : ' '});
 		table += 	'		</div>';
@@ -44,39 +44,8 @@ angular.module('nimbusEduApp')
 
 		table += ' <div class="uk-placeholder uk-text-center" ng-if="!loading && !list.data.data.length">couldnt find any {{ name }}</div>';
 
-		table += '<div ng-if="source.type === \'card\'">';
-		table += '<ul ng-if="!loading" class="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid="masonry: true">';
-		table += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict">';
-		table += '		<usercard user="row" tabs="false"></usercard>';
-		table += '	</li>';
-		table += '</ul>';
-		table += '</div>';
+		table += '	<div ng-repeat="d in source.display" bind-html-compile="d.template"></div>';
 
-		table += '<div ng-if="source.type === \'list\'">';
-		table += '<ul ng-if="!loading" class="uk-list uk-list-divider">';
-		table += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict"">';
-		table += '		<user-pill user="row" name="true" label="format.userMeta(row)"></user-pill>';
-		table += '	</li>';
-		table += '</ul>';
-		table += '</div>';
-
-		table += '<table ng-if="source.type === \'table\'" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
-		table += '	<thead>';
-	    table += '		<tr>';
-	    table += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="getColumn(key).show">{{ getColumn(key).label }}</th>';
-	    table += '		</tr>';
-	   	table += '	</thead>';
-
-	   	//table += '	<spinner ng-if="loading"></spinner>';
-	    table += '	<tbody ng-if="!loading">';
-	    table += '		<tr ng-repeat="row in list.data.data | filter:search:strict" ng-click="select(row)">';
-	    table += '			<td ng-repeat="(key,column) in row" ng-if="getColumn(key).show">';
-	    table += '				{{ column.key || column }}';
-	    table += '			</td>';
-	    table += '		</tr>';
-	    table += '	</tbody>';
-
-		table += '</table>';
 		table += '<pagination ng-if="list.data.data.length" from="list.data.from" to="list.data.to" current="list.data.current_page" last="list.data.last_page" total="list.data.total" type="source.type"></pagination>';
 
 	    return {
@@ -107,7 +76,7 @@ angular.module('nimbusEduApp')
 
 			  		var url = $scope.source.endpoint+queryString.objectToQuerystring($scope.source.query || {});
 
-			  		console.log('query url', url);
+			  		console.log('query url', url,$scope);
 
 			  		eduApi.api('GET',url).then(function(result){
 			  			$scope.loading = false;
@@ -148,7 +117,7 @@ angular.module('nimbusEduApp')
 
 			  	$scope.showDisplay = function(display){
 			  		$scope.source.type = display.name;
-			  	}
+			  	};
 
 			  	$scope.$on('pagination',function(e,payload){
 

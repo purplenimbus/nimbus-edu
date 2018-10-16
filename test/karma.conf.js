@@ -37,6 +37,7 @@ module.exports = function(config) {
       'bower_components/angular-chart.js/dist/angular-chart.js',
       'bower_components/angular-linq/angular-linq.js',
       'bower_components/pusher-angular/lib/pusher-angular.js',
+      'bower_components/angular-bind-html-compile/angular-bind-html-compile.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

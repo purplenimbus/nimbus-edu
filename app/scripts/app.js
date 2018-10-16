@@ -22,6 +22,7 @@ angular
 		'ngStorage',
 		'angular-linq',
 		'pusher-angular',
+		'angular-bind-html-compile'
 	])
 	.config(function ($routeProvider,$locationProvider,$authProvider,apiConst,$sceDelegateProvider,ChartJsProvider,dashboardConst) {
 		ChartJsProvider.setOptions({
