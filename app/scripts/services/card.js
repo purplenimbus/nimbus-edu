@@ -17,8 +17,6 @@ angular.module('nimbusEduApp')
     	this.person = function(key){
     		var body = '';
 
-    		console.log('person card');
-
     		body += '<article class="uk-text-center">';
     		body += '<h1 class="uk-article-title uk-text-capitalize"><a class="uk-link-reset" href="">{{ '+key+'.firstname }} {{ '+key+'.lastname }}</a></h1>';
     		body += '<p class="uk-article-meta uk-text-capitalize">{{ '+key+'.meta.user_type }}</p>';
@@ -114,4 +112,33 @@ angular.module('nimbusEduApp')
                             : false
     		};
     	};
+
+        this.userCardTabs = function(type){
+            var tabs = [];
+
+            switch(type){
+                case 'teacher' :
+
+                    tabs.push({
+                        name : 'courses',
+                        template : 'courses template'
+                    }); 
+
+                    break;
+                default :                     
+                    tabs.push({
+                        name : 'grades',
+                        template : 'grades template'
+                    });
+
+                    tabs.push({
+                        name : 'invoices',
+                        template : 'invoices template'
+                    });
+
+                    break;
+            }
+
+            return tabs;
+        };
   	});

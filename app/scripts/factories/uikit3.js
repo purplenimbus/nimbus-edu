@@ -381,8 +381,8 @@ angular.module('nimbusEduApp')
 
 							template += '<div ng-if="source.type === \'card\'">';
 							template += '<ul ng-if="!loading" class="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid="masonry: true">';
-							template += '	<li ng-click="select(row)" ng-repeat="row in list.data.data | filter:search:strict">';
-							template += '		<usercard user="row" tabs="false"></usercard>';
+							template += '	<li ng-repeat="row in list.data.data | filter:search:strict">';
+							template += '		<usercard user="row" tabs="true" details="true"></usercard>';
 							template += '	</li>';
 							template += '</ul>';
 							template += '</div>';

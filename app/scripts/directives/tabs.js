@@ -75,10 +75,10 @@ angular.module('nimbusEduApp')
 
       			switch(type){
       				case 'teacher' : 
-      					body += '<usercard user="selected" list="true" tabs="false" type="'+type+'"></usercard>'; 
+      					body += '<usercard user="selected" list="true" tabs="false" type="'+type+'" details="true"></usercard>'; 
       					break;
       				default : 
-      					body += '<usercard user="selected" tabs="true" type="'+type+'"></usercard>'; 
+      					body += '<usercard user="selected" tabs="true" type="'+type+'" details="true"></usercard>'; 
       					break;
       			}
 
