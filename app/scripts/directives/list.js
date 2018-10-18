@@ -13,7 +13,7 @@ angular.module('nimbusEduApp')
 
 		table += '<div class="uk-clearfix">';
 		table += '	<form class="uk-grid-small uk-float-left" uk-grid>';
-		table += 	'	<div class="uk-margin-bottom">';
+		table += 	'	<div class="uk-margin-bottom"ng-if="source.showCountFilter">';
 		//table += 			uikit3.button({cls:'uk-button-default',label:'filters'});
 		table += 	'		<search-filter filter="countFilter"></search-filter>';
 		table += 	'	</div>';
@@ -26,7 +26,7 @@ angular.module('nimbusEduApp')
 		table += 	'	<div class="uk-button-group uk-margin-bottom" ng-if="source.type === \'table\'">';
 		table += 			uikit3.buttonDropDown({cls:'uk-button-default',label:'show/hide columns <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
 		table += 	'	</div>';
-		table += 	'	<div class="" ng-if="source.display.length > 1">';
+		table += 	'	<div class="" ng-if="source.display.length > 1 && source.display">';
 		table += 	'		<div class="uk-button-group">';
 		table += 				uikit3.button({icon:'{{d.icon}}',directive:'ng-repeat="d in source.display" ng-click="showDisplay(d)" ng-class="d.name === source.type ? \'uk-button-primary\' : \'uk-button-default\'"' , cls : ' '});
 		table += 	'		</div>';
@@ -76,7 +76,7 @@ angular.module('nimbusEduApp')
 
 			  		var url = $scope.source.endpoint+queryString.objectToQuerystring($scope.source.query || {});
 
-			  		console.log('query url', url,$scope);
+			  		console.log('query url', url);
 
 			  		eduApi.api('GET',url).then(function(result){
 			  			$scope.loading = false;

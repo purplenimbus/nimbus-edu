@@ -22,7 +22,8 @@ angular.module('nimbusEduApp')
         template +=  '       </div>';
         template +=  '    </div>';
         template +=  '  </div>';
-        template +=  '  <tabs tabs="tabs" class="uk-width-1-1" ng-if="showTabs"></tabs>';
+        //template +=  '  <tabs tabs="tabs" class="uk-width-1-1" ng-if="showTabs"></tabs>';
+        template +=  '  <my-courses ng-if="user.user_type.name === \'student\'" list="true" id="user.id" heading="false"></my-courses>';
         template +=  '</div>';
 
     return {
@@ -35,15 +36,18 @@ angular.module('nimbusEduApp')
       		}
       }),
       scope : {
-        user:'=user',
+        user:'=data',
         showTabs:'=tabs',
         wrapper:'=wrapper',
         showDetails:'=details'
       },
       controller : function($scope,format,card){
         $scope.format = format;
-        $scope.tabs = card.userCardTabs($scope.user.user_type.name);
+
         console.log('usercard scope',$scope);
+
+        $scope.tabs = card.userCardTabs($scope.user.user_type.name);
+        
       },
       restrict: 'E',
       link: function postLink(scope, element) {

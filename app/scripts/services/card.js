@@ -117,6 +117,15 @@ angular.module('nimbusEduApp')
             var tabs = [];
 
             switch(type){
+                
+                case 'parent' :
+
+                    tabs.push({
+                        name : 'invoices',
+                        template : 'invoices template'
+                    }); 
+
+                    break;
                 case 'teacher' :
 
                     tabs.push({
@@ -128,12 +137,7 @@ angular.module('nimbusEduApp')
                 default :                     
                     tabs.push({
                         name : 'grades',
-                        template : 'grades template'
-                    });
-
-                    tabs.push({
-                        name : 'invoices',
-                        template : 'invoices template'
+                        template : '<my-courses list="true" id="user.id" heading="false"></my-courses>'
                     });
 
                     break;

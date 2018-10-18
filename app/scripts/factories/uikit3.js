@@ -382,7 +382,7 @@ angular.module('nimbusEduApp')
 							template += '<div ng-if="source.type === \'card\'">';
 							template += '<ul ng-if="!loading" class="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid="masonry: true">';
 							template += '	<li ng-repeat="row in list.data.data | filter:search:strict">';
-							template += '		<usercard user="row" tabs="true" details="true"></usercard>';
+							template += '		<usercard user="row" tabs="false" details="true"></usercard>';
 							template += '	</li>';
 							template += '</ul>';
 							template += '</div>';
@@ -403,7 +403,7 @@ angular.module('nimbusEduApp')
 
 						default : 
 
-					    	template += '<table ng-if="source.type === \'table\'" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
+					    	template += '<table ng-if="source.type === \'table\' && !loading" class="uk-table-hover uk-table uk-table-middle uk-margin-remove">';
 							template += '	<thead>';
 						    template += '		<tr>';
 						    template += '    		<th ng-repeat="(key , label) in list.data.data[0]" ng-if="getColumn(key).show">{{ getColumn(key).label }}</th>';
@@ -411,7 +411,7 @@ angular.module('nimbusEduApp')
 						   	template += '	</thead>';
 
 						   	//table += '	<spinner ng-if="loading"></spinner>';
-						    template += '	<tbody ng-if="!loading">';
+						    template += '	<tbody>';
 						    template += '		<tr ng-repeat="row in list.data.data | filter:search:strict" ng-click="select(row)">';
 						    template += '			<td ng-repeat="(key,column) in row" ng-if="getColumn(key).show">';
 						    template += '				{{ column.key || column }}';
