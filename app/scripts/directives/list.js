@@ -23,7 +23,7 @@ angular.module('nimbusEduApp')
 		table += 	'		<search-filter filter="filter"></search-filter>';
 		table += 	'	</div>';
 
-		table += 	'	<div class="uk-button-group uk-margin-bottom" ng-if="source.type === \'table\'">';
+		table += 	'	<div class="uk-button-group uk-margin-bottom" ng-if="source.type === \'table\' && source.columns">';
 		table += 			uikit3.buttonDropDown({cls:'uk-button-default',label:'show/hide columns <span uk-icon="icon:  triangle-down"></span>',scope:'source.columns'});
 		table += 	'	</div>';
 		table += 	'	<div class="" ng-if="source.display.length > 1 && source.display">';
