@@ -10,6 +10,7 @@
 angular.module('nimbusEduApp')
  	.controller('DashboardCtrl', function ($scope,settings,$route,$window,$localStorage,apiConst,courseService,$compile,uikit3) {
  		$scope.user = $localStorage.auth;
+ 		$scope.selected = false;
 	 	$scope.dashboardSettings = settings.getSettings('dashboard');
 
         var invoiceTemplate = '';
@@ -37,7 +38,8 @@ angular.module('nimbusEduApp')
 	 		template : '<list source="tab.data.source" name="tab.name"></list>',
 	 		data : {
                 source : {
-                	type : 'card',
+                	type : 'list',
+                	showCountFilter : true,
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
 	                	paginate:apiConst.componentPagination,
@@ -53,11 +55,11 @@ angular.module('nimbusEduApp')
 	                	default : courseService.getClasses()[6]
 	                }],
 	               	display : [{
-	                	icon : 'thumbnails',
-	                	label : 'cards',
-	                	name : 'card',
+	                	icon : 'list',
+	                	label : 'list',
+	                	name : 'list',
 	                	template : uikit3.dataTable({
-	                		name : 'card',
+	                		name : 'list',
 		                })
 	                }],
                 },
@@ -67,7 +69,8 @@ angular.module('nimbusEduApp')
 	 		template : '<list source="tab.data.source" name="tab.name"></list>',
 	 		data : {
                 source : {
-                	type : 'card',
+                	type : 'list',
+                	showCountFilter : true,
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
 	                	paginate:apiConst.componentPagination,
@@ -75,11 +78,11 @@ angular.module('nimbusEduApp')
 	                	user_type:'teacher'
 	                },
 	                display : [{
-	                	icon : 'thumbnails',
-	                	label : 'cards',
-	                	name : 'card',
+	                	icon : 'list',
+	                	label : 'list',
+	                	name : 'list',
 	                	template : uikit3.dataTable({
-	                		name : 'card',
+	                		name : 'list',
 		                })
 	                }],
                 },
@@ -89,7 +92,8 @@ angular.module('nimbusEduApp')
 	 		template : '<list source="tab.data.source" name="tab.name"></list>',
 	 		data : {
                 source : {
-                	type : 'card',
+                	type : 'list',
+                	showCountFilter : true,
                 	endpoint : $scope.user.tenant.id+'/users',
                 	query : {
 	                	paginate:apiConst.componentPagination,
@@ -97,11 +101,11 @@ angular.module('nimbusEduApp')
 	                	user_type:'parent'
 	                },
 	               	display : [{
-	                	icon : 'thumbnails',
-	                	label : 'cards',
-	                	name : 'card',
+	                	icon : 'list',
+	                	label : 'list',
+	                	name : 'list',
 	                	template : uikit3.dataTable({
-	                		name : 'card',
+	                		name : 'list',
 		                })
 	                }],
                 },
@@ -112,6 +116,7 @@ angular.module('nimbusEduApp')
 	 		data : {
                 source : {
                 	type : 'table',
+                	showCountFilter : true,
                 	endpoint : $scope.user.tenant.id+'/courses',
                 	query : {
                 		paginate:apiConst.componentPagination,
@@ -160,6 +165,7 @@ angular.module('nimbusEduApp')
 	 		data : {
                 source : {
                 	type : 'table',
+                	showCountFilter : true,
                 	endpoint : $scope.user.tenant.id+'/billing',
                 	query : {
                 		paginate:apiConst.componentPagination,

@@ -57,11 +57,11 @@ angular.module('nimbusEduApp')
 
       			var str = '';
 
-  				if(data.user_type){
-  					str += $scope.getBody(data.user_type.name);
-  				}else{
+  				//if(data.user_type){
+  					str += $scope.getBody(data.type);
+  				//}else{
   					//invoices here?
-  				}
+  				//}
 
 				modal.modal({
       				body:str,
@@ -74,11 +74,11 @@ angular.module('nimbusEduApp')
       			var body = '';
 
       			switch(type){
-      				case 'teacher' : 
-      					body += '<usercard user="selected" list="true" tabs="false" type="'+type+'"></usercard>'; 
+      				case 'courses' : 
+      					body += '<coursecard code="selected.code" name="selected.name" id="selected.id" list="true" tabs="false" type="'+type+'" details="true"></coursecard>'; 
       					break;
       				default : 
-      					body += '<usercard user="selected" tabs="true" type="'+type+'"></usercard>'; 
+      					body += '<usercard data="selected" tabs="true" type="'+type+'" details="true"></usercard>'; 
       					break;
       			}
 
