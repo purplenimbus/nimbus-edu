@@ -11,14 +11,9 @@
  */
 angular.module('nimbusEduApp')
   .directive('myCourses', function (uikit3) {
-  	var template = '';
-  		template += '<div>';
-	    template += '	<list source="source" name="name"></list>'
-		template += '</div>';
-
     return {
 		template: uikit3.card({
-	        body:template,
+	        body:'<list source="source" name="name"></list>',
 	        classes:{
 	          card:'uk-padding-remove',
 	          header:'uk-padding-small',
@@ -63,11 +58,10 @@ angular.module('nimbusEduApp')
 				    table += '		</tr>';
 				   	table += '	</thead>';
 
-				   	//table += '	<spinner ng-if="loading"></spinner>';
 				    table += '	<tbody>';
 				    table += '		<tr ng-repeat="row in list.data.data | filter:search:strict" ng-click="select(row)">';
 				    table += '			<td>{{row.id}}</td>';
-				    table += '			<td>{{row.course.name}}</td>';
+				    table += '			<td class="uk-text-capitalize">{{row.course.name}}</td>';
 				    table += '			<td>{{row.course.code}}</td>';
 	    			table += '     		<td><span ng-if="getTotal(row.course) !== false" class="uk-margin-remove uk-text-{{getGrade(row.course).className}}">{{ getTotal(row.course) }}</span></td>';
 				    table += '		</tr>';
@@ -77,9 +71,10 @@ angular.module('nimbusEduApp')
 				//check for logged in
 				$scope.source = {
                 	type : 'table',
+                	showCountFilter : true,
                 	endpoint : tenant.id+'/registrations',
                 	query : {
-	                	paginate:apiConst.widgetPagination,
+	                	paginate:apiConst.componentPagination,
 	                	page:1,
 	                	user_id:$scope.userId,
 	                },
@@ -90,27 +85,14 @@ angular.module('nimbusEduApp')
 	                	template : table
 	                }],
                 };
-			 	/*eduApi.api('GET',tenant.id+'/registrations?user_id='+$scope.userId)
-				 	.then(function(result){
-						//console.log('eduApi course result',result);
-						$scope.registrations = result.data;
-						$scope.loading  = false;
-						//console.log('my courses',$scope.registrations);
-					}).catch(function(error){
-						console.log('eduApi course error',error);
-						$scope.error = error.statusText;
-						$scope.loading  = false;
-					});*/
 			};
 			
 			$scope.init();
 
 			$scope.$on('reload',function(){
-				console.log('reload mycourses');
 				$scope.init();
 			});
 
-			console.log('myCourses',$scope);
 		},
 		link: function postLink(scope, element) {
 			element.on('$destroy', function () {

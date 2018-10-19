@@ -24,6 +24,7 @@ angular.module('nimbusEduApp')
         template +=  '  </div>';
         //template +=  '  <tabs tabs="tabs" class="uk-width-1-1" ng-if="showTabs"></tabs>';
         template +=  '  <my-courses ng-if="user.user_type.name === \'student\'" list="true" id="user.id" heading="false"></my-courses>';
+        template +=  '  <instructor-courses ng-if="user.user_type.name === \'teacher\'" list="true" id="user.id" user="user" heading="false"></instructor-courses>';
         template +=  '</div>';
 
     return {
