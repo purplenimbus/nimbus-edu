@@ -1,7 +1,8 @@
 <div ng-include="'views/partials/_toolbar.html'"></div>
 <section class="uk-padding-small">
 	<main class="uk-grid-small" uk-grid>
-	   	<usercard data="user" class="uk-width-1-2@m" tabs="true" type="user.user_type.name" details="true"></usercard>
+		<overview class="uk-width-1-1" ng-if="user.access_level.id >= 3" ></overview>
+	   	<usercard data="user" class="uk-width-1-2@m" tabs="true" type="user.user_type.name" details="true" ng-if="user.user_type.name === 'teacher' || user.user_type.name === 'student'"></usercard>
 	   	<tabs tabs="tabs" class="uk-width-1-1" ng-if="user.access_level.id >= 3"></tabs>
 	</main>
 </section>

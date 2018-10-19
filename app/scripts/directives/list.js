@@ -100,6 +100,7 @@ angular.module('nimbusEduApp')
                 };
 
 			  	$scope.select = function(item){
+			  		item.type = $scope.name;
 			  		$scope.$emit('selected',item);
 			  	};
 
